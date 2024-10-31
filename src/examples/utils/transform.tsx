@@ -1,8 +1,8 @@
 import { State } from '@ir-engine/hyperflux'
+import ComponentDropdown from '@ir-engine/ui/src/components/editor/ComponentDropdown'
 import EulerInput from '@ir-engine/ui/src/components/editor/input/Euler'
 import InputGroup from '@ir-engine/ui/src/components/editor/input/Group'
 import Vector3Input from '@ir-engine/ui/src/components/editor/input/Vector3'
-import PropertyGroup from '@ir-engine/ui/src/components/editor/properties/group'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Quaternion, Vector3 } from 'three'
@@ -21,7 +21,7 @@ export const Transform = (props: {
   const onChangeScale = (value: Vector3) => transformState.scale.set(new Vector3().copy(value))
 
   return (
-    <PropertyGroup minimizedDefault={false} name={props.title ?? t('editor:properties.transform.title')}>
+    <ComponentDropdown minimizedDefault={false} name={props.title ?? t('editor:properties.transform.title')}>
       <InputGroup name="Position" label={t('editor:properties.transform.lbl-position')}>
         <Vector3Input smallStep={0.01} mediumStep={0.1} largeStep={1} value={position} onChange={onChangePosition} />
       </InputGroup>
@@ -38,6 +38,6 @@ export const Transform = (props: {
           onChange={onChangeScale}
         />
       </InputGroup>
-    </PropertyGroup>
+    </ComponentDropdown>
   )
 }
