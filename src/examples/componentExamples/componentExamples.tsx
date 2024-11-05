@@ -2,12 +2,12 @@ import config from '@ir-engine/common/src/config'
 import {
   Entity,
   UUIDComponent,
+  UndefinedEntity,
   createEntity,
   generateEntityUUID,
   getComponent,
   removeEntity,
   setComponent,
-  useComponent,
   useOptionalComponent
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
@@ -30,7 +30,7 @@ import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/compone
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
 import { SplineHelperComponent } from '@ir-engine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { useImmediateEffect } from '@ir-engine/hyperflux'
+import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -43,7 +43,6 @@ import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
-import { EntityComponent } from '../utils/entityComponent'
 import ComponentNamesUI from './ComponentNamesUI'
 
 export const metadata = {
@@ -395,11 +394,7 @@ const ComponentExamples = (props: {
 }) => {
   const { sceneEntity, Reactor } = props
 
-  useImmediateEffect(() => {
-    setComponent(sceneEntity, EntityComponent)
-  }, [])
-
-  const entityComponent = useComponent(sceneEntity, EntityComponent)
+  const xrui = useHookstate({ entity: UndefinedEntity })
 
   useEffect(() => {
     const componentNamesUIEntity = createEntity()
@@ -407,7 +402,7 @@ const ComponentExamples = (props: {
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
     setComponent(componentNamesUIEntity, SourceComponent, getComponent(sceneEntity, SourceComponent))
-    const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
+    const componentNamesUI = createXRUI(ComponentNamesUI, xrui, { interactable: false }, componentNamesUIEntity)
     componentNamesUI.container.position.set(2.4, 2, -1)
 
     return () => {
@@ -415,11 +410,7 @@ const ComponentExamples = (props: {
     }
   }, [Reactor])
 
-  const onLoaded = (entity: Entity) => {
-    entityComponent.set(entity)
-  }
-
-  return <Reactor parent={sceneEntity} onLoad={onLoaded} />
+  return <Reactor parent={sceneEntity} onLoad={xrui.entity.set} />
 }
 
 export default function ComponentExamplesRoute(props: {

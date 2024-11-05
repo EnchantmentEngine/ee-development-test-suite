@@ -1,27 +1,25 @@
 // @ts-ignore
 import styles from './ComponentNamesUI.css?inline'
 
-import ECS, { getOptionalComponent, useComponent, useEntityContext } from '@ir-engine/ecs'
+import ECS, { Entity, getOptionalComponent } from '@ir-engine/ecs'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
+import { useXRUIState } from '@ir-engine/spatial/src/xrui/functions/useXRUIState'
 import React, { useEffect } from 'react'
-import { EntityComponent } from '../utils/entityComponent'
 
-const ComponentNamesUI: React.FC = (props) => {
-  const entity = useEntityContext()
+const ComponentNamesUI: React.FC = () => {
+  const xruiState = useXRUIState<{ entity: Entity }>()
   const names = useHookstate<string[]>([])
-  const parent = useComponent(entity, EntityTreeComponent).parentEntity
-  const examplesComponent = useComponent(parent.value, EntityComponent)
+  const examplesEntity = xruiState.entity.value
 
   useEffect(() => {
-    const currExample = examplesComponent.value
-    if (!currExample) return
+    if (!examplesEntity) return
 
-    const tree = getOptionalComponent(currExample, EntityTreeComponent)
+    const tree = getOptionalComponent(examplesEntity, EntityTreeComponent)
     if (!tree) return
 
     const children = tree.children
-    const entities = [currExample, ...children]
+    const entities = [examplesEntity, ...children]
 
     const componentNamesSet = new Set<string>()
     for (const entity of entities) {
@@ -37,7 +35,7 @@ const ComponentNamesUI: React.FC = (props) => {
       (name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network', 'Resource'].some((val) => name.includes(val))
     )
     names.set(componentNames)
-  }, [examplesComponent])
+  }, [examplesEntity])
 
   return (
     <>
