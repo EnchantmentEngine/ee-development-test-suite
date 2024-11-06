@@ -4,7 +4,6 @@ import React from 'react'
 
 import '@ir-engine/client/src/engine'
 
-import '@ir-engine/engine/src/EngineModule'
 import { gltfRoutes } from './examples/GLTFs'
 import InstancedLODs from './examples/InstancedLODs'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
