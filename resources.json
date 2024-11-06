@@ -69,6 +69,90 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/double-mat-test.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/basic/Duck.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/basic/Duck0.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/basic/DuckCM.png": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/binary/Duck.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/Duck.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/Duck.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/DuckCM.png": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/embedded/Duck.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/Duck.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/Duck.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/DuckCM.png": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
@@ -188,6 +272,20 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/lightmaptest.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/MultiplePrimitivesMorphTargets.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
   "assets/graph/default-graph.json": {
     "type": "asset",
     "tags": [
@@ -206,6 +304,195 @@
     "type": "asset",
     "tags": [
       "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/Albedo_4K__wk2oaeyqx.jpg": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/Normal_4K__wk2oaeyqx.jpg": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/Roughness_4K__wk2oaeyqx.jpg": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var1_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var1.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var2_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var2.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var3_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var3.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var5_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD0_Var5.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var1_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var1.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var2_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var2.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var3_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var3.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var5_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD1_Var5.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var1_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var1.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var2_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var2.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var3_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var3.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var5_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/grass/TundraGrass_LOD2_Var5.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
     ],
     "dependencies": []
   },
@@ -238,7 +525,7 @@
     "dependencies": []
   },
   "public/avatars/Adam.gltf": {
-    "type": "avatar",
+    "type": "asset",
     "tags": [
       "Model"
     ],
@@ -302,14 +589,14 @@
     "dependencies": []
   },
   "public/avatars/Test Avaturn.glb": {
-    "type": "avatar",
+    "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": []
   },
   "public/avatars/Test RPM.glb": {
-    "type": "avatar",
+    "type": "asset",
     "tags": [
       "Model"
     ],

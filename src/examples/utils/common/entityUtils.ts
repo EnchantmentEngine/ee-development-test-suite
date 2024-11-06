@@ -1,13 +1,4 @@
-import {
-  Entity,
-  UUIDComponent,
-  createEntity,
-  generateEntityUUID,
-  getComponent,
-  removeEntity,
-  setComponent
-} from '@ir-engine/ecs'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+import { Entity, UUIDComponent, createEntity, generateEntityUUID, removeEntity, setComponent } from '@ir-engine/ecs'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
@@ -18,8 +9,8 @@ export const setupEntity = (parent: Entity): Entity => {
   setComponent(entity, UUIDComponent, generateEntityUUID())
   setComponent(entity, TransformComponent)
   setComponent(entity, EntityTreeComponent, { parentEntity: parent })
-  const sceneID = getComponent(parent, SourceComponent)
-  setComponent(entity, SourceComponent, sceneID)
+  // const sceneID = getComponent(parent, SourceComponent)
+  // setComponent(entity, SourceComponent, sceneID)
 
   return entity
 }

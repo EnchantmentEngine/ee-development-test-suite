@@ -20,8 +20,9 @@ import {
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { defineState, getMutableState, hookstate, useHookstate, useMutableState } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -44,7 +45,8 @@ import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
-const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+export const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+
 let physicsEntityCount = 0
 export const createPhysicsEntity = (sceneEntity: Entity) => {
   const entity = createEntity()
@@ -74,9 +76,37 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
     geometryType: GeometryTypeEnum.SphereGeometry
   })
   setComponent(colliderEntity, InputComponent)
+  setComponent(colliderEntity, ShadowComponent)
 
   return entity
 }
+
+const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
+
+const execute = () => {
+  for (const entity of testSuiteBallTagQuery()) {
+    const rigidbody = getComponent(entity, RigidBodyComponent)
+    const transform = getComponent(entity, TransformComponent)
+    if (rigidbody.position.y < -10) {
+      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    }
+
+    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
+
+    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
+    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
+    if (!materialInstance) continue
+    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
+    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
+    material.color.set(isPointerOver ? 'red' : 'white')
+  }
+}
+
+export const BallResetSystem = defineSystem({
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute
+})
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -98,6 +128,10 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
         },
         EE_collider: {
           shape: 'box'
+        },
+        EE_shadow: {
+          cast: true,
+          receive: true
         },
         EE_primitive_geometry: {
           geometryType: 0,
@@ -183,33 +217,11 @@ const SceneReactor = (props: { coord: Vector3 }) => {
   return null
 }
 
-const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
-
-const execute = () => {
-  for (const entity of testSuiteBallTagQuery()) {
-    const rigidbody = getComponent(entity, RigidBodyComponent)
-    const transform = getComponent(entity, TransformComponent)
-    if (rigidbody.position.y < -10) {
-      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-    }
-
-    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
-
-    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
-    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
-    if (!materialInstance) continue
-    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
-    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
-    material.color.set(isPointerOver ? 'red' : 'white')
-  }
-}
-
-const reactor = () => {
-  const enabled = useHookstate(exampleActive).value
+const MultipleScenesReactor = () => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
-    if (!viewerEntity || !enabled) return
+    if (!viewerEntity) return
 
     const lightEntity = createEntity()
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(-4, -0.5, 0)) })
@@ -228,7 +240,7 @@ const reactor = () => {
     return () => {
       removeEntity(lightEntity)
     }
-  }, [viewerEntity, enabled])
+  }, [viewerEntity])
 
   const coordsState = useHookstate(() => {
     const coords = [] as Vector3[]
@@ -240,7 +252,7 @@ const reactor = () => {
     return coords
   })
 
-  if (!viewerEntity || !enabled) return null
+  if (!viewerEntity) return null
 
   return (
     <>
@@ -250,15 +262,6 @@ const reactor = () => {
     </>
   )
 }
-
-export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
-  insert: { before: PhysicsPreTransformSystem },
-  execute,
-  reactor
-})
-
-const exampleActive = hookstate(false)
 
 const gridCount = 3
 const gridSpacing = 10
@@ -276,17 +279,11 @@ export default function MultipleScenesEntry() {
   useNetwork({ online: false })
   useLoadEngineWithScene()
 
-  useEffect(() => {
-    exampleActive.set(true)
-    return () => {
-      exampleActive.set(false)
-    }
-  }, [])
-
   const transformState = useMutableState(MultipleSceneTransformState)
 
   return (
     <>
+      <MultipleScenesReactor />
       <div className="flex-grid pointer-events-auto absolute right-0 flex w-fit flex-col justify-start gap-1.5">
         <Transform transformState={transformState} />
       </div>
