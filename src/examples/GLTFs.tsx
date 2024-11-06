@@ -9,7 +9,6 @@ import config from '@ir-engine/common/src/config'
 import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
-import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
@@ -360,7 +359,7 @@ const GLTF = (props: {
       cameraOcclusion: true,
       src: src
     })
-    setComponent(gltfEntity, ShadowComponent, { receive: false })
+
     setVisibleComponent(gltfEntity, true)
     const gltfTransform = getComponent(gltfEntity, TransformComponent)
     gltfTransform.position.set(-offsetVec.x, offsetVec.y, offsetVec.z)
@@ -372,7 +371,7 @@ const GLTF = (props: {
       cameraOcclusion: true,
       src: src
     })
-    setComponent(modelEntity, ShadowComponent, { receive: false })
+
     setVisibleComponent(modelEntity, true)
     const modelTransform = getComponent(modelEntity, TransformComponent)
     modelTransform.position.set(offsetVec.x, offsetVec.y, offsetVec.z)
