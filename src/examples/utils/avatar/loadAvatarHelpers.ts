@@ -12,7 +12,7 @@ import { loadAvatarModelAsset } from '@ir-engine/engine/src/avatar/functions/ava
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { PeerID, dispatchAction, getMutableState } from '@ir-engine/hyperflux'
-import { Network, NetworkPeerFunctions, NetworkState } from '@ir-engine/network'
+import { NetworkActions, NetworkState } from '@ir-engine/network'
 import { NetworkId } from '@ir-engine/network/src/NetworkId'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
@@ -32,7 +32,15 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     const userId = ('user' + i) as UserID & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
-    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId)
+
+    dispatchAction(
+      NetworkActions.peerJoined({
+        $network: NetworkState.worldNetwork.id,
+        peerID: userId,
+        peerIndex: index,
+        userID: userId
+      })
+    )
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
@@ -50,7 +58,16 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
 export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'user', x = 0) => {
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId)
+
+  dispatchAction(
+    NetworkActions.peerJoined({
+      $network: NetworkState.worldNetwork.id,
+      peerID: userId,
+      peerIndex: index,
+      userID: userId
+    })
+  )
+
   dispatchAction(
     AvatarNetworkAction.spawn({
       parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
