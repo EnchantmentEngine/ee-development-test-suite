@@ -4,7 +4,7 @@ import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial, Vector3 } 
 import { setComponent, useComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs/src/EntityFunctions'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { addObjectToGroup, removeObjectFromGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { addObjectToGroup, removeObjectFromGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 
 import { QueryReactor } from '@ir-engine/ecs/src/QueryFunctions'
 import { TransformComponent } from '@ir-engine/spatial'

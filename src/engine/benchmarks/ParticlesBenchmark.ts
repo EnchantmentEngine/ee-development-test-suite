@@ -1,7 +1,7 @@
 import { Engine, Entity, getComponent, removeEntity, setComponent } from '@ir-engine/ecs'
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { TransformComponent } from '@ir-engine/spatial'
-import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
+import { ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { useEffect } from 'react'
 import { Group, MathUtils } from 'three'
@@ -19,7 +19,7 @@ const createParticleEntity = (rootEntity: Entity) => {
   position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
   const obj3d = new Group()
   obj3d.entity = entity
-  setComponent(entity, Object3DComponent, obj3d)
+  setComponent(entity, ObjectComponent, obj3d)
   setComponent(entity, TransformComponent, { position })
   setComponent(entity, ParticleSystemComponent)
   setComponent(entity, VisibleComponent, true)

@@ -4,7 +4,7 @@ import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/Geometry
 import { TransformComponent } from '@ir-engine/spatial'
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
-import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
+import { ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { useEffect } from 'react'
 import { Group, MathUtils, Vector3 } from 'three'
@@ -24,7 +24,7 @@ const createPhysicsEntity = (rootEntity: Entity) => {
   position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
   const obj3d = new Group()
   obj3d.entity = entity
-  setComponent(entity, Object3DComponent, obj3d)
+  setComponent(entity, ObjectComponent, obj3d)
   setComponent(entity, TransformComponent, { position, scale })
   setComponent(entity, PrimitiveGeometryComponent, {
     geometryType: GeometryTypeEnum.SphereGeometry,
