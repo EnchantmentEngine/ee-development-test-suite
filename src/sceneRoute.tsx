@@ -9,20 +9,19 @@ import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/c
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
-import { useFind } from '@ir-engine/common'
-import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
+import { UndefinedEntity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
+import { DomainConfigState } from '@ir-engine/engine/src/assets/state/DomainConfigState'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   defineState,
   getMutableState,
+  getState,
   none,
   syncStateWithLocalStorage,
   useHookstate,
   useImmediateEffect,
-  useMutableState,
-  useReactiveRef
+  useMutableState
 } from '@ir-engine/hyperflux'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -72,19 +71,16 @@ export const useRouteScene = (
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
-  const sceneKey = `projects/${projectName}/${sceneName}`
-  const assetQuery = useFind(staticResourcePath, { query: { key: sceneKey, type: 'scene' } })
 
   const gltfState = useMutableState(GLTFAssetState)
-  const sceneEntity = useHookstate<undefined | Entity>(undefined)
+  const sceneEntity = useHookstate(UndefinedEntity)
 
   useEffect(() => {
-    if (!assetQuery.data[0]) return
-    const sceneURL = assetQuery.data[0].url
-    if (!gltfState[sceneURL].value) return
-    const entity = gltfState[sceneURL].value
+    const url = getState(DomainConfigState).cloudDomain + `/projects/${projectName}/${sceneName}`
+    if (!gltfState[url].value) return
+    const entity = gltfState[url].value
     if (entity) sceneEntity.set(entity)
-  }, [assetQuery.data, gltfState])
+  }, [projectName, sceneName, gltfState])
 
   useImmediateEffect(() => {
     if (!viewerEntity) return
@@ -107,6 +103,7 @@ const ExampleRouteState = defineState({
   },
   extension: syncStateWithLocalStorage(['hidden'])
 })
+
 const Routes = (props: { routeCategories: RouteCategories; header: string }) => {
   const { routeCategories, header } = props
   const currentRoute = useMutableState(SearchParamState).example.value
@@ -121,7 +118,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
     }
   }, [])
 
-  const [ref, setRef] = useReactiveRef<HTMLDivElement>()
+  const ref = React.useRef<HTMLDivElement>(null)
 
   useEngineCanvas(ref)
 
@@ -208,7 +205,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
             })}
           </div>
         </div>
-        <div id="examples-panel" ref={setRef} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
         {viewerEntity && Entry && <Entry />}
       </div>
       <Debug />

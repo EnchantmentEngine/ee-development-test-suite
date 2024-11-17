@@ -8,7 +8,6 @@ import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { ikTargets } from '@ir-engine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
-import { loadAvatarModelAsset } from '@ir-engine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { PeerID, dispatchAction, getMutableState } from '@ir-engine/hyperflux'
@@ -174,9 +173,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
     position,
     rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI)
   })
-  loadAvatarModelAsset(entity, filename)
   setComponent(entity, AvatarAnimationComponent, {
-    rootYRatio: 1,
     locomotion: new Vector3()
   })
   setComponent(entity, VisibleComponent, true)
