@@ -200,7 +200,6 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarColliderComponent)
     setComponent(entity, AvatarComponent)
     setComponent(entity, AvatarAnimationComponent, {
-      rootYRatio: 1,
       locomotion: new Vector3()
     })
     setComponent(entity, AvatarRigComponent)
