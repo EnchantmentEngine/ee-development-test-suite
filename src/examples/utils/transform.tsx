@@ -1,4 +1,5 @@
-import { State } from '@ir-engine/hyperflux'
+import { UUIDComponent, createEntity, removeEntity, setComponent } from '@ir-engine/ecs'
+import { State, useHookstate, useImmediateEffect } from '@ir-engine/hyperflux'
 import ComponentDropdown from '@ir-engine/ui/src/components/editor/ComponentDropdown'
 import EulerInput from '@ir-engine/ui/src/components/editor/input/Euler'
 import InputGroup from '@ir-engine/ui/src/components/editor/input/Group'
@@ -14,6 +15,18 @@ export const Transform = (props: {
   const { transformState } = props
   const { t } = useTranslation()
 
+  const entity = useHookstate(() => {
+    const entity = createEntity()
+    setComponent(entity, UUIDComponent, UUIDComponent.generateUUID())
+    return entity
+  }).value
+
+  useImmediateEffect(() => {
+    return () => {
+      removeEntity(entity)
+    }
+  }, [])
+
   const { position, rotation, scale } = transformState.value
 
   const onChangePosition = (value: Vector3) => transformState.position.set(new Vector3().copy(value))
@@ -21,7 +34,11 @@ export const Transform = (props: {
   const onChangeScale = (value: Vector3) => transformState.scale.set(new Vector3().copy(value))
 
   return (
-    <ComponentDropdown minimizedDefault={false} name={props.title ?? t('editor:properties.transform.title')}>
+    <ComponentDropdown
+      entity={entity}
+      minimizedDefault={false}
+      name={props.title ?? t('editor:properties.transform.title')}
+    >
       <InputGroup name="Position" label={t('editor:properties.transform.lbl-position')}>
         <Vector3Input smallStep={0.01} mediumStep={0.1} largeStep={1} value={position} onChange={onChangePosition} />
       </InputGroup>
