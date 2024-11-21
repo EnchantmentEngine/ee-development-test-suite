@@ -43,7 +43,7 @@ export default function ImmersiveAR() {
       <QueryReactor Components={[XRDetectedPlaneComponent]} ChildEntityReactor={DetectedPlanes} />
       <QueryReactor Components={[XRDetectedMeshComponent]} ChildEntityReactor={DetectedMeshes} />
       <MediaIconsBox />
-      <div className="flex-grid pointer-events-auto absolute right-0 flex h-full w-fit flex-col justify-start gap-1.5">
+      <div className="flex-grid pointer-events-auto absolute right-0 z-50 flex h-full w-fit flex-col justify-start gap-1.5">
         <EmulatorDevtools mode="immersive-ar" />
       </div>
     </>
