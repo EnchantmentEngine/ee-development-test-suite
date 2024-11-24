@@ -26,7 +26,7 @@ import {
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
-import { destroySpatialEngine, initializeSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
+import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
@@ -111,15 +111,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const hidden = useMutableState(ExampleRouteState).hidden
 
-  useEffect(() => {
-    initializeSpatialEngine()
-    return () => {
-      destroySpatialEngine()
-    }
-  }, [])
-
   const ref = React.useRef<HTMLDivElement>(null)
 
+  useSpatialEngine()
   useEngineCanvas(ref)
 
   const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value
