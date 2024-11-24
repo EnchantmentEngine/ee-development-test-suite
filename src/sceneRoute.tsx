@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 
 import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
 import Debug from '@ir-engine/client-core/src/components/Debug'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
@@ -70,7 +70,6 @@ export const useRouteScene = (
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
-  useLoadEngineWithScene()
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate(UndefinedEntity)

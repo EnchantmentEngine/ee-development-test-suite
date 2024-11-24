@@ -1,4 +1,4 @@
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { Entity, removeEntity, useOptionalComponent } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { getMutableState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
@@ -12,7 +12,6 @@ import { createPhysicsEntity } from './multipleScenes'
 export default function PhysicsDynamicObjects() {
   const sceneEntity = useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')!
   useNetwork({ online: false })
-  useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useImmediateEffect(() => {
