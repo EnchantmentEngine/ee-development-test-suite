@@ -1,5 +1,5 @@
 import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { QueryReactor } from '@ir-engine/ecs'
 import { getMutableState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
 import { EmulatorDevtools } from '@ir-engine/ir-bot/devtool/EmulatorDevtools'
@@ -15,7 +15,6 @@ import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 export default function ImmersiveVR() {
   useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
-  useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useImmediateEffect(() => {

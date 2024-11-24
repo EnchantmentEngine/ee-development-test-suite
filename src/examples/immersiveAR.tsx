@@ -1,5 +1,5 @@
 import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { QueryReactor, createEntity, removeEntity, setComponent } from '@ir-engine/ecs'
 import { GroundPlaneComponent } from '@ir-engine/engine/src/scene/components/GroundPlaneComponent'
 import { getMutableState, getState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
@@ -18,7 +18,6 @@ import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 export default function ImmersiveAR() {
   useRouteScene('ir-engine/default-project', 'public/scenes/apartment.gltf')
   useNetwork({ online: false })
-  useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useImmediateEffect(() => {

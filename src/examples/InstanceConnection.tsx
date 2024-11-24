@@ -2,7 +2,7 @@ import React from 'react'
 
 import { LocationInstanceState } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
 import { LocationIcons } from '@ir-engine/client-core/src/components/LocationIcons'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadLocation } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { LocationSeed, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import { SocketWebRTCClientNetwork } from '@ir-engine/client-core/src/transports/mediasoup/MediasoupClientFunctions'
@@ -75,8 +75,6 @@ export default function InstanceConnection() {
   useLoadLocation({ locationName: 'default' })
 
   AuthService.useAPIListeners()
-
-  useLoadEngineWithScene()
 
   const networks = useHookstate(getMutableState(NetworkState).networks)
 
