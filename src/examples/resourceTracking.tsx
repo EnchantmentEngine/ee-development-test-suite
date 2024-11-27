@@ -1,7 +1,7 @@
 import config from '@ir-engine/common/src/config'
 import { Engine, Entity, getComponent, removeEntity, setComponent } from '@ir-engine/ecs'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { useMutableState } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
@@ -77,7 +77,7 @@ function createImage(parentEntity: Entity, endpoint: string) {
 function createGLTF(parentEntity: Entity, endpoint: string) {
   const entity = setupEntity(parentEntity)
   const position = getRandomPosition()
-  setComponent(entity, ModelComponent, {
+  setComponent(entity, GLTFComponent, {
     cameraOcclusion: true,
     src: config.client.fileServer + endpoint
   })
