@@ -1,5 +1,5 @@
 import { GLTF } from '@gltf-transform/core'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
   Engine,
   Entity,
@@ -277,7 +277,6 @@ const MultipleSceneTransformState = defineState({
 
 export default function MultipleScenesEntry() {
   useNetwork({ online: false })
-  useLoadEngineWithScene()
 
   const transformState = useMutableState(MultipleSceneTransformState)
 

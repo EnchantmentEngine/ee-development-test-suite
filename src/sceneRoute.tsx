@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 
 import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
 import Debug from '@ir-engine/client-core/src/components/Debug'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
@@ -26,7 +26,7 @@ import {
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
-import { destroySpatialEngine, initializeSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
+import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
@@ -70,7 +70,6 @@ export const useRouteScene = (
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
-  useLoadEngineWithScene()
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate(UndefinedEntity)
@@ -111,15 +110,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const hidden = useMutableState(ExampleRouteState).hidden
 
-  useEffect(() => {
-    initializeSpatialEngine()
-    return () => {
-      destroySpatialEngine()
-    }
-  }, [])
-
   const ref = React.useRef<HTMLDivElement>(null)
 
+  useSpatialEngine()
   useEngineCanvas(ref)
 
   const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value

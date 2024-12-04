@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { ARPlacement } from '@ir-engine/client-core/src/components/ARPlacement'
 import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
 import { Shelves } from '@ir-engine/client-core/src/components/Shelves'
-import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { XRLoading } from '@ir-engine/client-core/src/components/XRLoading'
 import { AvatarService } from '@ir-engine/client-core/src/user/services/AvatarService'
@@ -29,7 +29,6 @@ export function Template(props: { projectName?: string; sceneName?: string; spaw
     sceneName: props.sceneName ?? 'public/scenes/default.gltf'
   })
   useNetwork({ online: false })
-  useLoadEngineWithScene()
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
