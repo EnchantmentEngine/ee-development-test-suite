@@ -1,13 +1,13 @@
-import { ThemeContextProvider } from '@ir-engine/client/src/pages/themeContext'
-import { StyledEngineProvider } from '@mui/material/styles'
 import React from 'react'
 
 import '@ir-engine/client/src/engine'
 
 import { gltfRoutes } from './examples/GLTFs'
+import InstanceConnection from './examples/InstanceConnection'
 import InstancedLODs from './examples/InstancedLODs'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
 import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
+import P2PConnection from './examples/P2PConnection'
 import PhysicsDynamicObjects from './examples/PhysicsDynamicObjects'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
@@ -120,17 +120,33 @@ export const examples: RouteCategories = [
         entry: MultipleCanvasCameras
       }
     ]
+  },
+  {
+    category: 'Networking',
+    routes: [
+      {
+        name: 'P2P with API',
+        description: 'Connect clients with P2P WebRTC via signaling service',
+        entry: P2PConnection
+      },
+      // {
+      //   name: 'P2P without API',
+      //   description: 'Connect clients with P2P WebRTC without signaling service',
+      //   entry: P2PConnection
+      // },
+      {
+        name: 'Instance Server',
+        description: 'Connect clients to an instance server',
+        entry: InstanceConnection
+      }
+    ]
   }
 ]
 
 const ExampleRoutes = () => {
   return (
     <>
-      <ThemeContextProvider>
-        <StyledEngineProvider injectFirst>
-          <Routes routeCategories={examples} header="Examples" />
-        </StyledEngineProvider>
-      </ThemeContextProvider>
+      <Routes routeCategories={examples} header="Examples" />
     </>
   )
 }
