@@ -4,7 +4,7 @@ import { getMutableState } from '@ir-engine/hyperflux'
 
 import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
 import { useFind } from '@ir-engine/common'
-import { avatarPath } from '@ir-engine/common/src/schemas/user/avatar.schema'
+import { avatarPath } from '@ir-engine/common/src/schema.type.module'
 import { AnimationState } from '@ir-engine/engine/src/avatar/AnimationManager'
 import { CreateSkinnedMeshGrid } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
