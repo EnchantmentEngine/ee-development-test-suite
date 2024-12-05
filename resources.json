@@ -1,528 +1,619 @@
 {
+  "assets/animations/pillars/pillars.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": [],
+    "name": "pillars.bin"
+  },
+  "assets/animations/pillars/pillars.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": [],
+    "name": "pillars.gltf"
+  },
   "assets/animations/Racer-transformed.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Racer-transformed.gltf"
   },
   "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin"
   },
   "assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2"
   },
   "assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2"
   },
   "assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2"
   },
   "assets/animations/Racer/Racer_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Racer_data.bin"
   },
   "assets/animations/rings.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "rings.glb"
   },
   "assets/animations/tornado-mobile-xr.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "tornado-mobile-xr.glb"
   },
   "assets/animations/transforms.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "transforms.glb"
   },
   "assets/envmaps/hall.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "hall.glb"
   },
   "assets/GLTF/double-mat-test.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "double-mat-test.glb"
   },
   "assets/GLTF/Duck/basic/Duck.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.gltf"
   },
   "assets/GLTF/Duck/basic/Duck0.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck0.bin"
   },
   "assets/GLTF/Duck/basic/DuckCM.png": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "DuckCM.png"
   },
   "assets/GLTF/Duck/binary/Duck.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.glb"
   },
   "assets/GLTF/Duck/draco/Duck.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.bin"
   },
   "assets/GLTF/Duck/draco/Duck.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.gltf"
   },
   "assets/GLTF/Duck/draco/DuckCM.png": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "DuckCM.png"
   },
   "assets/GLTF/Duck/embedded/Duck.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.gltf"
   },
   "assets/GLTF/Duck/quantized/Duck.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.bin"
   },
   "assets/GLTF/Duck/quantized/Duck.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Duck.gltf"
   },
   "assets/GLTF/Duck/quantized/DuckCM.png": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "DuckCM.png"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_Normal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_GlassPlasticMat_Normal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_OcclusionRoughMetal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_GlassPlasticMat_OcclusionRoughMetal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LeatherPartsMat_BaseColor.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_Normal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LeatherPartsMat_Normal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_OcclusionRoughMetal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LeatherPartsMat_OcclusionRoughMetal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LensesMat_BaseColor.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_Normal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LensesMat_Normal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_OcclusionRoughMetal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_LensesMat_OcclusionRoughMetal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_MetalPartsMat_BaseColor.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_Normal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_MetalPartsMat_Normal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_OcclusionRoughMetal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_MetalPartsMat_OcclusionRoughMetal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_BaseColor.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_RubberWoodMat_BaseColor.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_Normal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_RubberWoodMat_Normal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_OcclusionRoughMetal.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet_Materials_RubberWoodMat_OcclusionRoughMetal.ktx2"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet.bin"
   },
   "assets/GLTF/Flight Helmet/FlightHelmet.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "FlightHelmet.gltf"
   },
   "assets/GLTF/lightmaptest.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "lightmaptest.glb"
   },
   "assets/GLTF/MultiplePrimitivesMorphTargets.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "MultiplePrimitivesMorphTargets.glb"
   },
   "assets/graph/default-graph.json": {
     "type": "asset",
     "tags": [
       "Volumetric"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "default-graph.json"
   },
   "assets/graph/simpleController.json": {
     "type": "asset",
     "tags": [
       "Volumetric"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "simpleController.json"
   },
   "assets/Images/testImage.jpg": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "testImage.jpg"
   },
   "assets/LOD/grass/Albedo_4K__wk2oaeyqx.jpg": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Albedo_4K__wk2oaeyqx.jpg"
   },
   "assets/LOD/grass/Normal_4K__wk2oaeyqx.jpg": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Normal_4K__wk2oaeyqx.jpg"
   },
   "assets/LOD/grass/Roughness_4K__wk2oaeyqx.jpg": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Roughness_4K__wk2oaeyqx.jpg"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var1_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var1_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var1.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var1.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var2_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var2_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var2.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var2.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var3_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var3_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var3.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var3.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var5_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var5_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD0_Var5.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD0_Var5.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var1_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var1_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var1.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var1.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var2_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var2_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var2.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var2.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var3_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var3_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var3.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var3.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var5_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var5_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD1_Var5.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD1_Var5.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var1_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var1_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var1.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var1.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var2_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var2_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var2.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var2.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var3_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var3_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var3.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var3.gltf"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var5_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var5_data.bin"
   },
   "assets/LOD/grass/TundraGrass_LOD2_Var5.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "TundraGrass_LOD2_Var5.gltf"
   },
   "assets/LOD/Test_LOD0.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Test_LOD0.glb"
   },
   "assets/LOD/Test_LOD1.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Test_LOD1.glb"
   },
   "assets/LOD/Test_LOD2.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Test_LOD2.glb"
   },
   "assets/Videos/HDVideo.mp4": {
     "type": "asset",
     "tags": [
       "Video"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "HDVideo.mp4"
   },
   "public/avatars/Adam.gltf": {
     "type": "asset",
@@ -537,173 +628,207 @@
       "projects/ir-engine/ir-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2",
       "projects/ir-engine/ir-development-test-suite/public/avatars/Adam/Adam_data.bin",
       "projects/ir-engine/ir-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
-    ]
+    ],
+    "name": "Adam.gltf"
   },
   "public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2"
   },
   "public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2"
   },
   "public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin"
   },
   "public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin"
   },
   "public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2"
   },
   "public/avatars/Adam/Adam_data.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Adam_data.bin"
   },
   "public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
   },
   "public/avatars/Test Avaturn.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Test Avaturn.glb"
   },
   "public/avatars/Test RPM.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Test RPM.glb"
   },
   "public/scenes/animations-test.envmap.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "animations-test.envmap.ktx2"
   },
   "public/scenes/animations-test.scene.json": {
     "type": "scene",
     "tags": [],
-    "dependencies": []
+    "dependencies": [],
+    "name": "animations-test.scene.json"
   },
   "public/scenes/animations-test.thumbnail.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "animations-test.thumbnail.ktx2"
   },
   "public/scenes/Benchmarks.envmap.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Benchmarks.envmap.ktx2"
   },
   "public/scenes/Benchmarks.gltf": {
     "type": "scene",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Benchmarks.gltf"
   },
   "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2"
   },
   "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2"
   },
   "public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "bpcem-envmap-bake-test.envmap.ktx2"
   },
   "public/scenes/bpcem-envmap-bake-test.scene.json": {
     "type": "scene",
     "tags": [],
-    "dependencies": []
+    "dependencies": [],
+    "name": "bpcem-envmap-bake-test.scene.json"
   },
   "public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "bpcem-envmap-bake-test.thumbnail.ktx2"
+  },
+  "public/scenes/ecs-animation-bindings.gltf": {
+    "type": "scene",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": [],
+    "name": "ecs-animation-bindings.gltf"
   },
   "public/scenes/Examples.envmap.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Examples.envmap.ktx2"
   },
   "public/scenes/Examples.gltf": {
     "type": "scene",
     "tags": [
       "Model"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "Examples.gltf"
   },
   "public/scenes/test.envmap.png": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "test.envmap.png"
   },
   "public/scenes/test.gltf": {
     "type": "scene",
     "tags": [],
-    "dependencies": []
+    "dependencies": [],
+    "name": "test.gltf"
   },
   "public/scenes/test.scene.json": {
     "type": "scene",
     "tags": [],
-    "dependencies": []
+    "dependencies": [],
+    "name": "test.scene.json"
   },
   "public/scenes/test.thumbnail.jpeg": {
     "type": "asset",
     "tags": [
       "Image"
     ],
-    "dependencies": []
+    "dependencies": [],
+    "name": "test.thumbnail.jpeg"
   }
 }
