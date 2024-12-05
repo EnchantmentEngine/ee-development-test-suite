@@ -23,7 +23,6 @@ import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
@@ -41,7 +40,6 @@ import { createXRUI } from '@ir-engine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
-import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import ComponentNamesUI from './ComponentNamesUI'
 
@@ -387,7 +385,7 @@ export const subComponentExamples = [
   // }
 ]
 
-const ComponentExamples = (props: {
+export const ComponentExamples = (props: {
   sceneEntity: Entity
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }) => {
@@ -400,7 +398,6 @@ const ComponentExamples = (props: {
     setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
-    setComponent(componentNamesUIEntity, SourceComponent, getComponent(sceneEntity, SourceComponent))
     const componentNamesUI = createXRUI(ComponentNamesUI, xrui, { interactable: false }, componentNamesUIEntity)
     componentNamesUI.container.position.set(2.4, 2, -1)
 
@@ -410,11 +407,4 @@ const ComponentExamples = (props: {
   }, [Reactor])
 
   return <Reactor parent={sceneEntity} onLoad={xrui.entity.set} />
-}
-
-export default function ComponentExamplesRoute(props: {
-  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
-}) {
-  const sceneEntity = useRouteScene()
-  return sceneEntity ? <ComponentExamples sceneEntity={sceneEntity} Reactor={props.Reactor} /> : null
 }

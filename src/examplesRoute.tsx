@@ -12,7 +12,7 @@ import PhysicsDynamicObjects from './examples/PhysicsDynamicObjects'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
-import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
+import { ComponentExamples, subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltfViewer'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
@@ -43,7 +43,8 @@ export const examples: RouteCategories = [
     routes: subComponentExamples.map((sub) => ({
       name: sub.name,
       description: sub.description,
-      entry: () => <ComponentExamplesRoute Reactor={sub.Reactor} />
+      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Examples.gltf',
+      entry: ({ sceneEntity }) => <ComponentExamples sceneEntity={sceneEntity!} Reactor={sub.Reactor} />
     }))
   },
   {
@@ -93,7 +94,12 @@ export const examples: RouteCategories = [
   },
   {
     category: 'GLTF',
-    routes: gltfRoutes
+    routes: gltfRoutes.map((route) => ({
+      name: route.name,
+      description: route.description,
+      entry: route.entry,
+      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Examples.gltf'
+    }))
   },
   {
     category: 'Physics',
