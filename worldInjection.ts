@@ -1,12 +1,8 @@
 import { isClient } from '@ir-engine/common/src/utils/getEnvironment'
 
-/**
- * products & carts are unnecessary on nodejs, as they're only used in the editor,
- * and will cause errors with node trying to import .tsx files
- */
-
 export default async function () {
   if (isClient) {
-    await import('./src/engine/Register')
+    /** @todo import this in the routes themselves */
+    // await import('./src/engine/Register')
   }
 }
