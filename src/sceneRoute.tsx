@@ -138,18 +138,16 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
       <div className="ScreenContainer">
         <Button
           className="z-10 mb-1 px-0"
-          rounded="full"
-          variant="outline"
+          variant="tertiary"
           style={{ position: 'absolute', top: '10px', left: hidden.value ? '10px' : '310px', pointerEvents: 'all' }}
           onClick={() => hidden.set(!hidden.value)}
-          startIcon={
-            hidden.value ? (
-              <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
-            ) : (
-              <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
-            )
-          }
-        />
+        >
+          {hidden.value ? (
+            <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
+          ) : (
+            <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
+          )}
+        </Button>
         <div className="NavBarContainer" style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}>
           <Header header={header} />
           <div className="NavBarSelectionContainer">
@@ -158,21 +156,14 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
               return (
                 <React.Fragment key={category.category}>
                   <div className="flex flex-row text-white">
-                    <Button
-                      className="m-2"
-                      rounded="full"
-                      variant="outline"
-                      onClick={() => categoryShown.set(!categoryShown.value)}
-                      endIcon={
-                        <div className="m-1 flex w-full flex-row">
-                          {categoryShown.value ? (
-                            <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
-                          ) : (
-                            <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
-                          )}
-                        </div>
-                      }
-                    >
+                    <Button className="m-2" variant="tertiary" onClick={() => categoryShown.set(!categoryShown.value)}>
+                      <div className="m-1 flex w-full flex-row">
+                        {categoryShown.value ? (
+                          <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                        ) : (
+                          <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                        )}
+                      </div>
                       {category.category}
                     </Button>
                   </div>
