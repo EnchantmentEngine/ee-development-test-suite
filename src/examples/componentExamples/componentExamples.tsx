@@ -383,7 +383,12 @@ export const subComponentExamples = [
   //     return null
   //   }
   // }
-]
+] as Array<{
+  name: string
+  description: string
+  spawnAvatar?: boolean
+  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+}>
 
 export const ComponentExamples = (props: {
   sceneEntity: Entity

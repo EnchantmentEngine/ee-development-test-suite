@@ -13,7 +13,7 @@ import { LocationState } from '@ir-engine/client-core/src/social/services/Locati
 import '@ir-engine/client-core/src/world/LocationModule'
 import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity } from '@ir-engine/ecs'
+import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
@@ -22,10 +22,14 @@ import {
   none,
   syncStateWithLocalStorage,
   useHookstate,
+  useImmediateEffect,
   useMutableState
 } from '@ir-engine/hyperflux'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
+import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
@@ -68,7 +72,7 @@ export const useRouteScene = (
 ) => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
-  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneId).value
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
   return useLoadedSceneEntity(locationSceneID)
 }
 
@@ -104,7 +108,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const selectedRoute = routeCategories.flatMap((route) =>
     route.routes.filter((r) => getPathForRoute(route.category, r.name) === currentRoute)
-  )[0]
+  )?.[0]
 
   useEffect(() => {
     if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', none)
@@ -115,27 +119,32 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const resourceQuery = useFind(staticResourcePath, {
     query: {
-      key: selectedRoute.sceneKey
+      key: selectedRoute?.sceneKey
     }
   })
 
   useEffect(() => {
-    if (!resourceQuery.data.length || !viewerEntity) return
+    if (!selectedRoute?.sceneKey || !resourceQuery.data.length || !viewerEntity) return
     const resource = resourceQuery.data[0]
-    getMutableState(LocationState).currentLocation.location.sceneId.set(resource.id)
+    getMutableState(LocationState).currentLocation.location.sceneURL.set(resource.url)
     const unload = GLTFAssetState.loadScene(resource.url, resource.id)
     return () => {
-      getMutableState(LocationState).currentLocation.location.sceneId.set('')
+      getMutableState(LocationState).currentLocation.location.sceneURL.set('')
       unload()
     }
   }, [resourceQuery.data, viewerEntity])
 
-  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneId).value
+  useImmediateEffect(() => {
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+  }, [viewerEntity])
+
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
   const sceneEntity = useLoadedSceneEntity(locationSceneID)
 
   const routeReady = !!viewerEntity && !!Entry && (selectedRoute.sceneKey ? !!sceneEntity : true)
-
-  console.log({ routeReady, viewerEntity, Entry, sceneEntity })
 
   return (
     <>

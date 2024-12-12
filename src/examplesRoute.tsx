@@ -16,6 +16,7 @@ import { ComponentExamples, subComponentExamples } from './examples/componentExa
 import GLTFViewer from './examples/gltfViewer'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
+import MountPointEntry from './examples/mountPoint'
 import MultipleScenesEntry from './examples/multipleScenes'
 import ResourceTrackingRoute from './examples/resourceTracking'
 import Routes, { RouteCategories } from './sceneRoute'
@@ -43,6 +44,7 @@ export const examples: RouteCategories = [
     routes: subComponentExamples.map((sub) => ({
       name: sub.name,
       description: sub.description,
+      spawnAvatar: sub.spawnAvatar,
       sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Examples.gltf',
       entry: ({ sceneEntity }) => <ComponentExamples sceneEntity={sceneEntity!} Reactor={sub.Reactor} />
     }))
@@ -64,6 +66,12 @@ export const examples: RouteCategories = [
         name: 'Test',
         description: 'Load many avatars',
         entry: AvatarTestEntry
+      },
+      {
+        name: 'Chairs',
+        description: 'Adds a chair to your scene',
+        spawnAvatar: true,
+        entry: MountPointEntry
       }
     ]
   },
@@ -89,6 +97,16 @@ export const examples: RouteCategories = [
         name: 'Instanced LODs',
         description: 'Instanced LODs example',
         entry: InstancedLODs
+      },
+      {
+        name: 'Multiple Canvases with different scenes',
+        description: 'Loads different scenes in different canvases',
+        entry: MultipleCanvasScenes
+      },
+      {
+        name: 'Multiple Canvases with different cameras',
+        description: 'View the same scene from different cameras',
+        entry: MultipleCanvasCameras
       }
     ]
   },
@@ -109,21 +127,6 @@ export const examples: RouteCategories = [
         description: 'Dynamic objects example',
         entry: PhysicsDynamicObjects,
         spawnAvatar: true
-      }
-    ]
-  },
-  {
-    category: 'Render',
-    routes: [
-      {
-        name: 'Multiple Canvases with different scenes',
-        description: 'Loads different scenes in different canvases',
-        entry: MultipleCanvasScenes
-      },
-      {
-        name: 'Multiple Canvases with different cameras',
-        description: 'View the same scene from different cameras',
-        entry: MultipleCanvasCameras
       }
     ]
   },
