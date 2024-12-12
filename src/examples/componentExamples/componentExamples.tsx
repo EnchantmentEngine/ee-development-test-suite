@@ -23,6 +23,7 @@ import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
+import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
@@ -167,13 +168,16 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const particles = useOptionalComponent(entity, ParticleSystemComponent)
+      const source = GLTFComponent.useInstanceID(parent)
 
       useEffect(() => {
+        if (!source) return
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
+        setComponent(entity, SourceComponent, source)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-      }, [])
+      }, [source])
 
       useEffect(() => {
         if (particles?.system.value) onLoad(entity)
