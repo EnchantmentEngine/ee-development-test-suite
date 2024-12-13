@@ -4,7 +4,7 @@ import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 
 import { LocationIcons } from '@ir-engine/client-core/src/components/LocationIcons'
 import { UUIDComponent, useQuery } from '@ir-engine/ecs'
-import { getComponent, updateComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { Entity } from '@ir-engine/ecs/src/Entity'
 import { EditorControlFunctions } from '@ir-engine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@ir-engine/editor/src/services/SelectionServices'
@@ -24,7 +24,7 @@ export default function PostProcessing() {
     if (!postProEnt.length) return
     entity.set(postProEnt[0])
     EditorControlFunctions.modifyProperty = (entities, component, properties) => {
-      updateComponent(entity.value!, PostProcessingComponent, properties)
+      setComponent(entity.value!, PostProcessingComponent, properties)
     }
     getMutableState(SelectionState).selectedEntities.set([getComponent(entity.value!, UUIDComponent)])
   }, [postProEnt])
