@@ -154,9 +154,7 @@ function ResourceTrackingUI(props: { entity: Entity }) {
   )
 }
 
-export default function ResourceTrackingRoute(props: {
-  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
-}) {
+export default function ResourceTrackingRoute() {
   const sceneEntity = useRouteScene()
   console.log('ResourceTrackingRoute sceneEntity: ' + sceneEntity)
   return sceneEntity ? <ResourceTrackingUI entity={sceneEntity} /> : null

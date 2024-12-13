@@ -41,7 +41,6 @@ import { createXRUI } from '@ir-engine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
-import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import ComponentNamesUI from './ComponentNamesUI'
 
@@ -169,13 +168,16 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const particles = useOptionalComponent(entity, ParticleSystemComponent)
+      const source = GLTFComponent.useInstanceID(parent)
 
       useEffect(() => {
+        if (!source) return
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
+        setComponent(entity, SourceComponent, source)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-      }, [])
+      }, [source])
 
       useEffect(() => {
         if (particles?.system.value) onLoad(entity)
@@ -385,9 +387,14 @@ export const subComponentExamples = [
   //     return null
   //   }
   // }
-]
+] as Array<{
+  name: string
+  description: string
+  spawnAvatar?: boolean
+  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+}>
 
-const ComponentExamples = (props: {
+export const ComponentExamples = (props: {
   sceneEntity: Entity
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }) => {
@@ -400,7 +407,6 @@ const ComponentExamples = (props: {
     setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
-    setComponent(componentNamesUIEntity, SourceComponent, getComponent(sceneEntity, SourceComponent))
     const componentNamesUI = createXRUI(ComponentNamesUI, xrui, { interactable: false }, componentNamesUIEntity)
     componentNamesUI.container.position.set(2.4, 2, -1)
 
@@ -410,11 +416,4 @@ const ComponentExamples = (props: {
   }, [Reactor])
 
   return <Reactor parent={sceneEntity} onLoad={xrui.entity.set} />
-}
-
-export default function ComponentExamplesRoute(props: {
-  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
-}) {
-  const sceneEntity = useRouteScene()
-  return sceneEntity ? <ComponentExamples sceneEntity={sceneEntity} Reactor={props.Reactor} /> : null
 }

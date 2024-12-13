@@ -11,8 +11,7 @@
         2,
         3,
         4,
-        5,
-        6
+        5
       ]
     }
   ],
@@ -264,46 +263,6 @@
             "inclination": 0.10471975511965978,
             "azimuth": 0.16666666666666666
           }
-        }
-      }
-    },
-    {
-      "name": "ground plane",
-      "extensions": {
-        "EE_uuid": "38793f94-0b92-4ea1-af7b-5ec0e117628d",
-        "EE_visible": true,
-        "EE_ground_plane": {
-          "color": 6118749,
-          "visible": true
-        },
-        "EE_shadow": {
-          "cast": false,
-          "receive": true
-        },
-        "EE_rigidbody": {
-          "type": "fixed",
-          "ccd": false,
-          "allowRolling": true,
-          "enabledRotations": [
-            true,
-            true,
-            true
-          ],
-          "canSleep": true,
-          "gravityScale": 1
-        },
-        "EE_collider": {
-          "shape": "plane",
-          "mass": 1,
-          "massCenter": {
-            "x": 0,
-            "y": 0,
-            "z": 0
-          },
-          "friction": 0.5,
-          "restitution": 0.5,
-          "collisionLayer": 4,
-          "collisionMask": 3
         }
       }
     },
