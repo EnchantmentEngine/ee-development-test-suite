@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 
-import { Engine, EntityUUID, UUIDComponent } from '@ir-engine/ecs'
+import { Engine, EntityUUID, UUIDComponent, createEntity } from '@ir-engine/ecs'
 import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'

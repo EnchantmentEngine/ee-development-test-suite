@@ -13,8 +13,8 @@ import {
 } from 'three'
 
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@ir-engine/common/src/constants/AvatarConstants'
+import { createEntity, removeEntity } from '@ir-engine/ecs'
 import { Entity } from '@ir-engine/ecs/src/Entity'
-import { createEntity, removeEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import createGLTFExporter from '@ir-engine/engine/src/assets/functions/createGLTFExporter'
 import { GLTF } from '@ir-engine/engine/src/assets/loaders/gltf/GLTFLoader'

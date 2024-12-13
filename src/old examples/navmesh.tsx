@@ -24,7 +24,7 @@
 //   createMappedComponent,
 //   getComponent
 // } from '@ir-engine/ecs/src/ComponentFunctions'
-// import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+// import { createEntity } from '@ir-engine/ecs'
 // import { initSystems } from '@ir-engine/ecs/src/SystemFunctions'
 // import { useWorld } from '@ir-engine/ecs/src/SystemHooks'
 // import { SystemUpdateType } from '@ir-engine/ecs/src/SystemUpdateType'

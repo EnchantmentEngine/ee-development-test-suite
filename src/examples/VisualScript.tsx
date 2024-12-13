@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 // import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity, removeEntity } from '@ir-engine/ecs/src/EntityFunctions'
+import { createEntity, removeEntity } from '@ir-engine/ecs'
 import { ActiveVisualScript } from '@ir-engine/editor/src/panels/visualscript/container'
 // import { VisualScriptComponent } from '@ir-engine/engine'
 import { useHookstate } from '@ir-engine/hyperflux'
