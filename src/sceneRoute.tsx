@@ -8,15 +8,17 @@ import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
+import { useLoadedSceneEntity } from '@ir-engine/client-core/src/hooks/useLoadedSceneEntity'
+import { LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import '@ir-engine/client-core/src/world/LocationModule'
-import { UndefinedEntity, getComponent, setComponent } from '@ir-engine/ecs'
+import { useFind } from '@ir-engine/common'
+import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
+import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
-import { DomainConfigState } from '@ir-engine/engine/src/assets/state/DomainConfigState'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   defineState,
   getMutableState,
-  getState,
   none,
   syncStateWithLocalStorage,
   useHookstate,
@@ -34,7 +36,8 @@ import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react
 export type RouteData = {
   name: string
   description: string
-  entry: (...args: any[]) => any
+  entry: React.FC<{ sceneEntity?: Entity }>
+  sceneKey?: string
   spawnAvatar?: boolean
 }
 
@@ -67,28 +70,10 @@ export const useRouteScene = (
   projectName = 'ir-engine/ir-development-test-suite',
   sceneName = 'public/scenes/Examples.gltf'
 ) => {
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
-
-  const gltfState = useMutableState(GLTFAssetState)
-  const sceneEntity = useHookstate(UndefinedEntity)
-
-  useEffect(() => {
-    const url = getState(DomainConfigState).cloudDomain + `/projects/${projectName}/${sceneName}`
-    if (!gltfState[url].value) return
-    const entity = gltfState[url].value
-    if (entity) sceneEntity.set(entity)
-  }, [projectName, sceneName, gltfState])
-
-  useImmediateEffect(() => {
-    if (!viewerEntity) return
-    setComponent(viewerEntity, CameraOrbitComponent)
-    setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
-  }, [viewerEntity])
-
-  return sceneEntity.value
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
+  return useLoadedSceneEntity(locationSceneID)
 }
 
 const getPathForRoute = (category: string, name: string) => {
@@ -123,7 +108,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const selectedRoute = routeCategories.flatMap((route) =>
     route.routes.filter((r) => getPathForRoute(route.category, r.name) === currentRoute)
-  )[0]
+  )?.[0]
 
   useEffect(() => {
     if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', none)
@@ -131,6 +116,35 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   }, [selectedRoute])
 
   const Entry = selectedRoute && selectedRoute.entry
+
+  const resourceQuery = useFind(staticResourcePath, {
+    query: {
+      key: selectedRoute?.sceneKey
+    }
+  })
+
+  useEffect(() => {
+    if (!selectedRoute?.sceneKey || !resourceQuery.data.length || !viewerEntity) return
+    const resource = resourceQuery.data[0]
+    getMutableState(LocationState).currentLocation.location.sceneURL.set(resource.url)
+    const unload = GLTFAssetState.loadScene(resource.url, resource.id)
+    return () => {
+      getMutableState(LocationState).currentLocation.location.sceneURL.set('')
+      unload()
+    }
+  }, [resourceQuery.data, viewerEntity])
+
+  useImmediateEffect(() => {
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+  }, [viewerEntity])
+
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
+  const sceneEntity = useLoadedSceneEntity(locationSceneID)
+
+  const routeReady = !!viewerEntity && !!Entry && (selectedRoute.sceneKey ? !!sceneEntity : true)
 
   return (
     <>
@@ -190,7 +204,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
           </div>
         </div>
         <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
-        {viewerEntity && Entry && <Entry />}
+        {routeReady && <Entry sceneEntity={sceneEntity} />}
       </div>
       <Debug />
     </>
