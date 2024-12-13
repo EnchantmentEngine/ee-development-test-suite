@@ -8,7 +8,6 @@ import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@
 import config from '@ir-engine/common/src/config'
 import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
@@ -510,11 +509,12 @@ const GLTF = (props: {
 }) => {
   const { root, src, scale, offset, animationClip } = props
   const gltfEntity = useExampleEntity(root)
-  const modelEntity = useExampleEntity(root)
+  // const modelEntity = useExampleEntity(root)
   const gltfAnimation = useOptionalComponent(gltfEntity, AnimationComponent)
-  const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
+  // const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
 
   useImmediateEffect(() => {
+    console.log({ gltfEntity })
     const offsetVec =
       typeof offset === 'number'
         ? { x: offset, y: 0, z: 0 }
@@ -533,16 +533,16 @@ const GLTF = (props: {
     if (scale) gltfTransform.scale.set(scale, scale, scale)
 
     // use Three JS Loader
-    setComponent(modelEntity, NameComponent, 'Three-Loader')
-    setComponent(modelEntity, ModelComponent, {
-      cameraOcclusion: true,
-      src: src
-    })
+    // setComponent(modelEntity, NameComponent, 'Three-Loader')
+    // setComponent(modelEntity, ModelComponent, {
+    //   cameraOcclusion: true,
+    //   src: src
+    // })
 
-    setVisibleComponent(modelEntity, true)
-    const modelTransform = getComponent(modelEntity, TransformComponent)
-    modelTransform.position.set(offsetVec.x, offsetVec.y, offsetVec.z)
-    if (scale) modelTransform.scale.set(scale, scale, scale)
+    // setVisibleComponent(modelEntity, true)
+    // const modelTransform = getComponent(modelEntity, TransformComponent)
+    // modelTransform.position.set(offsetVec.x, offsetVec.y, offsetVec.z)
+    // if (scale) modelTransform.scale.set(scale, scale, scale)
   }, [src])
 
   const playAnimation = (component: State<ComponentType<typeof AnimationComponent>> | undefined) => {
@@ -561,9 +561,9 @@ const GLTF = (props: {
     playAnimation(gltfAnimation)
   }, [gltfAnimation, animationClip])
 
-  useEffect(() => {
-    playAnimation(modelAnimation)
-  }, [modelAnimation, animationClip])
+  // useEffect(() => {
+  //   playAnimation(modelAnimation)
+  // }, [modelAnimation, animationClip])
 
   return null
 }
