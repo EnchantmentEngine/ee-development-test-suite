@@ -100,7 +100,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value
+  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity)
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))
@@ -134,11 +134,11 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
     }
   }, [resourceQuery.data, viewerEntity])
 
-  useImmediateEffect(() => {
-    if (!viewerEntity) return
-    setComponent(viewerEntity, CameraOrbitComponent)
-    setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+  useEffect(() => {
+    if (!viewerEntity.value) return
+    setComponent(viewerEntity.value, CameraOrbitComponent)
+    setComponent(viewerEntity.value, InputComponent)
+    getComponent(viewerEntity.value, CameraComponent).position.set(0, 3, 4)
   }, [viewerEntity])
 
   const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
