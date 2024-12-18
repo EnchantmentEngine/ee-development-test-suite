@@ -68,7 +68,7 @@ export const useRouteScene = (
 ) => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
-  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneId).value
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
   return useLoadedSceneEntity(locationSceneID)
 }
 
@@ -96,7 +96,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value
+  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity)
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))
@@ -104,7 +104,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const selectedRoute = routeCategories.flatMap((route) =>
     route.routes.filter((r) => getPathForRoute(route.category, r.name) === currentRoute)
-  )[0]
+  )?.[0]
 
   useEffect(() => {
     if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', none)
@@ -115,27 +115,25 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const resourceQuery = useFind(staticResourcePath, {
     query: {
-      key: selectedRoute.sceneKey
+      key: selectedRoute?.sceneKey
     }
   })
 
   useEffect(() => {
-    if (!resourceQuery.data.length || !viewerEntity) return
+    if (!selectedRoute?.sceneKey || !resourceQuery.data.length || !viewerEntity) return
     const resource = resourceQuery.data[0]
-    getMutableState(LocationState).currentLocation.location.sceneId.set(resource.id)
+    getMutableState(LocationState).currentLocation.location.sceneURL.set(resource.url)
     const unload = GLTFAssetState.loadScene(resource.url, resource.id)
     return () => {
-      getMutableState(LocationState).currentLocation.location.sceneId.set('')
+      getMutableState(LocationState).currentLocation.location.sceneURL.set('')
       unload()
     }
   }, [resourceQuery.data, viewerEntity])
 
-  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneId).value
+  const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
   const sceneEntity = useLoadedSceneEntity(locationSceneID)
 
   const routeReady = !!viewerEntity && !!Entry && (selectedRoute.sceneKey ? !!sceneEntity : true)
-
-  console.log({ routeReady, viewerEntity, Entry, sceneEntity })
 
   return (
     <>
@@ -143,18 +141,16 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
       <div className="ScreenContainer">
         <Button
           className="z-10 mb-1 px-0"
-          rounded="full"
-          variant="outline"
+          variant="tertiary"
           style={{ position: 'absolute', top: '10px', left: hidden.value ? '10px' : '310px', pointerEvents: 'all' }}
           onClick={() => hidden.set(!hidden.value)}
-          startIcon={
-            hidden.value ? (
-              <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
-            ) : (
-              <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
-            )
-          }
-        />
+        >
+          {hidden.value ? (
+            <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
+          ) : (
+            <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
+          )}
+        </Button>
         <div className="NavBarContainer" style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}>
           <Header header={header} />
           <div className="NavBarSelectionContainer">
@@ -163,21 +159,14 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
               return (
                 <React.Fragment key={category.category}>
                   <div className="flex flex-row text-white">
-                    <Button
-                      className="m-2"
-                      rounded="full"
-                      variant="outline"
-                      onClick={() => categoryShown.set(!categoryShown.value)}
-                      endIcon={
-                        <div className="m-1 flex w-full flex-row">
-                          {categoryShown.value ? (
-                            <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
-                          ) : (
-                            <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
-                          )}
-                        </div>
-                      }
-                    >
+                    <Button className="m-2" variant="tertiary" onClick={() => categoryShown.set(!categoryShown.value)}>
+                      <div className="m-1 flex w-full flex-row">
+                        {categoryShown.value ? (
+                          <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                        ) : (
+                          <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                        )}
+                      </div>
                       {category.category}
                     </Button>
                   </div>

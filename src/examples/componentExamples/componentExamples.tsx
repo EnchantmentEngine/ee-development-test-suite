@@ -29,6 +29,7 @@ import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/compone
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
 import { SplineHelperComponent } from '@ir-engine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
@@ -36,7 +37,6 @@ import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
-import { createXRUI } from '@ir-engine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
@@ -167,13 +167,16 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const particles = useOptionalComponent(entity, ParticleSystemComponent)
+      const source = GLTFComponent.useInstanceID(parent)
 
       useEffect(() => {
+        if (!source) return
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
+        setComponent(entity, SourceComponent, source)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-      }, [])
+      }, [source])
 
       useEffect(() => {
         if (particles?.system.value) onLoad(entity)
@@ -383,7 +386,12 @@ export const subComponentExamples = [
   //     return null
   //   }
   // }
-]
+] as Array<{
+  name: string
+  description: string
+  spawnAvatar?: boolean
+  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+}>
 
 export const ComponentExamples = (props: {
   sceneEntity: Entity
