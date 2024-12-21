@@ -22,7 +22,6 @@ import {
   none,
   syncStateWithLocalStorage,
   useHookstate,
-  useImmediateEffect,
   useMutableState
 } from '@ir-engine/hyperflux'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'

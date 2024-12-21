@@ -6,17 +6,14 @@ import { Cache, Color, Euler, Quaternion } from 'three'
 import { useFind } from '@ir-engine/common'
 import { AvatarID, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
-  ECSState,
   Engine,
   EntityUUID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
   getComponent,
-  getMutableComponent,
   removeEntity,
   setComponent,
-  useComponent,
   useOptionalComponent
 } from '@ir-engine/ecs'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
