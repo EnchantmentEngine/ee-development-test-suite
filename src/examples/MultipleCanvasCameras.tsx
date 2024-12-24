@@ -1,5 +1,6 @@
 import config from '@ir-engine/common/src/config'
 import {
+  EntityTreeComponent,
   EntityUUID,
   UUIDComponent,
   UndefinedEntity,
@@ -7,6 +8,7 @@ import {
   generateEntityUUID,
   getMutableComponent,
   hasComponent,
+  removeEntityNodeRecursively,
   setComponent
 } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
@@ -21,10 +23,6 @@ import { InputComponent } from '@ir-engine/spatial/src/input/components/InputCom
 import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import {
-  EntityTreeComponent,
-  removeEntityNodeRecursively
-} from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect, useRef } from 'react'
 
 let count = 0

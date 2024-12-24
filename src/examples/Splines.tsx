@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Engine, EntityUUID, UUIDComponent } from '@ir-engine/ecs'
+import { Engine, EntityTreeComponent, EntityUUID, UUIDComponent } from '@ir-engine/ecs'
 import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
@@ -8,7 +8,6 @@ import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/Spl
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { TransformComponent } from '@ir-engine/spatial/src/transform/components/TransformComponent'
 import { BoxGeometry, Mesh, MeshBasicMaterial, Quaternion, SphereGeometry, Vector3 } from 'three'
 import { Template } from './utils/template'

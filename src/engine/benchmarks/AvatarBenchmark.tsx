@@ -3,10 +3,12 @@ import { UserID } from '@ir-engine/common/src/schema.type.module'
 import {
   Engine,
   Entity,
+  EntityTreeComponent,
   EntityUUID,
   UUIDComponent,
   createEntity,
   getComponent,
+  removeEntityNodeRecursively,
   setComponent,
   useComponent,
   useOptionalComponent
@@ -25,10 +27,6 @@ import { TransformComponent } from '@ir-engine/spatial'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import {
-  EntityTreeComponent,
-  removeEntityNodeRecursively
-} from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
 import {

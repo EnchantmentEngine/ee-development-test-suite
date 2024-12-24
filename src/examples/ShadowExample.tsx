@@ -16,10 +16,10 @@ import { getMutableState, none, useHookstate, useMutableState } from '@ir-engine
 import {
   DirectionalLightComponent,
   PointLightComponent,
+  ReferenceSpaceState,
   SpotLightComponent,
   TransformComponent
 } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
 import { addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
@@ -118,7 +118,7 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
 
 export default function ShadowExampleEntry() {
   const entity = useHookstate(UndefinedEntity)
-  const engine = useMutableState(EngineState)
+  const engine = useMutableState(ReferenceSpaceState)
   const renderer = useOptionalComponent(engine.viewerEntity.value, RendererComponent)
 
   useEffect(() => {

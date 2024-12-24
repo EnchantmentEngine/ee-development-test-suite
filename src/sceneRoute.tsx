@@ -24,7 +24,7 @@ import {
   useHookstate,
   useMutableState
 } from '@ir-engine/hyperflux'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
@@ -99,7 +99,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity)
+  const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity)
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))

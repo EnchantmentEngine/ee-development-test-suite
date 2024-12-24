@@ -1,7 +1,14 @@
-import { Entity, UUIDComponent, createEntity, generateEntityUUID, removeEntity, setComponent } from '@ir-engine/ecs'
+import {
+  Entity,
+  EntityTreeComponent,
+  UUIDComponent,
+  createEntity,
+  generateEntityUUID,
+  removeEntity,
+  setComponent
+} from '@ir-engine/ecs'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 
 export const setupEntity = (parent: Entity): Entity => {
