@@ -7,7 +7,6 @@ import { SearchParamState } from '@ir-engine/client-core/src/common/services/Rou
 import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
-import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import { useLoadedSceneEntity } from '@ir-engine/client-core/src/hooks/useLoadedSceneEntity'
 import { LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import '@ir-engine/client-core/src/world/LocationModule'
@@ -26,6 +25,7 @@ import {
 } from '@ir-engine/hyperflux'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
+import { useEngineCanvas } from '@ir-engine/spatial/src/renderer/functions/useEngineCanvas'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 

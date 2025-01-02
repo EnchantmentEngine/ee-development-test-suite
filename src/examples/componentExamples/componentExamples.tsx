@@ -1,5 +1,6 @@
 import config from '@ir-engine/common/src/config'
 import {
+  Easing,
   Entity,
   UUIDComponent,
   UndefinedEntity,
@@ -34,6 +35,7 @@ import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
@@ -70,6 +72,63 @@ export const subComponentExamples = [
         setComponent(entity, ShadowComponent, { receive: false })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).scale.set(3, 3, 3)
+      }, [])
+
+      useEffect(() => {
+        if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
+
+      return null
+    }
+  },
+  {
+    name: 'Transitions',
+    description: 'Add transitions to your scene',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'Transition-Example')
+        setComponent(entity, GLTFComponent, {
+          cameraOcclusion: true,
+          src:
+            config.client.fileServer +
+            '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+        })
+        setVisibleComponent(entity, true)
+        getComponent(entity, TransformComponent).scale.set(3, 3, 3)
+
+        let id: any
+
+        const transitionA = () => {
+          TransformComponent.setTransition(entity, 'position.y', 2, {
+            duration: 1000,
+            easing: Easing.exponential.inOut
+          })
+          TransformComponent.setTransition(entity, 'rotation', Q_Y_180, {
+            duration: 500,
+            easing: Easing.exponential.inOut
+          })
+          id = setTimeout(transitionB, 1000)
+        }
+
+        const transitionB = () => {
+          TransformComponent.setTransition(entity, 'position.y', 0, {
+            duration: 1000,
+            easing: Easing.exponential.inOut
+          })
+          TransformComponent.setTransition(entity, 'rotation', Q_IDENTITY, {
+            duration: 500,
+            easing: Easing.exponential.inOut
+          })
+          id = setTimeout(transitionA, 1000)
+        }
+
+        transitionA()
+
+        return () => clearTimeout(id)
       }, [])
 
       useEffect(() => {
