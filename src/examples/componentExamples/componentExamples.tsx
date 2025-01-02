@@ -19,7 +19,7 @@ import {
 } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
-import { MediaComponent, setTime } from '@ir-engine/engine/src/scene/components/MediaComponent'
+import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComponent'
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
@@ -36,15 +36,15 @@ import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
-import { MathUtils, Quaternion } from 'three'
+import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import ComponentNamesUI from './ComponentNamesUI'
-import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 
 export const metadata = {
   title: 'Components Examples',
@@ -101,7 +101,7 @@ export const subComponentExamples = [
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).scale.set(3, 3, 3)
 
-        let id:any
+        let id: any
 
         const transitionA = () => {
           TransformComponent.setTransition(entity, 'position.y', 2, {
@@ -126,7 +126,7 @@ export const subComponentExamples = [
           })
           id = setTimeout(transitionA, 1000)
         }
-        
+
         transitionA()
 
         return () => clearTimeout(id)
