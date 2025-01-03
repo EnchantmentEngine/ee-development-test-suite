@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 
-import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { getComponent, removeComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
-import { getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
+import { getMutableState, getState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 
-import { Engine, Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
+import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
 import config from '@ir-engine/common/src/config'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
@@ -124,20 +124,30 @@ const GLTF = () => {
 }
 
 export default function GLTFViewer() {
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+
   useEffect(() => {
     const bgColor = document.body.style.backgroundColor
     document.body.style.backgroundColor = 'gray'
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 3, 4)
 
     return () => {
       document.body.style.backgroundColor = bgColor
     }
   }, [])
+
+  useEffect(() => {
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+
+    return () => {
+      removeComponent(viewerEntity, CameraOrbitComponent)
+      removeComponent(viewerEntity, InputComponent)
+    }
+  }, [viewerEntity])
 
   return (
     <div
