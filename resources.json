@@ -616,7 +616,7 @@
     "name": "HDVideo.mp4"
   },
   "public/avatars/Adam.gltf": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
@@ -688,7 +688,7 @@
     "name": "ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
   },
   "public/avatars/Test Avaturn.glb": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
@@ -696,7 +696,7 @@
     "name": "Test Avaturn.glb"
   },
   "public/avatars/Test RPM.glb": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
