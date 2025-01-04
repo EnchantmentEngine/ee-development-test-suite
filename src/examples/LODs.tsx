@@ -22,7 +22,7 @@ import { TransformComponent } from '@ir-engine/spatial/src/transform/components/
 
 import config from '@ir-engine/common/src/config'
 import { Entity } from '@ir-engine/ecs/src/Entity'
-import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { Template } from './utils/template'
 
 // create rings for each LOD

@@ -25,7 +25,7 @@ import { useHookstate } from '@ir-engine/hyperflux'
 import { NetworkObjectComponent } from '@ir-engine/network'
 import { TransformComponent } from '@ir-engine/spatial'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
-import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
+import { ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
@@ -189,7 +189,7 @@ const AvatarIKSetupReactor = (props: {
     const uuid = MathUtils.generateUUID()
     setComponent(entity, UUIDComponent, uuid as EntityUUID)
     setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
-    setComponent(entity, Object3DComponent, obj3d)
+    setComponent(entity, ObjectComponent, obj3d)
     setComponent(entity, TransformComponent, { position })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, RigidBodyComponent, { type: 'kinematic' })

@@ -166,7 +166,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
+    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent, { active: true })
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)

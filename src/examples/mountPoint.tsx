@@ -20,7 +20,7 @@ import { MountPointComponent } from '@ir-engine/engine/src/scene/components/Moun
 import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
-import { addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { BoxGeometry, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import { useRouteScene } from '../sceneRoute'
@@ -42,7 +42,7 @@ export default function MountPointEntry() {
     setComponent(geometryEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(geometryEntity, NameComponent, 'Geometry')
     setVisibleComponent(geometryEntity, true)
-    addObjectToGroup(geometryEntity, new Mesh(new BoxGeometry(), new MeshStandardMaterial()))
+    setComponent(geometryEntity, MeshComponent, new Mesh(new BoxGeometry(), new MeshStandardMaterial()))
 
     const entity = createEntity()
     setComponent(entity, UUIDComponent, generateEntityUUID())

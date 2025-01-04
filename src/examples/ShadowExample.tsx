@@ -22,7 +22,6 @@ import {
 } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
-import { addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
@@ -60,14 +59,12 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
     setComponent(platformEntity, VisibleComponent)
     setComponent(platformEntity, NameComponent, 'Platform')
     setComponent(platformEntity, MeshComponent, new Mesh(new BoxGeometry(), new MeshLambertMaterial()))
-    addObjectToGroup(platformEntity, getComponent(platformEntity, MeshComponent))
     setComponent(platformEntity, ShadowComponent, { cast: false })
 
     setComponent(boxEntity, TransformComponent, { position: new Vector3(0, 0.5, 0) })
     setComponent(boxEntity, VisibleComponent)
     setComponent(boxEntity, NameComponent, 'Box')
     setComponent(boxEntity, MeshComponent, new Mesh(new BoxGeometry(), new MeshLambertMaterial()))
-    addObjectToGroup(boxEntity, getComponent(boxEntity, MeshComponent))
     setComponent(boxEntity, ShadowComponent, { receive: false })
 
     setComponent(directionalLightEntity, TransformComponent, {

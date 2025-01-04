@@ -25,7 +25,7 @@ import { getGLTFAsync } from '@ir-engine/engine/src/assets/functions/resourceLoa
 import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching'
 import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { VRMHumanBoneName } from '@pixiv/three-vrm'
 import { Template } from './utils/template'
