@@ -123,7 +123,7 @@ const GLTF = () => {
 }
 
 export default function GLTFViewer() {
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
   useEffect(() => {
     const bgColor = document.body.style.backgroundColor
