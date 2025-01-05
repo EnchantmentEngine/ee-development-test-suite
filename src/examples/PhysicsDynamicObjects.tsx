@@ -3,7 +3,7 @@ import { Entity, removeEntity, useOptionalComponent } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { getMutableState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
 import '@ir-engine/ir-bot/src/functions/BotHookSystem'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import React, { useEffect } from 'react'
 import { useRouteScene } from '../sceneRoute'
@@ -12,7 +12,7 @@ import { createPhysicsEntity } from './multipleScenes'
 export default function PhysicsDynamicObjects() {
   const sceneEntity = useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')!
   useNetwork({ online: false })
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
   useImmediateEffect(() => {
     if (!viewerEntity) return

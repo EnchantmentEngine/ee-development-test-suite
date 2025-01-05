@@ -2,6 +2,7 @@ import config from '@ir-engine/common/src/config'
 import {
   Easing,
   Entity,
+  EntityTreeComponent,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
@@ -39,7 +40,6 @@ import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'

@@ -1,10 +1,9 @@
 // @ts-ignore
 import styles from './ComponentNamesUI.css?inline'
 
-import ECS, { Entity, getOptionalComponent } from '@ir-engine/ecs'
+import ECS, { Entity, EntityTreeComponent, getOptionalComponent } from '@ir-engine/ecs'
 import { useXRUIState } from '@ir-engine/engine/src/xrui/useXRUIState'
 import { useHookstate } from '@ir-engine/hyperflux'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 
 const ComponentNamesUI: React.FC = () => {

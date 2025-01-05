@@ -4,6 +4,7 @@ import { getMutableState, useMutableState } from '@ir-engine/hyperflux'
 
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
+  EntityTreeComponent,
   UUIDComponent,
   createEntity,
   generateEntityUUID,
@@ -16,20 +17,18 @@ import {
   XRUIVisibilityOverride
 } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
 import { MountPointComponent } from '@ir-engine/engine/src/scene/components/MountPointComponent'
-import { TransformComponent } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { BoxGeometry, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import { useRouteScene } from '../sceneRoute'
 
 export default function MountPointEntry() {
   const sceneEntity = useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
   useEffect(() => {
     if (!sceneEntity || !viewerEntity) return

@@ -5,6 +5,7 @@ import { setComponent, useComponent } from '@ir-engine/ecs/src/ComponentFunction
 import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs/src/EntityFunctions'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 
+import { EntityTreeComponent } from '@ir-engine/ecs'
 import { QueryReactor } from '@ir-engine/ecs/src/QueryFunctions'
 import { TransformComponent } from '@ir-engine/spatial'
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
@@ -13,7 +14,6 @@ import { CollisionGroups, DefaultCollisionMask } from '@ir-engine/spatial/src/ph
 import { BodyTypes, Shapes } from '@ir-engine/spatial/src/physics/types/PhysicsTypes'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { XRDetectedMeshComponent } from '@ir-engine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@ir-engine/spatial/src/xr/XRDetectedPlaneComponent'
 import { Template } from './utils/template'

@@ -23,7 +23,7 @@ import {
   useHookstate,
   useMutableState
 } from '@ir-engine/hyperflux'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { useEngineCanvas } from '@ir-engine/spatial/src/renderer/functions/useEngineCanvas'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
@@ -96,7 +96,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity)
+  const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity)
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))
