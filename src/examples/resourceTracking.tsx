@@ -7,6 +7,7 @@ import { useMutableState } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { RenderInfoState } from '@ir-engine/spatial/src/renderer/RenderInfoSystem'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { ResourceState } from '@ir-engine/spatial/src/resources/ResourceState'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
@@ -109,10 +110,13 @@ function RenderInfoUI() {
   const renderInfo = useRendererInfo()
 
   return (
-    <div className="absolute right-0 top-0">
-      {Object.entries(renderInfo).map(([key, value]) => {
-        return <div key={key} className="text-white">{`${key}: ${value}`}</div>
-      })}
+    <div className="">
+      <h1 className="text-white">Render Info</h1>
+      <div className="ml-2">
+        {Object.entries(renderInfo).map(([key, value]) => {
+          return <div key={key} className="ml-2 text-white">{`${key}: ${value}`}</div>
+        })}
+      </div>
     </div>
   )
 }
@@ -121,36 +125,55 @@ function ResourceTrackingUI(props: { entity: Entity }) {
   const { entity } = props
   const buttonContainerClass = 'h-16 px-1.5	py-1 w-2/4'
   const buttonClass = 'h-full w-full basis-2/5 cursor-pointer'
+  const resourceState = useMutableState(ResourceState)
   return (
-    <>
-      <div className="absolute bottom-0 right-0 h-1/4 w-1/4" style={{ pointerEvents: 'all', zIndex: 100 }}>
-        {assets.map((asset) => {
-          return (
-            <div className="flex h-auto w-full" key={asset.endpoint}>
-              <div className={buttonContainerClass}>
-                <Button
-                  className={buttonClass}
-                  onClick={() => {
-                    if (!resources[asset.name]) resources[asset.name] = []
-                    resources[asset.name].push(createAsset(entity, asset))
-                  }}
-                >{`Create ${asset.name}`}</Button>
-              </div>
-              <div className={buttonContainerClass}>
-                <Button
-                  className={buttonClass}
-                  onClick={() => {
-                    if (!resources[asset.name]) resources[asset.name] = []
-                    resources[asset.name].pop()?.()
-                  }}
-                >{`Remove ${asset.name}`}</Button>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+    <div
+      className="absolute right-0 top-0 flex max-h-[95vh] w-1/4 flex-col overflow-y-auto"
+      style={{ pointerEvents: 'all', zIndex: 100 }}
+    >
       <RenderInfoUI />
-    </>
+      <div>
+        <h1 className="text-white">Resources</h1>
+        <div className="ml-2">
+          {Object.entries(resourceState.resources.value).map(([key, val]) => {
+            return (
+              <div key={key} className="text-white">
+                {`${key}: ${val.references.join(', ')}`}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      <div>
+        <h1 className="text-white">Assets</h1>
+        <div className="ml-2">
+          {assets.map((asset) => {
+            return (
+              <div className="flex h-auto w-full" key={asset.endpoint}>
+                <div className={buttonContainerClass}>
+                  <Button
+                    className={buttonClass}
+                    onClick={() => {
+                      if (!resources[asset.name]) resources[asset.name] = []
+                      resources[asset.name].push(createAsset(entity, asset))
+                    }}
+                  >{`Create ${asset.name}`}</Button>
+                </div>
+                <div className={buttonContainerClass}>
+                  <Button
+                    className={buttonClass}
+                    onClick={() => {
+                      if (!resources[asset.name]) resources[asset.name] = []
+                      resources[asset.name].pop()?.()
+                    }}
+                  >{`Remove ${asset.name}`}</Button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
   )
 }
 
