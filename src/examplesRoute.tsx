@@ -9,6 +9,7 @@ import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
 import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
 import P2PConnection from './examples/P2PConnection'
 import PhysicsDynamicObjects from './examples/PhysicsDynamicObjects'
+import ShadowExampleEntry from './examples/ShadowExample'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
@@ -78,6 +79,11 @@ export const examples: RouteCategories = [
   {
     category: 'Scene',
     routes: [
+      {
+        name: 'Shadows',
+        description: 'Cast shadows from directional, point, and spot lights',
+        entry: ShadowExampleEntry
+      },
       {
         name: 'GLTF Viewer',
         description: 'Drag and drop GLTF files',

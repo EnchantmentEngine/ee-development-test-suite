@@ -3,6 +3,7 @@ import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHo
 import {
   Engine,
   Entity,
+  EntityTreeComponent,
   EntityUUID,
   UUIDComponent,
   UndefinedEntity,
@@ -23,8 +24,12 @@ import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/componen
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
-import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import {
+  DirectionalLightComponent,
+  PhysicsPreTransformSystem,
+  ReferenceSpaceState,
+  TransformComponent
+} from '@ir-engine/spatial'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -39,7 +44,6 @@ import {
   MaterialInstanceComponent,
   MaterialStateComponent
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
@@ -162,7 +166,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
+    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent, { active: true })
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
@@ -218,7 +222,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 }
 
 const MultipleScenesReactor = () => {
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
   useEffect(() => {
     if (!viewerEntity) return

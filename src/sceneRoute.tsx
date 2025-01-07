@@ -7,13 +7,12 @@ import { SearchParamState } from '@ir-engine/client-core/src/common/services/Rou
 import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
-import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import { useLoadedSceneEntity } from '@ir-engine/client-core/src/hooks/useLoadedSceneEntity'
 import { LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import '@ir-engine/client-core/src/world/LocationModule'
 import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
+import { Entity } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
@@ -22,14 +21,11 @@ import {
   none,
   syncStateWithLocalStorage,
   useHookstate,
-  useImmediateEffect,
   useMutableState
 } from '@ir-engine/hyperflux'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
-import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
-import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
-import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
+import { useEngineCanvas } from '@ir-engine/spatial/src/renderer/functions/useEngineCanvas'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
@@ -100,7 +96,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value
+  const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity)
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))
@@ -133,13 +129,6 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
       unload()
     }
   }, [resourceQuery.data, viewerEntity])
-
-  useImmediateEffect(() => {
-    if (!viewerEntity) return
-    setComponent(viewerEntity, CameraOrbitComponent)
-    setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
-  }, [viewerEntity])
 
   const locationSceneID = useHookstate(getMutableState(LocationState).currentLocation.location.sceneURL).value
   const sceneEntity = useLoadedSceneEntity(locationSceneID)

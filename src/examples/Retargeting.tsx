@@ -20,14 +20,13 @@ import createGLTFExporter from '@ir-engine/engine/src/assets/functions/createGLT
 import { GLTF } from '@ir-engine/engine/src/assets/loaders/gltf/GLTFLoader'
 import { NO_PROXY, defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
 
-import { Engine, getComponent, setComponent } from '@ir-engine/ecs'
+import { Engine, EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
 import { getGLTFAsync } from '@ir-engine/engine/src/assets/functions/resourceLoaderHooks'
 import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching'
 import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { VRMHumanBoneName } from '@pixiv/three-vrm'
 import { Template } from './utils/template'
 

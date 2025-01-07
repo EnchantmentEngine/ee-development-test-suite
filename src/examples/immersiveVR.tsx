@@ -4,7 +4,7 @@ import { QueryReactor } from '@ir-engine/ecs'
 import { getMutableState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
 import { EmulatorDevtools } from '@ir-engine/ir-bot/devtool/EmulatorDevtools'
 import '@ir-engine/ir-bot/src/functions/BotHookSystem'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { XRDetectedMeshComponent } from '@ir-engine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@ir-engine/spatial/src/xr/XRDetectedPlaneComponent'
@@ -15,7 +15,7 @@ import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 export default function ImmersiveVR() {
   useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
   useImmediateEffect(() => {
     if (!viewerEntity) return
@@ -28,7 +28,7 @@ export default function ImmersiveVR() {
       <QueryReactor Components={[XRDetectedPlaneComponent]} ChildEntityReactor={DetectedPlanes} />
       <QueryReactor Components={[XRDetectedMeshComponent]} ChildEntityReactor={DetectedMeshes} />
       <MediaIconsBox />
-      <div className="flex-grid pointer-events-auto absolute right-0 flex h-full w-fit flex-col justify-start gap-1.5">
+      <div className="flex-grid pointer-events-auto absolute right-0 z-50 flex h-full w-fit flex-col justify-start gap-1.5">
         <EmulatorDevtools mode="immersive-vr" />
       </div>
     </>

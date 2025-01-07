@@ -1,5 +1,5 @@
 import { GLTF } from '@gltf-transform/core'
-import { dispatchAction, getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
+import { dispatchAction, getMutableState, getState, none, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { useEffect } from 'react'
 import { Cache, Color, Euler, Quaternion } from 'three'
 
@@ -7,25 +7,29 @@ import { useFind } from '@ir-engine/common'
 import { AvatarID, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
   Engine,
+  EntityTreeComponent,
   EntityUUID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
   getComponent,
-  getMutableComponent,
+  removeEntity,
   setComponent,
   useOptionalComponent
 } from '@ir-engine/ecs'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
-import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import {
+  AmbientLightComponent,
+  DirectionalLightComponent,
+  ReferenceSpaceState,
+  TransformComponent
+} from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -52,13 +56,17 @@ export default function AvatarSimpleEntry() {
   const entity = useHookstate(UndefinedEntity)
   const gltfComponent = useOptionalComponent(entity.value, GLTFComponent)
   const avatars = useFind(avatarPath)
+  const engine = useMutableState(ReferenceSpaceState)
+  const renderer = useOptionalComponent(engine.viewerEntity.value, RendererComponent)
 
   useEffect(() => {
+    if (!renderer?.value) return
+
     const lightEntity = createEntity()
     setComponent(lightEntity, UUIDComponent, 'directional light' as EntityUUID)
     setComponent(lightEntity, NameComponent, 'Directional Light')
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
-    setComponent(lightEntity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+    setComponent(lightEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
     setComponent(lightEntity, VisibleComponent, true)
     setComponent(lightEntity, DirectionalLightComponent, { color: new Color('white'), intensity: 0.5 })
     setComponent(lightEntity, AmbientLightComponent, { color: new Color('white'), intensity: 0.5 })
@@ -71,17 +79,19 @@ export default function AvatarSimpleEntry() {
     Cache.add(sceneURL, gltf)
 
     const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
-    getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
+    renderer.scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent)
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
 
     entity.set(gltfEntity)
 
     return () => {
-      GLTFSourceState.unload(gltfEntity)
-      getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
+      const idx = renderer.scenes.value.indexOf(gltfEntity)
+      renderer.scenes[idx].set(none)
+      removeEntity(gltfEntity)
+      removeEntity(lightEntity)
     }
-  }, [])
+  }, [!!renderer?.scenes.value])
 
   useEffect(() => {
     if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return

@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 
-import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { getComponent, removeComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
-import { getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
+import { getMutableState, getState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 
-import { Engine, Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
+import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
 import config from '@ir-engine/common/src/config'
+import { EntityTreeComponent } from '@ir-engine/ecs'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
-import { DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { DirectionalLightComponent, ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -21,7 +21,6 @@ import { InputComponent } from '@ir-engine/spatial/src/input/components/InputCom
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { Color, Euler, Quaternion, Vector3 } from 'three'
 export const metadata = {
   title: 'GLTF',
@@ -51,7 +50,7 @@ const GLTF = () => {
       setComponent(modelEntity, NameComponent, '3D Preview Entity')
       setComponent(modelEntity, TransformComponent, { position: new Vector3(3, 0, 0) })
       setComponent(modelEntity, SourceComponent, 'gltf viewer-' + source.value)
-      setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+      setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
       setComponent(modelEntity, VisibleComponent, true)
       setComponent(modelEntity, ModelComponent, { src: source.value })
       setComponent(modelEntity, SceneComponent)
@@ -61,7 +60,7 @@ const GLTF = () => {
     setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
     setComponent(entity, NameComponent, 'Directional Light')
     setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
-    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+    setComponent(entity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
 
@@ -124,20 +123,30 @@ const GLTF = () => {
 }
 
 export default function GLTFViewer() {
+  const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
+
   useEffect(() => {
     const bgColor = document.body.style.backgroundColor
     document.body.style.backgroundColor = 'gray'
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 3, 4)
 
     return () => {
       document.body.style.backgroundColor = bgColor
     }
   }, [])
+
+  useEffect(() => {
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+
+    return () => {
+      removeComponent(viewerEntity, CameraOrbitComponent)
+      removeComponent(viewerEntity, InputComponent)
+    }
+  }, [viewerEntity])
 
   return (
     <div
