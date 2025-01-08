@@ -23,7 +23,7 @@ export const metadata = {
 }
 
 const fileServer = config.client.fileServer
-const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0'
+const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/refs/heads/main/Models'
 const gltf_test_url = 'https://raw.githubusercontent.com/cx20/gltf-test/refs/heads/master/tutorialModels'
 
 export const gltfRoutes = [
