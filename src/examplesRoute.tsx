@@ -46,7 +46,7 @@ export const examples: RouteCategories = [
       name: sub.name,
       description: sub.description,
       spawnAvatar: sub.spawnAvatar,
-      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Examples.gltf',
+      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf',
       entry: ({ sceneEntity }) => <ComponentExamples sceneEntity={sceneEntity!} Reactor={sub.Reactor} />
     }))
   },
@@ -122,7 +122,7 @@ export const examples: RouteCategories = [
       name: route.name,
       description: route.description,
       entry: route.entry,
-      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Examples.gltf'
+      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf'
     }))
   },
   {

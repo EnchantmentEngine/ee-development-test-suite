@@ -616,7 +616,7 @@
     "name": "HDVideo.mp4"
   },
   "public/avatars/Adam.gltf": {
-    "type": "avatar",
+    "type": "asset",
     "tags": [
       "Model"
     ],
@@ -687,21 +687,21 @@
     "dependencies": [],
     "name": "ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
   },
-  "public/avatars/Test Avaturn.glb": {
-    "type": "avatar",
+  "public/avatars/Test_Avaturn.glb": {
+    "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test Avaturn.glb"
+    "name": "Test_Avaturn.glb"
   },
-  "public/avatars/Test RPM.glb": {
-    "type": "avatar",
+  "public/avatars/Test_RPM.glb": {
+    "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test RPM.glb"
+    "name": "Test_RPM.glb"
   },
   "public/scenes/animations-test.envmap.ktx2": {
     "type": "asset",
@@ -786,6 +786,14 @@
     ],
     "dependencies": [],
     "name": "ecs-animation-bindings.gltf"
+  },
+  "public/scenes/Empty.gltf": {
+    "type": "scene",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": [],
+    "name": "Empty.gltf"
   },
   "public/scenes/Examples.envmap.ktx2": {
     "type": "asset",
