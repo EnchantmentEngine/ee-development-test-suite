@@ -9,7 +9,7 @@ import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
 import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
+import { AmbientLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
@@ -593,12 +593,11 @@ export default function GLTFViewer(props: {
     if (!props.light || !sceneEntity) return
 
     const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
-    setComponent(entity, NameComponent, 'Directional Light')
+    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
+    setComponent(entity, NameComponent, 'Ambient Light')
     setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
     setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(entity, VisibleComponent, true)
-    setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 0.5 })
     setComponent(entity, AmbientLightComponent, { color: new Color('white'), intensity: 0.5 })
 
     return () => {
