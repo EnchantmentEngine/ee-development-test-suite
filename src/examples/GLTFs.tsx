@@ -284,8 +284,8 @@ export const gltfRoutes = [
     entry: ({ sceneEntity }) => (
       <GLTFViewer
         sceneEntity={sceneEntity!}
-        src={CDN_URL + '/FlightHelmet/glTF-KTX-BasisU/FlightHelmet.gltf'}
-        screenshotURL={CDN_URL + '/FlightHelmet/screenshot/screenshot.jpg'}
+        src={CDN_URL + '/StainedGlassLamp/glTF-KTX-BasisU/StainedGlassLamp.gltf'}
+        screenshotURL={CDN_URL + '/StainedGlassLamp/screenshot/screenshot.jpg'}
         light
       />
     )
