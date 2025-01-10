@@ -27,6 +27,8 @@ const fileServer = config.client.fileServer
 const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/refs/heads/main/Models'
 const gltf_test_url = 'https://raw.githubusercontent.com/cx20/gltf-test/refs/heads/master/tutorialModels'
 
+// @todo fetch list in realtime from https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/model-index.json
+
 export const gltfRoutes = [
   {
     name: 'Basic',
