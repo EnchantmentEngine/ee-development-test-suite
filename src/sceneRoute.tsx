@@ -14,7 +14,7 @@ import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
 import { Entity } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
-import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   defineState,
   getMutableState,
@@ -123,7 +123,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
     if (!selectedRoute?.sceneKey || !resourceQuery.data.length || !viewerEntity) return
     const resource = resourceQuery.data[0]
     getMutableState(LocationState).currentLocation.location.sceneURL.set(resource.url)
-    const unload = GLTFAssetState.loadScene(resource.url, resource.id)
+    const unload = SceneState.loadScene(resource.url, resource.id)
     return () => {
       getMutableState(LocationState).currentLocation.location.sceneURL.set('')
       unload()
