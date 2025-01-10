@@ -19,7 +19,7 @@ import {
 } from '@ir-engine/ecs'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { AssetState, GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   AmbientLightComponent,
   DirectionalLightComponent,
@@ -78,7 +78,7 @@ export default function AvatarSimpleEntry() {
 
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
+    const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID)
     renderer.scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent)
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)

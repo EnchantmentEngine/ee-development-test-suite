@@ -9,7 +9,7 @@ import {
   setComponent,
   useOptionalComponent
 } from '@ir-engine/ecs'
-import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { AssetState, GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { RenderSettingsComponent } from '@ir-engine/engine/src/scene/components/RenderSettingsComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { getMutableState, none, useHookstate, useMutableState } from '@ir-engine/hyperflux'
@@ -128,7 +128,7 @@ export default function ShadowExampleEntry() {
 
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
+    const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID)
     renderer.scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent)
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
