@@ -97,6 +97,7 @@ export const examples: RouteCategories = [
       {
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
+        sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf',
         entry: ResourceTrackingRoute
       },
       {

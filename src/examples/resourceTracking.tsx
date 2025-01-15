@@ -3,15 +3,15 @@ import { Engine, Entity, getComponent, removeEntity, setComponent } from '@ir-en
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { useMutableState } from '@ir-engine/hyperflux'
+import { getMutableState, useMutableState } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RenderInfoState } from '@ir-engine/spatial/src/renderer/RenderInfoSystem'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ResourceState } from '@ir-engine/spatial/src/resources/ResourceState'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
-import { useRouteScene } from '../sceneRoute'
 import { setupEntity } from './utils/common/entityUtils'
 
 type AssetMetaData = {
@@ -67,6 +67,7 @@ function createImage(parentEntity: Entity, endpoint: string) {
   setComponent(entity, ImageComponent, {
     source: config.client.fileServer + endpoint
   })
+  setComponent(entity, NameComponent, 'Test Image')
   setVisibleComponent(entity, true)
   getComponent(entity, TransformComponent).position.set(position.x, position.y, position.z)
 
@@ -78,6 +79,7 @@ function createImage(parentEntity: Entity, endpoint: string) {
 function createGLTF(parentEntity: Entity, endpoint: string) {
   const entity = setupEntity(parentEntity)
   const position = getRandomPosition()
+  setComponent(entity, NameComponent, 'Test GLTF')
   setComponent(entity, GLTFComponent, {
     cameraOcclusion: true,
     src: config.client.fileServer + endpoint
@@ -121,24 +123,53 @@ function RenderInfoUI() {
   )
 }
 
-function ResourceTrackingUI(props: { entity: Entity }) {
-  const { entity } = props
+export default function ResourceTrackingRoute(props: { sceneEntity: Entity }) {
+  useEffect(() => {
+    getMutableState(ResourceState).debug.set(true)
+    return () => {
+      getMutableState(ResourceState).debug.set(false)
+    }
+  }, [])
+
+  const { sceneEntity } = props
   const buttonContainerClass = 'h-16 px-1.5	py-1 w-2/4'
   const buttonClass = 'h-full w-full basis-2/5 cursor-pointer'
   const resourceState = useMutableState(ResourceState)
+  const sortedEntries = Object.entries(resourceState.resources.value).reduce(
+    (acc, [key, val]) => {
+      console.log(key, val)
+      if (!acc[val.type]) acc[val.type] = {}
+      acc[val.type][key] = val
+      return acc
+    },
+    {} as Record<string, Record<string, any>>
+  )
+
   return (
     <div
-      className="absolute right-0 top-0 flex max-h-[95vh] w-1/4 flex-col overflow-y-auto"
+      className="absolute right-0 top-0 flex max-h-[95vh] w-1/2 flex-col overflow-y-auto"
       style={{ pointerEvents: 'all', zIndex: 100 }}
     >
       <RenderInfoUI />
       <div>
         <h1 className="text-white">Resources</h1>
         <div className="ml-2">
-          {Object.entries(resourceState.resources.value).map(([key, val]) => {
+          {Object.entries(sortedEntries).map(([category, resources]) => {
             return (
-              <div key={key} className="text-white">
-                {`${key}: ${val.references.join(', ')}`}
+              <div key={category} className="text-white">
+                <h3>{category}</h3>
+                {Object.entries(resources).map(([key, val]) => {
+                  return (
+                    <div key={key} className="text-white">
+                      {`${val.name}: ${getComponent(val.entity, NameComponent)} (${val.entity})`}
+                      {/* {`${key}: ${val.references
+                        .map((e) =>
+                          hasComponent(e, NameComponent) ? `${getComponent(e, NameComponent)} (${e})` : e
+                        )
+                        .join(', ')}`} */}
+                    </div>
+                  )
+                })}
               </div>
             )
           })}
@@ -155,7 +186,7 @@ function ResourceTrackingUI(props: { entity: Entity }) {
                     className={buttonClass}
                     onClick={() => {
                       if (!resources[asset.name]) resources[asset.name] = []
-                      resources[asset.name].push(createAsset(entity, asset))
+                      resources[asset.name].push(createAsset(sceneEntity, asset))
                     }}
                   >{`Create ${asset.name}`}</Button>
                 </div>
@@ -175,10 +206,4 @@ function ResourceTrackingUI(props: { entity: Entity }) {
       </div>
     </div>
   )
-}
-
-export default function ResourceTrackingRoute() {
-  const sceneEntity = useRouteScene()
-  console.log('ResourceTrackingRoute sceneEntity: ' + sceneEntity)
-  return sceneEntity ? <ResourceTrackingUI entity={sceneEntity} /> : null
 }
