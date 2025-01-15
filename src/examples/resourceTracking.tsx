@@ -137,7 +137,6 @@ export default function ResourceTrackingRoute(props: { sceneEntity: Entity }) {
   const resourceState = useMutableState(ResourceState)
   const sortedEntries = Object.entries(resourceState.resources.value).reduce(
     (acc, [key, val]) => {
-      console.log(key, val)
       if (!acc[val.type]) acc[val.type] = {}
       acc[val.type][key] = val
       return acc
