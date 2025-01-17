@@ -56,6 +56,7 @@ export const examples: RouteCategories = [
       {
         name: 'Simple',
         description: 'Avatar simple example',
+        spawnAvatar: false,
         entry: AvatarSimpleEntry
       },
       {
