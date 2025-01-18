@@ -25,7 +25,7 @@ export default function PhysicsDynamicObjects() {
   useEffect(() => {
     if (gltfComponent?.progress?.value !== 100) return
     const entities = [] as Entity[]
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       entities.push(createPhysicsEntity(sceneEntity))
     }
     return () => {

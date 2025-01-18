@@ -104,6 +104,8 @@ export const examples: RouteCategories = [
       {
         name: 'Instanced LODs',
         description: 'Instanced LODs example',
+
+        sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf',
         entry: InstancedLODs
       },
       {
