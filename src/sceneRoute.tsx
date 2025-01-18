@@ -96,7 +96,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   useSpatialEngine()
   useEngineCanvas(ref)
 
-  const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity)
+  const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity).value
 
   const onClick = (category: string, route: string) => {
     SearchParamState.set('example', getPathForRoute(category, route))
@@ -123,7 +123,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
     if (!selectedRoute?.sceneKey || !resourceQuery.data.length || !viewerEntity) return
     const resource = resourceQuery.data[0]
     getMutableState(LocationState).currentLocation.location.sceneURL.set(resource.url)
-    const unload = SceneState.loadScene(resource.url, resource.id)
+    const unload = SceneState.loadScene(resource.url, resource.id, viewerEntity)
     return () => {
       getMutableState(LocationState).currentLocation.location.sceneURL.set('')
       unload()

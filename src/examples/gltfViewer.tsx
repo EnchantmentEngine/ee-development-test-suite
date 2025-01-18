@@ -64,7 +64,8 @@ const GLTF = () => {
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
 
-    const ret = SceneState.loadScene(source.value, source.value)
+    const viewerEntity = getState(ReferenceSpaceState).viewerEntity
+    const ret = SceneState.loadScene(source.value, source.value, viewerEntity)
     return () => {
       if (modelEntity) removeEntity(modelEntity)
       removeEntity(entity)
