@@ -106,10 +106,9 @@ export default function AvatarSimpleEntry() {
 
   useEffect(() => {
     if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return
+    const randomAvatar = avatars.data[0]
 
-    for (let i = 0; i < 10; i++) {
-      if (!avatars.data[i]) continue
-      const randomAvatar = avatars.data[i]
+    for (let i = 0; i < 20; i++) {
       dispatchAction(
         NetworkActions.peerJoined({
           peerID: ('test peer ' + i) as PeerID,
