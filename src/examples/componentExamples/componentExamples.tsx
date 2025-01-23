@@ -24,6 +24,7 @@ import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComp
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
+import { SceneDynamicLoadComponent } from '@ir-engine/engine/src/scene/components/SceneDynamicLoadComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
@@ -379,6 +380,31 @@ export const subComponentExamples = [
 
       useEffect(() => {
         if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
+
+      return null
+    }
+  },
+  {
+    name: 'Dynamic Load',
+    description: 'An object that only loads in within a specific distance',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'Dynamic Load Example')
+        setComponent(entity, SceneDynamicLoadComponent, { distance: 5 })
+        setComponent(entity, GLTFComponent, {
+          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/animations/rings.glb'
+        })
+        setVisibleComponent(entity, true)
+        getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+      }, [])
+
+      useEffect(() => {
+        onLoad(gltfComponent?.progress.value === 100 ? entity : UndefinedEntity)
       }, [gltfComponent?.progress])
 
       return null

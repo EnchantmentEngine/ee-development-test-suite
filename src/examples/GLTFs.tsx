@@ -627,7 +627,6 @@ const GLTF = (props: {
   // const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
 
   useImmediateEffect(() => {
-    console.log({ gltfEntity })
     const offsetVec =
       typeof offset === 'number'
         ? { x: offset, y: 0, z: 0 }
