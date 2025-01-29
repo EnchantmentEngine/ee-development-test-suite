@@ -1,31 +1,20 @@
 import React, { useEffect } from 'react'
-import {
-  AnimationClip,
-  Bone,
-  ConeGeometry,
-  Mesh,
-  MeshBasicMaterial,
-  Quaternion,
-  Scene,
-  SkeletonHelper,
-  SphereGeometry,
-  Vector3
-} from 'three'
+import { Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
 
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@ir-engine/common/src/constants/AvatarConstants'
-import { createEntity, removeEntity } from '@ir-engine/ecs'
+import { createEntity, getChildrenWithComponents, removeEntity } from '@ir-engine/ecs'
 import { Entity } from '@ir-engine/ecs/src/Entity'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import createGLTFExporter from '@ir-engine/engine/src/assets/functions/createGLTFExporter'
-import { GLTF } from '@ir-engine/engine/src/assets/loaders/gltf/GLTFLoader'
-import { NO_PROXY, defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
 
-import { Engine, EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
-import { getGLTFAsync } from '@ir-engine/engine/src/assets/functions/resourceLoaderHooks'
+import { EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
 import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching'
-import { TransformComponent } from '@ir-engine/spatial'
+import { AssetState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
+import { BoneComponent } from '@ir-engine/spatial/src/renderer/components/BoneComponent'
+import { ObjectComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { VRMHumanBoneName } from '@pixiv/three-vrm'
 import { Template } from './utils/template'
@@ -96,7 +85,7 @@ sphere.visible = false
 
 const RetargetingDND = () => {
   const assetFile = useHookstate(null as null | File)
-  const assetObject = useHookstate(null as null | GLTF)
+  const rootEntity = useHookstate(null as null | Entity)
   const boneState = useHookstate(getMutableState(BoneMatchedState))
   const rigTestEntity = useHookstate(null as null | Entity)
 
@@ -113,8 +102,7 @@ const RetargetingDND = () => {
       return
     }
 
-    const scene = assetObject.value?.scene
-    if (!scene) return
+    if (!rootEntity.value) return
 
     const entity = createEntity()
 
@@ -148,8 +136,12 @@ const RetargetingDND = () => {
 
   const onSaveNameMap = () => {
     const fileNameWithoutExtension = assetFile.value?.name.split('.').slice(0, -1).join('.')
-    const rootBone = assetObject.value!.scene.getObjectByProperty('type', 'Bone')
+    const rootBoneEntity = getChildrenWithComponents(rootEntity.value!, [BoneComponent])[0]
+    if (!rootBoneEntity) return
+
+    const rootBone = getComponent(rootBoneEntity, BoneComponent)
     if (!rootBone) return
+
     const boneNames = [] as string[]
     rootBone.traverse((bone: Bone) => {
       boneNames.push(bone.name)
@@ -167,7 +159,7 @@ const RetargetingDND = () => {
   }
 
   const onSave = async () => {
-    const scene = assetObject.value?.scene as Scene | undefined
+    const scene = getComponent(rootEntity.value!, ObjectComponent)
     if (!scene) return
 
     const exporter = createGLTFExporter()
@@ -184,8 +176,8 @@ const RetargetingDND = () => {
         {
           binary: !isGLTF,
           embedImages: !isGLTF,
-          includeCustomExtensions: true,
-          animations: assetObject.get(NO_PROXY)!.animations as AnimationClip[] // this doesnt work for some reason
+          includeCustomExtensions: true
+          // animations: rootEntity.get(NO_PROXY)!.animations as AnimationClip[] // this doesnt work for some reason
         }
       )
     })
@@ -202,22 +194,19 @@ const RetargetingDND = () => {
 
   useEffect(() => {
     const entity = createEntity()
-    setComponent(entity, VisibleComponent)
-    setComponent(entity, TransformComponent)
-    setComponent(entity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
     if (!assetFile.value) return
     const url = URL.createObjectURL(assetFile.value) + '#' + assetFile.value.name
 
-    getGLTFAsync(url, entity).then(([asset, unload]) => {
-      if (!asset) return
-      assetObject.set(asset)
-      console.log(asset)
+    AssetState.loadAsync(url, undefined, undefined, getState(ReferenceSpaceState).originEntity).then((entity) => {
+      if (!entity) return
+      setComponent(entity, VisibleComponent)
 
-      const rootBone = asset.scene.getObjectByProperty('type', 'Bone')
-      console.log({ rootBone })
-      if (!rootBone) return
+      rootEntity.set(entity)
 
-      asset.scene.animations = asset.animations
+      const rootBoneEntity = getChildrenWithComponents(entity, [BoneComponent])[0]
+      if (!rootBoneEntity) return
+
+      const rootBone = getComponent(rootBoneEntity, BoneComponent)
 
       if (overrideNames.length > 0) {
         let i = 0
@@ -299,9 +288,9 @@ const RetargetingDND = () => {
     const originalBoneName = useHookstate(() => bone.name)
 
     const boneHelper = getComponent(
-      NameComponent.entitiesByName[boneName.value + '--helper'][0],
-      GroupComponent
-    )[0] as Mesh<ConeGeometry, MeshBasicMaterial>
+      NameComponent.getEntitiesByName(boneName.value + '--helper')[0],
+      ObjectComponent
+    ) as Mesh<ConeGeometry, MeshBasicMaterial>
     const isBone = bone.type === 'Bone'
 
     const mouseOver = useHookstate(false)
@@ -315,7 +304,7 @@ const RetargetingDND = () => {
       boneHelper.name = name + '--helper'
       const currentBoneName = boneName.value as MixamoBoneNames
       boneName.set(name)
-      const helperEntity = NameComponent.entitiesByName[currentBoneName + '--helper'][0]
+      const helperEntity = NameComponent.getEntitiesByName(currentBoneName + '--helper')[0]
       setComponent(helperEntity, NameComponent, name + '--helper')
     }
 
@@ -414,11 +403,13 @@ const RetargetingDND = () => {
 
   const nextUnmatchedBoneName = nextUnmatchedBone()
 
-  const assetScene = assetObject.value?.scene.getObjectByProperty('type', 'Bone') as Bone | undefined
+  const rootBoneEntity = getChildrenWithComponents(rootEntity.value!, [BoneComponent])[0]
+
+  const rootBone = rootBoneEntity ? getComponent(rootBoneEntity, BoneComponent) : undefined
 
   return (
     <div style={{ fontSize: '16px', color: 'black' }}>
-      {!assetScene && (
+      {!rootBone && (
         <>
           <div>
             Asset
@@ -430,7 +421,7 @@ const RetargetingDND = () => {
           </div>
         </>
       )}
-      {assetScene && (
+      {rootBone && (
         <>
           {nextUnmatchedBoneName && (
             <div>
@@ -458,7 +449,7 @@ const RetargetingDND = () => {
           </div>
           <br />
           <div>-- Tree --</div>
-          <BonesTree bone={assetScene} />
+          <BonesTree bone={rootBone} />
         </>
       )}
     </div>
