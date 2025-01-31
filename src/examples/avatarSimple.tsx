@@ -106,9 +106,11 @@ export default function AvatarSimpleEntry() {
 
   useEffect(() => {
     if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return
-    const randomAvatar = avatars.data[0]
 
-    for (let i = 0; i < 20; i++) {
+    const spread = 25
+
+    for (let i = 0; i < 100; i++) {
+      const randomAvatar = avatars.data[Math.floor(Math.random() * avatars.data.length)]
       dispatchAction(
         NetworkActions.peerJoined({
           peerID: ('test peer ' + i) as PeerID,
@@ -119,7 +121,7 @@ export default function AvatarSimpleEntry() {
       const parentUUID = getComponent(entity.value, UUIDComponent)
       dispatchAction(
         AvatarNetworkAction.spawn({
-          position: new Vector3(Math.random() * 10 - 5, 0, Math.random() * 10 - 5),
+          position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),
           parentUUID,
           avatarURL: randomAvatar.modelResource!.url,
           entityUUID: ('test user ' + i + '_avatar') as EntityUUID,

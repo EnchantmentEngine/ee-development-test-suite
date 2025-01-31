@@ -6,11 +6,9 @@ import '@ir-engine/ir-bot/src/functions/BotHookSystem'
 import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import React, { useEffect } from 'react'
-import { useRouteScene } from '../sceneRoute'
 import { createPhysicsEntity } from './multipleScenes'
 
-export default function PhysicsDynamicObjects() {
-  const sceneEntity = useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')!
+export default function PhysicsDynamicObjects(props: { sceneEntity: Entity }) {
   useNetwork({ online: false })
   const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 
@@ -20,13 +18,13 @@ export default function PhysicsDynamicObjects() {
     getMutableState(RendererState).physicsDebug.set(true)
   }, [viewerEntity])
 
-  const gltfComponent = useOptionalComponent(sceneEntity, GLTFComponent)
+  const gltfComponent = useOptionalComponent(props.sceneEntity, GLTFComponent)
 
   useEffect(() => {
     if (gltfComponent?.progress?.value !== 100) return
     const entities = [] as Entity[]
-    for (let i = 0; i < 1000; i++) {
-      entities.push(createPhysicsEntity(sceneEntity))
+    for (let i = 0; i < 100; i++) {
+      entities.push(createPhysicsEntity(props.sceneEntity))
     }
     return () => {
       for (const entity of entities) {

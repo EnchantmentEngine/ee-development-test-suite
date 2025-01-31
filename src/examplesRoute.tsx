@@ -83,6 +83,7 @@ export const examples: RouteCategories = [
       {
         name: 'Shadows',
         description: 'Cast shadows from directional, point, and spot lights',
+        sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
         entry: ShadowExampleEntry
       },
       {
@@ -104,7 +105,6 @@ export const examples: RouteCategories = [
       {
         name: 'Instanced LODs',
         description: 'Instanced LODs example',
-
         sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf',
         entry: InstancedLODs
       },
@@ -135,6 +135,7 @@ export const examples: RouteCategories = [
       {
         name: 'Dynamic objects',
         description: 'Dynamic objects example',
+        sceneKey: 'projects/ir-engine/default-project/public/scenes/default.gltf',
         entry: PhysicsDynamicObjects,
         spawnAvatar: true
       }
