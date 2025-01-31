@@ -1,5 +1,4 @@
 import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
-import { Shelves } from '@ir-engine/client-core/src/components/Shelves'
 import { XRLoading } from '@ir-engine/client-core/src/components/XRLoading'
 import { Engine, EntityTreeComponent, setComponent } from '@ir-engine/ecs'
 import { loadEmptyScene } from '@ir-engine/engine/tests/util/loadEmptyScene'
@@ -22,7 +21,6 @@ export default function WebXR() {
   return (
     <>
       <div style={{ pointerEvents: 'all' }}>
-        <Shelves />
         <XRLoading />
         <MediaIconsBox />
       </div>

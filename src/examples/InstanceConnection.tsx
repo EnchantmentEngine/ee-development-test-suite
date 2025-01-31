@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { LocationInstanceState } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
-import { LocationIcons } from '@ir-engine/client-core/src/components/LocationIcons'
+import { TopButtons } from '@ir-engine/client-core/src/components/TopButtons'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadLocation } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { LocationSeed, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
@@ -138,7 +138,7 @@ export default function InstanceConnection() {
           </div>
         ))}
       </div>
-      <LocationIcons />
+      <TopButtons />
     </>
   )
 }
