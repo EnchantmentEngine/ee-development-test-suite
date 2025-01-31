@@ -34,7 +34,7 @@ const execute = () => {
   const entities = entitiesQuery()
   //q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
   for (const entity of entities) {
-    const ownerID = getComponent(entity, NetworkObjectComponent).ownerId as any as EntityUUID // @todo is this right?
+    const ownerID = getComponent(entity, NetworkObjectComponent).ownerId as any as EntityUUID
     const headTargetEntity = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.head)
     const ikTargetLeftHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.leftHand)
     const ikTargetRightHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.rightHand)
