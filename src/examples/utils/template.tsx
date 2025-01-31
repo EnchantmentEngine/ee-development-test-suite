@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 import { ARPlacement } from '@ir-engine/client-core/src/components/ARPlacement'
 import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
-import { Shelves } from '@ir-engine/client-core/src/components/Shelves'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { XRLoading } from '@ir-engine/client-core/src/components/XRLoading'
@@ -37,7 +36,6 @@ export function Template(props: { projectName?: string; sceneName?: string; spaw
   return (
     <>
       <div style={{ pointerEvents: 'all' }}>
-        <Shelves />
         <ARPlacement />
         <XRLoading />
         <MediaIconsBox />
