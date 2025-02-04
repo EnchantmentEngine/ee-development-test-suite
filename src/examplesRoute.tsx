@@ -123,10 +123,8 @@ export const examples: RouteCategories = [
   {
     category: 'GLTF',
     routes: gltfRoutes.map((route) => ({
-      name: route.name,
-      description: route.description,
-      entry: route.entry,
-      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf'
+      sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Empty.gltf',
+      ...route
     }))
   },
   {

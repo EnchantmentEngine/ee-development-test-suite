@@ -331,11 +331,12 @@ export const gltfRoutes = [
   {
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
+    sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
     entry: ({ sceneEntity }) => (
       <GLTFViewer
         sceneEntity={sceneEntity!}
         src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/lightmaptest.glb'}
-        light
+        // light
       />
     )
   },
