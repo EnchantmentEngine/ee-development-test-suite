@@ -164,6 +164,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
     const sceneURL = `/${sceneID}.gltf`
 
+    Cache.enabled = true
     Cache.add(sceneURL, gltf)
 
     const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
