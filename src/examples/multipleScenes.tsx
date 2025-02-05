@@ -89,10 +89,10 @@ const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
 
 const execute = () => {
   for (const entity of testSuiteBallTagQuery()) {
-    const rigidbody = getComponent(entity, RigidBodyComponent)
-    const transform = getComponent(entity, TransformComponent)
-    if (rigidbody.position.y < -10) {
-      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    if (RigidBodyComponent.position.y[entity] < -10) {
+      TransformComponent.position.x[entity] = Math.random() * 10 - 5
+      TransformComponent.position.y[entity] = Math.random() * 2 + 2
+      TransformComponent.position.z[entity] = Math.random() * 10 - 5
     }
 
     const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
