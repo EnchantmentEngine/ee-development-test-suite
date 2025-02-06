@@ -1,0 +1,374 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "THREE.GLTFExporter"
+  },
+  "scenes": [
+    {
+      "name": "New Object",
+      "nodes": [
+        0,
+        1
+      ],
+      "extras": {
+        "src": "__$project$__/default-project/assets/double-mat.glb"
+      }
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "Cube",
+      "extras": {
+        "name": "Cube"
+      },
+      "mesh": 0,
+      "extensions": {
+        "EE_uuid": "5b687480-2cf5-4850-a969-80449938e859",
+        "EE_visible": true
+      }
+    },
+    {
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.49077603220939636,
+        0.5260800719261169,
+        -3.9495646953582764,
+        1
+      ],
+      "name": "Cube001",
+      "extras": {
+        "name": "Cube.001"
+      },
+      "mesh": 1,
+      "extensions": {
+        "EE_uuid": "df6e6c6d-29d6-4520-b9d4-a0518d43a0b6",
+        "EE_visible": true
+      }
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 288,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 288,
+      "byteLength": 288,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 576,
+      "byteLength": 192,
+      "target": 34962,
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 768,
+      "byteLength": 144,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 912,
+      "byteLength": 288,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1200,
+      "byteLength": 288,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1488,
+      "byteLength": 192,
+      "target": 34962,
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1680,
+      "byteLength": 144,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "double-mat-test_data.bin",
+      "byteLength": 1824
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.875,
+        1
+      ],
+      "min": [
+        0.125,
+        0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 36,
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.875,
+        1
+      ],
+      "min": [
+        0.125,
+        0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5125,
+      "count": 36,
+      "max": [
+        23
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "materials": [
+    {
+      "extras": {
+        "type": "MeshToonMaterial"
+      },
+      "extensions": {
+        "EE_material": {
+          "uuid": "21bdc707-0422-4f58-aedd-75e8ec1d0a46",
+          "name": "Material",
+          "prototype": "MeshToonMaterial",
+          "plugins": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "args": {
+            "alphaTest": {
+              "type": "float",
+              "contents": 0
+            },
+            "alphaMap": {
+              "type": "texture",
+              "contents": null
+            },
+            "map": {
+              "type": "texture",
+              "contents": null
+            },
+            "color": {
+              "type": "color",
+              "contents": 6030597
+            },
+            "opacity": {
+              "type": "float",
+              "contents": 1
+            },
+            "blending": {
+              "type": "select",
+              "contents": 1
+            },
+            "depthTest": {
+              "type": "boolean",
+              "contents": false
+            },
+            "depthWrite": {
+              "type": "boolean",
+              "contents": true
+            },
+            "side": {
+              "type": "select",
+              "contents": 0
+            },
+            "toneMapped": {
+              "type": "boolean",
+              "contents": false
+            },
+            "transparent": {
+              "type": "boolean",
+              "contents": false
+            },
+            "vertexColors": {
+              "type": "boolean",
+              "contents": false
+            },
+            "speed": {
+              "type": "float",
+              "contents": 0.1
+            },
+            "time": {
+              "type": "float",
+              "contents": 132.66920000000002
+            },
+            "smooth_step": {
+              "type": "boolean",
+              "contents": false
+            },
+            "smooth_intensity": {
+              "type": "float",
+              "contents": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ],
+      "extensions": {
+        "EE_resourceId": {
+          "resourceId": "a6ae20ba-b4dd-477c-9eb6-8c89f08ac08d"
+        }
+      }
+    },
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 0
+        }
+      ],
+      "extensions": {
+        "EE_resourceId": {
+          "resourceId": "2348d115-28fd-4c0c-8e50-d33ec24f47d3"
+        }
+      }
+    }
+  ],
+  "extensionsUsed": [
+    "EE_material",
+    "EE_resourceId",
+    "EE_uuid",
+    "EE_visible",
+    "EE_ecs"
+  ]
+}

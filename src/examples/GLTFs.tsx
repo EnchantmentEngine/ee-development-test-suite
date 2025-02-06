@@ -343,11 +343,10 @@ export const gltfRoutes = [
   {
     name: 'EE_material',
     description: 'Ethereal Engine Material Extension',
-    /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
     entry: ({ sceneEntity }) => (
       <GLTFViewer
         sceneEntity={sceneEntity!}
-        src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/double-mat-test.glb'}
+        src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/double-mat-test.gltf'}
         light
       />
     )
