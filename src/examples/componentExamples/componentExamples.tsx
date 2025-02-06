@@ -16,7 +16,7 @@ import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import {
   InteractableComponent,
-  XRUIVisibilityOverride
+  XRUIActivationType
 } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
@@ -39,6 +39,7 @@ import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import React, { useEffect } from 'react'
@@ -425,12 +426,19 @@ export const subComponentExamples = [
 
       useEffect(() => {
         if (!callback?.value) return
+        setComponent(entity, InputComponent, { highlight: true, grow: true })
         setComponent(entity, InteractableComponent, {
           label: 'Click me',
-          // clickInteract: true,
-          uiInteractable: true,
-          uiVisibilityOverride: XRUIVisibilityOverride.on,
-          activationDistance: 10000
+          clickInteract: true,
+          uiActivationType: XRUIActivationType.proximity,
+          activationDistance: 2,
+          highlighted: true,
+          callbacks: [
+            {
+              callbackID: LinkComponent.linkCallbackName,
+              target: getComponent(entity, UUIDComponent)
+            }
+          ]
         })
         setVisibleComponent(entity, true)
         onLoad(entity)
