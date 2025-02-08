@@ -1,8 +1,8 @@
 import { Vector3 } from 'three'
 
+import { createEntity } from '@ir-engine/ecs'
 import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { Entity } from '@ir-engine/ecs/src/Entity'
-import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { CollisionGroups, DefaultCollisionMask } from '@ir-engine/spatial/src/physics/enums/CollisionGroups'

@@ -19,7 +19,7 @@ import {
   useOptionalComponent
 } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
@@ -89,10 +89,10 @@ const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
 
 const execute = () => {
   for (const entity of testSuiteBallTagQuery()) {
-    const rigidbody = getComponent(entity, RigidBodyComponent)
-    const transform = getComponent(entity, TransformComponent)
-    if (rigidbody.position.y < -10) {
-      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    if (RigidBodyComponent.position.y[entity] < -10) {
+      TransformComponent.position.x[entity] = Math.random() * 10 - 5
+      TransformComponent.position.y[entity] = Math.random() * 2 + 2
+      TransformComponent.position.z[entity] = Math.random() * 10 - 5
     }
 
     const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
@@ -164,18 +164,19 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
     const sceneURL = `/${sceneID}.gltf`
 
+    Cache.enabled = true
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
+    const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent, { active: true })
-    getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
+    getMutableState(SceneState)[sceneURL].set(gltfEntity)
 
     gltfEntityState.set(gltfEntity)
 
     return () => {
-      GLTFSourceState.unload(gltfEntity)
-      getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
+      AssetState.unload(gltfEntity)
+      getMutableState(SceneState)[sceneURL].set(gltfEntity)
     }
   }, [])
 

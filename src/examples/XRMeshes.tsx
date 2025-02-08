@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial, Vector3 } from 'three'
 
+import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs'
 import { setComponent, useComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs/src/EntityFunctions'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 
 import { EntityTreeComponent } from '@ir-engine/ecs'

@@ -16,7 +16,7 @@ import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import {
   InteractableComponent,
-  XRUIVisibilityOverride
+  XRUIActivationType
 } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
@@ -24,6 +24,7 @@ import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComp
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
+import { SceneDynamicLoadComponent } from '@ir-engine/engine/src/scene/components/SceneDynamicLoadComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
@@ -38,6 +39,7 @@ import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import React, { useEffect } from 'react'
@@ -385,6 +387,31 @@ export const subComponentExamples = [
     }
   },
   {
+    name: 'Dynamic Load',
+    description: 'An object that only loads in within a specific distance',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'Dynamic Load Example')
+        setComponent(entity, SceneDynamicLoadComponent, { distance: 5 })
+        setComponent(entity, GLTFComponent, {
+          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/animations/rings.glb'
+        })
+        setVisibleComponent(entity, true)
+        getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+      }, [])
+
+      useEffect(() => {
+        onLoad(gltfComponent?.progress.value === 100 ? entity : UndefinedEntity)
+      }, [gltfComponent?.progress])
+
+      return null
+    }
+  },
+  {
     name: 'Links',
     description: 'Add interactable links to your scene',
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
@@ -399,12 +426,19 @@ export const subComponentExamples = [
 
       useEffect(() => {
         if (!callback?.value) return
+        setComponent(entity, InputComponent, { highlight: true, grow: true })
         setComponent(entity, InteractableComponent, {
           label: 'Click me',
-          // clickInteract: true,
-          uiInteractable: true,
-          uiVisibilityOverride: XRUIVisibilityOverride.on,
-          activationDistance: 10000
+          clickInteract: true,
+          uiActivationType: XRUIActivationType.proximity,
+          activationDistance: 2,
+          highlighted: true,
+          callbacks: [
+            {
+              callbackID: LinkComponent.linkCallbackName,
+              target: getComponent(entity, UUIDComponent)
+            }
+          ]
         })
         setVisibleComponent(entity, true)
         onLoad(entity)

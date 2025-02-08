@@ -10,7 +10,7 @@ import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@
 import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
-import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { DirectionalLightComponent, ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
@@ -64,7 +64,8 @@ const GLTF = () => {
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
 
-    const ret = GLTFAssetState.loadScene(source.value, source.value)
+    const viewerEntity = getState(ReferenceSpaceState).viewerEntity
+    const ret = SceneState.loadScene(source.value, source.value, viewerEntity)
     return () => {
       if (modelEntity) removeEntity(modelEntity)
       removeEntity(entity)

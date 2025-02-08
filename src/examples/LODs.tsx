@@ -4,13 +4,13 @@ import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from 'three'
 
 import { uploadToFeathersService } from '@ir-engine/client-core/src/util/upload'
 import { AdminAssetUploadArgumentsType } from '@ir-engine/common/src/interfaces/UploadAssetInterface'
+import { createEntity } from '@ir-engine/ecs'
 import {
   getComponent,
   removeComponent,
   setComponent,
   useOptionalComponent
 } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'

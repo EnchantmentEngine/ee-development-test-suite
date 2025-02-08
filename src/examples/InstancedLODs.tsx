@@ -1,4 +1,4 @@
-import { setComponent, useOptionalComponent } from '@ir-engine/ecs'
+import { Entity, setComponent, useOptionalComponent } from '@ir-engine/ecs'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { commitProperty } from '@ir-engine/editor/src/components/properties/Util'
 import { DomainConfigState } from '@ir-engine/engine/src/assets/state/DomainConfigState'
@@ -22,14 +22,13 @@ import PaginatedList from '@ir-engine/ui/src/components/editor/layout/PaginatedL
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InstancedBufferAttribute, Matrix4, Quaternion } from 'three'
-import { useRouteScene } from '../sceneRoute'
 import { useExampleEntity } from './utils/common/entityUtils'
 
 const areaSize = 100
 const count = 4000
 
-const SceneReactor = ({ sceneEntity }) => {
-  const entity = useExampleEntity(sceneEntity!)
+const SceneReactor = (props: { sceneEntity: Entity }) => {
+  const entity = useExampleEntity(props.sceneEntity)
 
   useEffect(() => {
     setComponent(entity, TransformComponent)
@@ -155,9 +154,8 @@ const SceneReactor = ({ sceneEntity }) => {
   )
 }
 
-export default function InstancedLODs() {
-  const sceneEntity = useRouteScene()
-  if (!sceneEntity) return null
+export default function InstancedLODs(props: { sceneEntity: Entity }) {
+  if (!props.sceneEntity) return null
 
-  return <SceneReactor sceneEntity={sceneEntity} />
+  return <SceneReactor sceneEntity={props.sceneEntity} />
 }

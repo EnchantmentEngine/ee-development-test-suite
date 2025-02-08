@@ -1,25 +1,35 @@
 import { GLTF } from '@gltf-transform/core'
-import { dispatchAction, getMutableState, getState, none, useHookstate, useMutableState } from '@ir-engine/hyperflux'
-import { useEffect } from 'react'
-import { Cache, Color, Euler, Quaternion } from 'three'
-
-import { useFind } from '@ir-engine/common'
-import { AvatarID, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
-  Engine,
+  dispatchAction,
+  getMutableState,
+  getState,
+  none,
+  PeerID,
+  useHookstate,
+  useMutableState,
+  UserID
+} from '@ir-engine/hyperflux'
+import { useEffect } from 'react'
+import { Color, Euler, Quaternion, Vector3 } from 'three'
+
+import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useFind } from '@ir-engine/common'
+import { avatarPath } from '@ir-engine/common/src/schema.type.module'
+import {
+  createEntity,
   EntityTreeComponent,
   EntityUUID,
-  UUIDComponent,
-  UndefinedEntity,
-  createEntity,
   getComponent,
   removeEntity,
   setComponent,
-  useOptionalComponent
+  UndefinedEntity,
+  useOptionalComponent,
+  UUIDComponent
 } from '@ir-engine/ecs'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { NetworkActions } from '@ir-engine/network'
 import {
   AmbientLightComponent,
   DirectionalLightComponent,
@@ -76,12 +86,13 @@ export default function AvatarSimpleEntry() {
 
     const sceneURL = `/${sceneID}.gltf`
 
-    Cache.add(sceneURL, gltf)
+    const blob = new Blob([JSON.stringify(gltf)], { type: 'application/json' })
+    const blobURL = URL.createObjectURL(blob)
 
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
+    const gltfEntity = AssetState.load(blobURL, blobURL as EntityUUID)
     renderer.scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent)
-    getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
+    getMutableState(SceneState)[sceneURL].set(gltfEntity)
 
     entity.set(gltfEntity)
 
@@ -96,17 +107,32 @@ export default function AvatarSimpleEntry() {
   useEffect(() => {
     if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return
 
-    const parentUUID = getComponent(entity.value, UUIDComponent)
-    const entityUUID = Engine.instance.userID
-    dispatchAction(
-      AvatarNetworkAction.spawn({
-        parentUUID,
-        avatarURL: avatars.data.find((avatar) => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
-        entityUUID: (entityUUID + '_avatar') as EntityUUID,
-        name: 'avatar'
-      })
-    )
+    const spread = 25
+
+    for (let i = 0; i < 100; i++) {
+      const randomAvatar = avatars.data[Math.floor(Math.random() * avatars.data.length)]
+      dispatchAction(
+        NetworkActions.peerJoined({
+          peerID: ('test peer ' + i) as PeerID,
+          peerIndex: i,
+          userID: ('test user ' + i) as UserID
+        })
+      )
+      const parentUUID = getComponent(entity.value, UUIDComponent)
+      dispatchAction(
+        AvatarNetworkAction.spawn({
+          position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),
+          parentUUID,
+          avatarURL: randomAvatar.modelResource!.url,
+          entityUUID: ('test user ' + i + '_avatar') as EntityUUID,
+          name: 'test user ' + i,
+          $peer: ('test peer ' + i) as PeerID
+        })
+      )
+    }
   }, [gltfComponent?.progress?.value, avatars.data.length])
+
+  useNetwork({ online: false })
 
   return null
 }

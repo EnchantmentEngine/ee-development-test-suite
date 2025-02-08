@@ -1,46 +1,20 @@
-import { GLTF } from '@gltf-transform/core'
-import {
-  Entity,
-  EntityUUID,
-  UUIDComponent,
-  UndefinedEntity,
-  getComponent,
-  removeEntity,
-  setComponent,
-  useOptionalComponent
-} from '@ir-engine/ecs'
-import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { Entity, UUIDComponent, getComponent, setComponent } from '@ir-engine/ecs'
 import { RenderSettingsComponent } from '@ir-engine/engine/src/scene/components/RenderSettingsComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { getMutableState, none, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import {
   DirectionalLightComponent,
   PointLightComponent,
-  ReferenceSpaceState,
   SpotLightComponent,
   TransformComponent
 } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
-import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import React, { useEffect } from 'react'
-import { BoxGeometry, Cache, Color, Euler, Mesh, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
+import { BoxGeometry, Color, Euler, Mesh, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { useExampleEntity } from './utils/common/entityUtils'
 
-const createSceneGLTF = (id: string): GLTF.IGLTF => ({
-  asset: {
-    version: '2.0',
-    generator: 'iR Engine'
-  },
-  scenes: [{ nodes: [] }],
-  scene: 0,
-  nodes: [],
-  extensionsUsed: []
-})
-
-const SceneReactor = (props: { sceneEntity: Entity }) => {
+export default function ShadowExampleEntry(props: { sceneEntity: Entity }) {
   const settingsEntity = useExampleEntity(props.sceneEntity)
   const platformEntity = useExampleEntity(props.sceneEntity)
   const boxEntity = useExampleEntity(props.sceneEntity)
@@ -111,38 +85,4 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
   }, [])
 
   return <></>
-}
-
-export default function ShadowExampleEntry() {
-  const entity = useHookstate(UndefinedEntity)
-  const engine = useMutableState(ReferenceSpaceState)
-  const renderer = useOptionalComponent(engine.viewerEntity.value, RendererComponent)
-
-  useEffect(() => {
-    if (!renderer?.value) return
-
-    const sceneID = `scene`
-    const gltf = createSceneGLTF(sceneID)
-
-    const sceneURL = `/${sceneID}.gltf`
-
-    Cache.add(sceneURL, gltf)
-
-    const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
-    renderer.scenes.merge([gltfEntity])
-    setComponent(gltfEntity, SceneComponent)
-    getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
-
-    entity.set(gltfEntity)
-
-    return () => {
-      const idx = renderer.scenes.value.indexOf(gltfEntity)
-      renderer.scenes[idx].set(none)
-      removeEntity(gltfEntity)
-    }
-  }, [!!renderer?.scenes.value])
-
-  if (!entity.value) return null
-
-  return <SceneReactor sceneEntity={entity.value} />
 }
