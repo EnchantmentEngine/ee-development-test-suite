@@ -99,13 +99,13 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
         id="dnd-container"
       >
         <DndWrapper id="dnd-container">
-          <div className="m-4 mt-1 flex flex max-w-[500px] flex-col overflow-hidden rounded-lg bg-theme-primary p-4">
+          <div className="bg-theme-primary m-4 mt-1 flex flex max-w-[500px] flex-col overflow-hidden rounded-lg p-4">
             <PaginatedList
               options={{ countPerPage: 6 }}
               list={variantComponent.levels}
               element={(level: State<VariantLevel>, index) => {
                 return (
-                  <div className="m-2 flex flex-col gap-1 bg-theme-secondary py-1">
+                  <div className="bg-theme-secondary m-2 flex flex-col gap-1 py-1">
                     <InputGroup name="src" label={t('editor:properties.variant.src')}>
                       <ModelInput
                         value={level.src.value}

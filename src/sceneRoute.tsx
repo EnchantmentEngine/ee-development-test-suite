@@ -146,9 +146,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
           onClick={() => hidden.set(!hidden.value)}
         >
           {hidden.value ? (
-            <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
+            <HiChevronRight className="text-theme-primary pointer-events-none place-self-center" />
           ) : (
-            <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
+            <HiChevronLeft className="text-theme-primary pointer-events-none place-self-center" />
           )}
         </Button>
         <div className="NavBarContainer" style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}>
@@ -162,9 +162,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
                     <Button className="m-2" variant="tertiary" onClick={() => categoryShown.set(!categoryShown.value)}>
                       <div className="m-1 flex w-full flex-row">
                         {categoryShown.value ? (
-                          <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          <HiChevronUp className="text-theme-primary pointer-events-none m-1 place-self-center" />
                         ) : (
-                          <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          <HiChevronDown className="text-theme-primary pointer-events-none m-1 place-self-center" />
                         )}
                       </div>
                       {category.category}
