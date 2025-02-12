@@ -95,13 +95,21 @@
     "dependencies": [],
     "name": "hall.glb"
   },
-  "assets/GLTF/double-mat-test.glb": {
+  "assets/GLTF/double-mat-test_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": [],
+    "name": "double-mat-test_data.bin"
+  },
+  "assets/GLTF/double-mat-test.gltf": {
     "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "double-mat-test.glb"
+    "name": "double-mat-test.gltf"
   },
   "assets/GLTF/Duck/basic/Duck.gltf": {
     "type": "asset",
@@ -838,5 +846,13 @@
     ],
     "dependencies": [],
     "name": "test.thumbnail.jpeg"
+  },
+  "public/scenes/Unlit.gltf": {
+    "type": "scene",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": [],
+    "name": "Unlit.gltf"
   }
 }

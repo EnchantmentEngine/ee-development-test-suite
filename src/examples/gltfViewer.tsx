@@ -12,7 +12,6 @@ import { EntityTreeComponent } from '@ir-engine/ecs'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
 import { SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { DirectionalLightComponent, ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
@@ -49,7 +48,6 @@ const GLTF = () => {
       setComponent(modelEntity, UUIDComponent, 'gltf viewer' as EntityUUID)
       setComponent(modelEntity, NameComponent, '3D Preview Entity')
       setComponent(modelEntity, TransformComponent, { position: new Vector3(3, 0, 0) })
-      setComponent(modelEntity, SourceComponent, 'gltf viewer-' + source.value)
       setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
       setComponent(modelEntity, VisibleComponent, true)
       setComponent(modelEntity, ModelComponent, { src: source.value })

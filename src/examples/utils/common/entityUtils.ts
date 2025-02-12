@@ -1,24 +1,15 @@
-import {
-  Entity,
-  EntityTreeComponent,
-  UUIDComponent,
-  createEntity,
-  generateEntityUUID,
-  removeEntity,
-  setComponent
-} from '@ir-engine/ecs'
+import { Entity, EntityTreeComponent, removeEntity, setComponent } from '@ir-engine/ecs'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { useEffect } from 'react'
 
 export const setupEntity = (parent: Entity): Entity => {
-  const entity = createEntity()
-  setComponent(entity, UUIDComponent, generateEntityUUID())
+  const sourceID = GLTFComponent.getInstanceID(parent)
+  const entity = NodeIDComponent.create(sourceID, NodeIDComponent.generate())
   setComponent(entity, TransformComponent)
   setComponent(entity, EntityTreeComponent, { parentEntity: parent })
-  // const sceneID = getComponent(parent, SourceComponent)
-  // setComponent(entity, SourceComponent, sceneID)
-
   return entity
 }
 
