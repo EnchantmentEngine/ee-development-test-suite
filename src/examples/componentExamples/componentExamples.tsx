@@ -14,6 +14,7 @@ import {
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
   XRUIActivationType
@@ -354,7 +355,7 @@ export const subComponentExamples = [
           geometryParams: { radius: 0.2, segments: 10 }
         })
         setVisibleComponent(childEntity, true)
-        setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: getComponent(entity, UUIDComponent) })
+        setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: getComponent(entity, NodeIDComponent) })
         onLoad(entity)
       }, [])
 
@@ -436,7 +437,7 @@ export const subComponentExamples = [
           callbacks: [
             {
               callbackID: LinkComponent.linkCallbackName,
-              target: getComponent(entity, UUIDComponent)
+              target: getComponent(entity, NodeIDComponent)
             }
           ]
         })
