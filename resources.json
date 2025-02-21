@@ -119,7 +119,9 @@
       "Model"
     ],
     "dependencies": [],
-    "name": "double-mat-test.gltf"
+    "name": "double-mat-test.gltf",
+    "thumbnailKey": "projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_GLTF_double-mat-test.gltf-thumbnail.png",
+    "thumbnailMode": "automatic"
   },
   "assets/GLTF/Duck/basic/Duck.gltf": {
     "type": "asset",
@@ -891,21 +893,21 @@
     ],
     "name": "male_04.vrm"
   },
-  "public/avatars/Test_Avaturn.glb": {
+  "public/avatars/Test Avaturn.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test_Avaturn.glb"
+    "name": "Test Avaturn.glb"
   },
-  "public/avatars/Test_RPM.glb": {
+  "public/avatars/Test RPM.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test_RPM.glb"
+    "name": "Test RPM.glb"
   },
   "public/scenes/animations-test.envmap.ktx2": {
     "type": "asset",

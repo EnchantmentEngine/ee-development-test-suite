@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 
-import { TopButtons } from '@ir-engine/client-core/src/components/TopButtons'
 import { UUIDComponent, useQuery } from '@ir-engine/ecs'
 import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { Entity } from '@ir-engine/ecs/src/Entity'
@@ -32,7 +31,6 @@ export default function PostProcessing() {
   return (
     <>
       <Template sceneName={sceneName} projectName={projectName} />
-      <TopButtons />
       <div
         style={{
           pointerEvents: 'all',

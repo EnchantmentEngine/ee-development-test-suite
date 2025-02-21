@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import { TopButtons } from '@ir-engine/client-core/src/components/TopButtons'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { LocationService, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
@@ -31,7 +30,6 @@ export default function P2PConnection() {
           </div>
         ))}
       </div>
-      <TopButtons />
     </>
   )
 }
