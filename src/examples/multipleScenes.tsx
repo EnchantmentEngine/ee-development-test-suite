@@ -165,10 +165,6 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     const blob = new Blob([JSON.stringify(gltf)], { type: 'application/json' })
     const sceneURL = URL.createObjectURL(blob)
 
-    // const sceneURL = `/${sceneID}.gltf`
-
-    // Cache.add(sceneURL, gltf)
-
     const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent, { active: true })
