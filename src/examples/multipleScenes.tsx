@@ -46,7 +46,7 @@ import {
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
 import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
+import { Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
 export const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
@@ -162,10 +162,12 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     const sceneID = `scene-${coord.x}-${coord.z}`
     const gltf = createSceneGLTF(sceneID)
 
-    const sceneURL = `/${sceneID}.gltf`
+    const blob = new Blob([JSON.stringify(gltf)], { type: 'application/json' })
+    const sceneURL = URL.createObjectURL(blob)
 
-    Cache.enabled = true
-    Cache.add(sceneURL, gltf)
+    // const sceneURL = `/${sceneID}.gltf`
+
+    // Cache.add(sceneURL, gltf)
 
     const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
