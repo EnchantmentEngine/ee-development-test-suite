@@ -893,21 +893,21 @@
     ],
     "name": "male_04.vrm"
   },
-  "public/avatars/Test Avaturn.glb": {
+  "public/avatars/Test_Avaturn.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test Avaturn.glb"
+    "name": "Test_Avaturn.glb"
   },
-  "public/avatars/Test RPM.glb": {
+  "public/avatars/Test_RPM.glb": {
     "type": "asset",
     "tags": [
       "Model"
     ],
     "dependencies": [],
-    "name": "Test RPM.glb"
+    "name": "Test_RPM.glb"
   },
   "public/scenes/animations-test.envmap.ktx2": {
     "type": "asset",
