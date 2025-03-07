@@ -22,7 +22,7 @@
     ],
     "dependencies": [],
     "name": "Racer-transformed.gltf",
-    "thumbnailKey": "https://172.27.136.37:8642/projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_Racer-transformed.gltf-thumbnail.png",
+    "thumbnailKey": "__$project$__/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_Racer-transformed.gltf-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
@@ -72,7 +72,7 @@
     ],
     "dependencies": [],
     "name": "rings.glb",
-    "thumbnailKey": "https://172.27.136.37:8642/projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_rings.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_rings.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/tornado-mobile-xr.glb": {
@@ -82,7 +82,7 @@
     ],
     "dependencies": [],
     "name": "tornado-mobile-xr.glb",
-    "thumbnailKey": "https://172.27.136.37:8642/projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_tornado-mobile-xr.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_tornado-mobile-xr.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/transforms.glb": {
@@ -92,7 +92,7 @@
     ],
     "dependencies": [],
     "name": "transforms.glb",
-    "thumbnailKey": "https://172.27.136.37:8642/projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_transforms.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/ir-engine/ir-development-test-suite/public/thumbnails/assets_animations_transforms.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/envmaps/hall.glb": {
