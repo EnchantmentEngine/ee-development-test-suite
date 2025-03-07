@@ -441,6 +441,7 @@ export const subComponentExamples = [
             }
           ]
         })
+        setComponent(entity, PrimitiveGeometryComponent)
         setVisibleComponent(entity, true)
         onLoad(entity)
       }, [callback])
