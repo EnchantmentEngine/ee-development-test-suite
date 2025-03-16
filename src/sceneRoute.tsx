@@ -3,7 +3,6 @@ import styles from './sceneRoute.css?inline'
 
 import React, { useEffect } from 'react'
 
-import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
 import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
@@ -18,7 +17,6 @@ import { SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   defineState,
   getMutableState,
-  none,
   syncStateWithLocalStorage,
   useHookstate,
   useMutableState
@@ -28,6 +26,7 @@ import { useSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { useEngineCanvas } from '@ir-engine/spatial/src/renderer/functions/useEngineCanvas'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
+import { useSearchParams } from 'react-router-dom'
 
 export type RouteData = {
   name: string
@@ -86,7 +85,9 @@ const ExampleRouteState = defineState({
 
 const Routes = (props: { routeCategories: RouteCategories; header: string }) => {
   const { routeCategories, header } = props
-  const currentRoute = useMutableState(SearchParamState).example.value
+  const [params, setSearch] = useSearchParams()
+
+  const currentRoute = params.get('example') || ''
   const categoriesShown = useHookstate({} as Record<string, boolean>)
 
   const hidden = useMutableState(ExampleRouteState).hidden
@@ -99,7 +100,8 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const viewerEntity = useHookstate(getMutableState(ReferenceSpaceState).viewerEntity).value
 
   const onClick = (category: string, route: string) => {
-    SearchParamState.set('example', getPathForRoute(category, route))
+    params.set('example', getPathForRoute(category, route))
+    setSearch(params)
   }
 
   const selectedRoute = routeCategories.flatMap((route) =>
@@ -107,8 +109,12 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   )?.[0]
 
   useEffect(() => {
-    if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', none)
-    else SearchParamState.set('spectate', '')
+    if (selectedRoute?.spawnAvatar) {
+      params.delete('spectate')
+    } else {
+      params.set('spectate', '')
+    }
+    setSearch(params)
   }, [selectedRoute])
 
   const Entry = selectedRoute && selectedRoute.entry
