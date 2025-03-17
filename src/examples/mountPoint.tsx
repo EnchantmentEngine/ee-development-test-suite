@@ -24,7 +24,7 @@ import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { BoxGeometry, Mesh, MeshStandardMaterial, Vector3 } from 'three'
+import { CylinderGeometry, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import { useRouteScene } from '../sceneRoute'
 
 export default function MountPointEntry() {
@@ -40,15 +40,18 @@ export default function MountPointEntry() {
 
     const geometryEntity = createEntity()
     setComponent(geometryEntity, UUIDComponent, generateEntityUUID())
-    setComponent(geometryEntity, TransformComponent)
+    setComponent(geometryEntity, TransformComponent, {
+      position: new Vector3(2, 0.25, 2),
+      scale: new Vector3(0.25, 0.5, 0.25)
+    })
     setComponent(geometryEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(geometryEntity, NameComponent, 'Geometry')
     setVisibleComponent(geometryEntity, true)
-    setComponent(geometryEntity, MeshComponent, new Mesh(new BoxGeometry(), new MeshStandardMaterial()))
+    setComponent(geometryEntity, MeshComponent, new Mesh(new CylinderGeometry(), new MeshStandardMaterial()))
 
     const sourceID = GLTFComponent.getInstanceID(sceneEntity)
     const entity = NodeIDComponent.create(sourceID, NodeIDComponent.generate())
-    setComponent(entity, TransformComponent, { position: new Vector3(0, 1, 0) })
+    setComponent(entity, TransformComponent, { position: new Vector3(2, 0.4, 2) })
     setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(entity, NameComponent, 'Mount-Point-Example')
     setComponent(entity, MountPointComponent)
