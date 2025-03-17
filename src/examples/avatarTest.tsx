@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { NO_PROXY, useHookstate } from '@ir-engine/hyperflux'
+import { NO_PROXY } from '@ir-engine/hyperflux'
 
 import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
 import { AvatarType } from '@ir-engine/common/src/schema.type.module'
@@ -22,16 +22,16 @@ export default function AvatarTestEntry() {
   const network = useWorldNetwork()
   const sceneEntity = useRouteScene()
   const avatarList = useAvatarData()
-  const created = useHookstate(false)
 
   useEffect(() => {
-    if (sceneEntity && network?.ready?.value && avatarList.value.length > 0 && !created.value) {
-      created.set(true)
-      const data = [...avatarList.get(NO_PROXY)] as AvatarType[]
-      mockNetworkAvatars(data)
-      mockIKAvatars(data)
-      mockLoopAnimAvatars(data)
-      mockTPoseAvatars(data)
+    if (!sceneEntity || !network?.ready?.value || !avatarList.value.length) return
+    const data = [...avatarList.get(NO_PROXY)] as AvatarType[]
+    mockNetworkAvatars(data)
+    mockIKAvatars(data)
+    mockLoopAnimAvatars(data)
+    mockTPoseAvatars(data)
+    return () => {
+      // @todo clean up entities
     }
   }, [network?.ready, avatarList, sceneEntity])
 

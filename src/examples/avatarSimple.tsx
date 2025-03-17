@@ -29,7 +29,7 @@ import {
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
-import { NetworkActions } from '@ir-engine/network'
+import { NetworkActions, WorldNetworkAction } from '@ir-engine/network'
 import {
   AmbientLightComponent,
   DirectionalLightComponent,
@@ -109,6 +109,9 @@ export default function AvatarSimpleEntry() {
 
     const spread = 25
 
+    const spawnedEntitiyUUIDs = [] as EntityUUID[]
+    const peerIndexesCreated = [] as number[]
+
     for (let i = 0; i < 100; i++) {
       const randomAvatar = avatars.data[Math.floor(Math.random() * avatars.data.length)]
       dispatchAction(
@@ -118,6 +121,7 @@ export default function AvatarSimpleEntry() {
           userID: ('test user ' + i) as UserID
         })
       )
+      peerIndexesCreated.push(i)
       const parentUUID = getComponent(entity.value, UUIDComponent)
       dispatchAction(
         AvatarNetworkAction.spawn({
@@ -129,6 +133,17 @@ export default function AvatarSimpleEntry() {
           $peer: ('test peer ' + i) as PeerID
         })
       )
+      spawnedEntitiyUUIDs.push(('test user ' + i + '_avatar') as EntityUUID)
+    }
+    return () => {
+      for (const uuid of spawnedEntitiyUUIDs) {
+        dispatchAction(WorldNetworkAction.destroyEntity({ entityUUID: uuid }))
+      }
+      for (const peer of peerIndexesCreated) {
+        dispatchAction(
+          NetworkActions.peerLeft({ peerID: ('test peer ' + peer) as PeerID, userID: ('test user ' + peer) as UserID })
+        )
+      }
     }
   }, [gltfComponent?.progress?.value, avatars.data.length])
 
