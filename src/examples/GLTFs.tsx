@@ -622,9 +622,7 @@ const GLTF = (props: {
 }) => {
   const { root, src, screenshotURL, scale, offset, animationClip } = props
   const gltfEntity = useExampleEntity(root)
-  // const modelEntity = useExampleEntity(root)
   const gltfAnimation = useOptionalComponent(gltfEntity, AnimationComponent)
-  // const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
 
   useImmediateEffect(() => {
     const offsetVec =
@@ -643,18 +641,6 @@ const GLTF = (props: {
     const gltfTransform = getComponent(gltfEntity, TransformComponent)
     gltfTransform.position.set(-offsetVec.x, offsetVec.y, offsetVec.z)
     if (scale) gltfTransform.scale.set(scale, scale, scale)
-
-    // use Three JS Loader
-    // setComponent(modelEntity, NameComponent, 'Three-Loader')
-    // setComponent(modelEntity, ModelComponent, {
-    //   cameraOcclusion: true,
-    //   src: src
-    // })
-
-    // setVisibleComponent(modelEntity, true)
-    // const modelTransform = getComponent(modelEntity, TransformComponent)
-    // modelTransform.position.set(offsetVec.x, offsetVec.y, offsetVec.z)
-    // if (scale) modelTransform.scale.set(scale, scale, scale)
   }, [src])
 
   useImmediateEffect(() => {

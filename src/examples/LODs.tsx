@@ -13,7 +13,6 @@ import {
 } from '@ir-engine/ecs/src/ComponentFunctions'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -22,6 +21,7 @@ import { TransformComponent } from '@ir-engine/spatial/src/transform/components/
 
 import config from '@ir-engine/common/src/config'
 import { Entity } from '@ir-engine/ecs/src/Entity'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { Template } from './utils/template'
 
@@ -35,7 +35,7 @@ const visualizeVariants = () => {
 }
 
 const setVariant = (entity: Entity, result: Array<{ url: string; metadata: Record<string, any> }>) => {
-  setComponent(entity, ModelComponent, {
+  setComponent(entity, GLTFComponent, {
     src: result[0].url
   })
   setComponent(entity, VariantComponent, {

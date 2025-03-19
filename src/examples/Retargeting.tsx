@@ -5,7 +5,6 @@ import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@ir-engine/common/src/constants/
 import { createEntity, getChildrenWithComponents, removeEntity } from '@ir-engine/ecs'
 import { Entity } from '@ir-engine/ecs/src/Entity'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
-import createGLTFExporter from '@ir-engine/engine/src/assets/functions/createGLTFExporter'
 import { defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
 
 import { EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
@@ -159,37 +158,35 @@ const RetargetingDND = () => {
   }
 
   const onSave = async () => {
-    const scene = getComponent(rootEntity.value!, ObjectComponent)
-    if (!scene) return
-
-    const exporter = createGLTFExporter()
-    const isGLTF = /\.gltf$/.test(assetFile.value?.name!)
-    const glb: ArrayBuffer = await new Promise((resolve) => {
-      exporter.parse(
-        scene,
-        (gltf: ArrayBuffer) => {
-          resolve(gltf)
-        },
-        (error) => {
-          throw error
-        },
-        {
-          binary: !isGLTF,
-          embedImages: !isGLTF,
-          includeCustomExtensions: true
-          // animations: rootEntity.get(NO_PROXY)!.animations as AnimationClip[] // this doesnt work for some reason
-        }
-      )
-    })
-
-    const file = new File([glb], assetFile.value?.name!)
-    const blobUrl = URL.createObjectURL(file)
-    const link = document.createElement('a')
-    link.href = blobUrl
-    link.download = assetFile.value?.name!
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    // const scene = getComponent(rootEntity.value!, ObjectComponent)
+    // if (!scene) return
+    // const exporter = createGLTFExporter()
+    // const isGLTF = /\.gltf$/.test(assetFile.value?.name!)
+    // const glb: ArrayBuffer = await new Promise((resolve) => {
+    //   exporter.parse(
+    //     scene,
+    //     (gltf: ArrayBuffer) => {
+    //       resolve(gltf)
+    //     },
+    //     (error) => {
+    //       throw error
+    //     },
+    //     {
+    //       binary: !isGLTF,
+    //       embedImages: !isGLTF,
+    //       includeCustomExtensions: true
+    //       // animations: rootEntity.get(NO_PROXY)!.animations as AnimationClip[] // this doesnt work for some reason
+    //     }
+    //   )
+    // })
+    // const file = new File([glb], assetFile.value?.name!)
+    // const blobUrl = URL.createObjectURL(file)
+    // const link = document.createElement('a')
+    // link.href = blobUrl
+    // link.download = assetFile.value?.name!
+    // document.body.appendChild(link)
+    // link.click()
+    // document.body.removeChild(link)
   }
 
   useEffect(() => {

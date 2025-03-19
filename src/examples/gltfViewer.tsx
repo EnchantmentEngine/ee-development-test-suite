@@ -10,8 +10,8 @@ import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@
 import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { DirectionalLightComponent, ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
@@ -50,7 +50,7 @@ const GLTF = () => {
       setComponent(modelEntity, TransformComponent, { position: new Vector3(3, 0, 0) })
       setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
       setComponent(modelEntity, VisibleComponent, true)
-      setComponent(modelEntity, ModelComponent, { src: source.value })
+      setComponent(modelEntity, GLTFComponent, { src: source.value })
       setComponent(modelEntity, SceneComponent)
     }
 

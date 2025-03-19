@@ -20,7 +20,7 @@ import {
 import { AvatarComponent } from '@ir-engine/engine/src/avatar/components/AvatarComponent'
 import { AvatarColliderComponent } from '@ir-engine/engine/src/avatar/components/AvatarControllerComponent'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { NetworkObjectComponent } from '@ir-engine/network'
 import { TransformComponent } from '@ir-engine/spatial'
@@ -106,10 +106,10 @@ const AvatarSetupReactor = (props: {
 }) => {
   const { src, position, animIndex, rootEntity, onComplete } = props
   const entity = useExampleEntity(rootEntity)
-  const model = useOptionalComponent(entity, ModelComponent)
+  const model = useOptionalComponent(entity, GLTFComponent)
 
   useEffect(() => {
-    setComponent(entity, ModelComponent, { src: src, convertToVRM: true })
+    setComponent(entity, GLTFComponent, { src: src })
     setVisibleComponent(entity, true)
     setComponent(entity, LoopAnimationComponent, {
       animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
@@ -118,9 +118,11 @@ const AvatarSetupReactor = (props: {
     setComponent(entity, TransformComponent, { position })
   }, [])
 
+  const loaded = model?.progress.value === 100
+
   useEffect(() => {
-    if (model?.scene.value) onComplete()
-  }, [model?.scene])
+    if (loaded) onComplete()
+  }, [loaded])
 
   return null
 }
@@ -181,7 +183,7 @@ const AvatarIKSetupReactor = (props: {
   const { src, position, rootEntity, onComplete } = props
   const rootUUID = useComponent(rootEntity, UUIDComponent)
   const entity = useHookstate(createEntity).value
-  const model = useOptionalComponent(entity, ModelComponent)
+  const model = useOptionalComponent(entity, GLTFComponent)
 
   useEffect(() => {
     const obj3d = new Group()
@@ -194,7 +196,7 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, RigidBodyComponent, { type: 'kinematic' })
     setComponent(entity, NetworkObjectComponent, { ownerId: uuid as UserID })
-    setComponent(entity, ModelComponent, { src: src, convertToVRM: true })
+    setComponent(entity, GLTFComponent, { src: src })
     setComponent(entity, AvatarColliderComponent)
     setComponent(entity, AvatarComponent)
     setComponent(entity, AvatarAnimationComponent, {
@@ -214,9 +216,11 @@ const AvatarIKSetupReactor = (props: {
     }
   }, [])
 
+  const loaded = model?.progress.value === 100
+
   useEffect(() => {
-    if (model?.scene.value) onComplete()
-  }, [model?.scene])
+    if (loaded) onComplete()
+  }, [loaded])
 
   return null
 }

@@ -7,7 +7,7 @@ import { ikTargets } from '@ir-engine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { PeerID, UserID, dispatchAction, getMutableState } from '@ir-engine/hyperflux'
 import { NetworkActions, NetworkState } from '@ir-engine/network'
 import { NetworkId } from '@ir-engine/network/src/NetworkId'
@@ -191,7 +191,7 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
     activeClipIndex: 0,
     animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb'
   })
-  setComponent(entity, ModelComponent, { src: filename, convertToVRM: true, cameraOcclusion: false })
+  setComponent(entity, GLTFComponent, { src: filename, cameraOcclusion: false })
   return entity
 }
 

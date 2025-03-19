@@ -28,7 +28,7 @@ const KTX2DND = () => {
 
       if (file.name.endsWith('.ktx2')) {
         const url = URL.createObjectURL(file)
-        const ktxLoader = getState(AssetLoaderState).gltfLoader.ktx2Loader
+        const ktxLoader = getState(AssetLoaderState).ktx2Loader
         if (!ktxLoader) throw new Error('KTX2Loader not yet initialized')
         ktxLoader.load(
           url,
