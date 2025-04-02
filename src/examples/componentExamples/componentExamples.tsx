@@ -182,10 +182,6 @@ export const subComponentExamples = [
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Variant-Example')
-        setComponent(entity, GLTFComponent, {
-          cameraOcclusion: true,
-          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD0.glb'
-        })
         setComponent(entity, VariantComponent, {
           heuristic: Heuristic.DISTANCE,
           levels: [
