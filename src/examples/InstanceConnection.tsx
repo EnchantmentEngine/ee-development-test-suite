@@ -11,8 +11,7 @@ import { MediasoupDataProducerConsumerState } from '@ir-engine/common/src/transp
 import { MediasoupMediaProducerConsumerState } from '@ir-engine/common/src/transports/mediasoup/MediasoupMediaProducerConsumerState'
 import { MediasoupTransportState } from '@ir-engine/common/src/transports/mediasoup/MediasoupTransportState'
 import { Button } from '@ir-engine/editor/src/components/inputs/Button'
-import { getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
-import { Network, NetworkState } from '@ir-engine/network'
+import { getMutableState, getState, Network, NetworkState, useHookstate } from '@ir-engine/hyperflux'
 
 const TransportInfo = (props: { networkID: InstanceID; transportID: string }) => {
   const transportState = useHookstate(

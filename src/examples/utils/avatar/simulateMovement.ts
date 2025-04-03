@@ -1,4 +1,4 @@
-import { EntityUUID } from '@ir-engine/ecs'
+import { EntityUUID, NetworkObjectComponent } from '@ir-engine/ecs'
 import { getComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { ECSState } from '@ir-engine/ecs/src/ECSState'
 import { defineQuery } from '@ir-engine/ecs/src/QueryFunctions'
@@ -13,14 +13,10 @@ import {
   rightControllerOffset
 } from '@ir-engine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
 import { getState } from '@ir-engine/hyperflux'
-import { NetworkObjectComponent } from '@ir-engine/network'
 import { Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { lerp } from '@ir-engine/spatial/src/common/functions/MathLerpFunctions'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { TransformComponent } from '@ir-engine/spatial/src/transform/components/TransformComponent'
-import { Quaternion } from 'three'
-
-const q = new Quaternion()
 
 const entitiesQuery = defineQuery([NetworkObjectComponent, RigidBodyComponent, AvatarComponent, AvatarRigComponent])
 

@@ -3,8 +3,16 @@ import { Entity, UUIDComponent, generateEntityUUID, removeEntityNodeRecursively 
 import { setComponent, useComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { AvatarRigComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@ir-engine/engine/src/mocap/MotionCaptureSystem'
-import { NO_PROXY, State, UserID, getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
-import { DataChannelRegistryState, NetworkState } from '@ir-engine/network'
+import {
+  DataChannelRegistryState,
+  NO_PROXY,
+  NetworkState,
+  State,
+  UserID,
+  getMutableState,
+  getState,
+  useHookstate
+} from '@ir-engine/hyperflux'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { encode } from 'msgpackr'

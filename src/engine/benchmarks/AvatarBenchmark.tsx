@@ -5,6 +5,7 @@ import {
   Entity,
   EntityTreeComponent,
   EntityUUID,
+  NetworkObjectComponent,
   UUIDComponent,
   createEntity,
   getComponent,
@@ -22,7 +23,6 @@ import { AvatarColliderComponent } from '@ir-engine/engine/src/avatar/components
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
-import { NetworkObjectComponent } from '@ir-engine/network'
 import { TransformComponent } from '@ir-engine/spatial'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
