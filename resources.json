@@ -105,6 +105,14 @@
     "thumbnailKey": "projects/ir-engine/ir-development-test-suite/public/thumbnails/assets_hall.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
+  "assets/GLTF/basic_door.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": [],
+    "name": "basic_door.glb"
+  },
   "assets/GLTF/double-mat-test_data.bin": {
     "type": "file",
     "tags": [

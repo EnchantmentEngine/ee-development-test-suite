@@ -14,7 +14,7 @@ import {
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
+import { NodeID, NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
   XRUIActivationType
@@ -22,6 +22,7 @@ import {
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
 import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComponent'
+import { ObservableComponent } from '@ir-engine/engine/src/scene/components/ObservableComponent'
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
@@ -39,15 +40,21 @@ import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
+import { PI, Q_IDENTITY, Q_Y_180, Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
-import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
+import {
+  MaterialInstanceComponent,
+  MaterialStateComponent
+} from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
 import React, { useEffect } from 'react'
-import { MathUtils } from 'three'
+import { MathUtils, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import ComponentNamesUI from './ComponentNamesUI'
+
+const BehaviorComponent = ObservableComponent
 
 export const metadata = {
   title: 'Components Examples',
@@ -444,6 +451,157 @@ export const subComponentExamples = [
 
       return null
     }
+  },
+  {
+    name: 'Behavior',
+    description: 'Add arbitrary behaviors to objects',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const doorEntity = useExampleEntity(parent)
+      const buttonEntity = useExampleEntity(parent)
+      const pedastalEntity = useExampleEntity(parent)
+
+      useEffect(() => {
+        setComponent(doorEntity, TransformComponent, { position: new Vector3(6.5, 0, 2.5) })
+        setComponent(doorEntity, NameComponent, 'Door')
+        setComponent(doorEntity, GLTFComponent, {
+          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/basic_door.glb'
+        })
+        setComponent(doorEntity, VisibleComponent)
+
+        setComponent(pedastalEntity, TransformComponent, { position: new Vector3(0, 0.5, 0) })
+        setComponent(pedastalEntity, PrimitiveGeometryComponent, {
+          geometryType: GeometryTypeEnum.BoxGeometry,
+          geometryParams: {
+            width: 1,
+            height: 1,
+            depth: 1,
+            widthSegments: 1,
+            heightSegments: 1,
+            depthSegments: 1
+          }
+        })
+        setComponent(pedastalEntity, NameComponent, 'Pedestal')
+        const lightpurpleHex = 0x9b59b6
+        setComponent(pedastalEntity, MaterialStateComponent, {
+          material: new MeshLambertMaterial({ color: lightpurpleHex })
+        })
+        setComponent(pedastalEntity, MaterialInstanceComponent, { uuid: [getComponent(pedastalEntity, UUIDComponent)] })
+        setComponent(pedastalEntity, VisibleComponent, true)
+
+        setComponent(buttonEntity, TransformComponent, {
+          position: new Vector3(0, 1.025, 0)
+        })
+        setComponent(buttonEntity, PrimitiveGeometryComponent, {
+          geometryType: GeometryTypeEnum.BoxGeometry,
+          geometryParams: {
+            width: 0.2,
+            height: 0.05,
+            depth: 0.2,
+            widthSegments: 1,
+            heightSegments: 1,
+            depthSegments: 1
+          }
+        })
+        setComponent(buttonEntity, NameComponent, 'Button')
+        setComponent(buttonEntity, MaterialStateComponent, { material: new MeshLambertMaterial({ color: 'red' }) })
+        setComponent(buttonEntity, MaterialInstanceComponent, { uuid: [getComponent(buttonEntity, UUIDComponent)] })
+        setComponent(buttonEntity, VisibleComponent, true)
+
+        setComponent(buttonEntity, InputComponent, { highlight: true, grow: true })
+        setComponent(buttonEntity, InteractableComponent, {
+          label: '',
+          clickInteract: true,
+          uiActivationType: XRUIActivationType.proximity,
+          activationDistance: 2,
+          highlighted: true,
+          callbacks: [
+            {
+              callbackID: 'Button Click Callback',
+              target: getComponent(buttonEntity, NodeIDComponent)
+            },
+            {
+              callbackID: 'Button Click Callback 2',
+              target: getComponent(buttonEntity, NodeIDComponent)
+            }
+          ]
+        })
+
+        const doorNodeID = '5' as NodeID // the door inside the door model
+        const Q_Y_120 = new Quaternion().setFromAxisAngle(Vector3_Up, PI * (120 / 180))
+
+        setComponent(buttonEntity, BehaviorComponent, {
+          observers: [
+            {
+              conditions: [
+                {
+                  type: 'callback',
+                  nodeID: getComponent(buttonEntity, NodeIDComponent),
+                  callback: 'Button Click Callback'
+                },
+                // ensure door is not already open by getting the rotation
+                {
+                  type: 'entity',
+                  nodeID: doorNodeID,
+                  sourceNodeID: getComponent(doorEntity, NodeIDComponent),
+                  component: TransformComponent.jsonID,
+                  property: 'rotation.y',
+                  value: 0,
+                  condition: 'equal'
+                }
+              ],
+              effects: [
+                {
+                  type: 'transition',
+                  nodeID: doorNodeID,
+                  sourceNodeID: getComponent(doorEntity, NodeIDComponent),
+                  jsonID: TransformComponent.jsonID,
+                  propertyPath: 'rotation',
+                  value: Q_Y_120,
+                  duration: 1000,
+                  easing: Easing.exponential.inOut.path
+                }
+              ],
+              networked: true
+            },
+            {
+              conditions: [
+                {
+                  type: 'callback',
+                  nodeID: getComponent(buttonEntity, NodeIDComponent),
+                  callback: 'Button Click Callback 2'
+                },
+                // ensure door is not already closed by getting the rotation
+                {
+                  type: 'entity',
+                  nodeID: doorNodeID,
+                  sourceNodeID: getComponent(doorEntity, NodeIDComponent),
+                  component: TransformComponent.jsonID,
+                  property: 'rotation.y',
+                  value: 0,
+                  condition: 'notEqual'
+                }
+              ],
+              effects: [
+                {
+                  type: 'transition',
+                  nodeID: doorNodeID,
+                  sourceNodeID: getComponent(doorEntity, NodeIDComponent),
+                  jsonID: TransformComponent.jsonID,
+                  propertyPath: 'rotation',
+                  value: Q_IDENTITY,
+                  duration: 1000,
+                  easing: Easing.exponential.inOut.path
+                }
+              ],
+              networked: true
+            }
+          ]
+        })
+      }, [])
+
+      return null
+    }
   }
   // {
   //   name: 'UVOL',
@@ -494,6 +652,8 @@ export const ComponentExamples = (props: {
   const xrui = useHookstate({ entity: UndefinedEntity })
 
   useEffect(() => {
+    if (!xrui.entity.value) return
+
     const componentNamesUIEntity = createEntity()
     setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
@@ -504,7 +664,7 @@ export const ComponentExamples = (props: {
     return () => {
       removeEntity(componentNamesUIEntity)
     }
-  }, [Reactor])
+  }, [Reactor, xrui.entity.value])
 
   return <Reactor parent={sceneEntity} onLoad={xrui.entity.set} />
 }
