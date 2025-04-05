@@ -19,10 +19,10 @@ import {
   InteractableComponent,
   XRUIActivationType
 } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
+import { BehaviorComponent } from '@ir-engine/engine/src/scene/components/BehaviorComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
 import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComponent'
-import { ObservableComponent } from '@ir-engine/engine/src/scene/components/ObservableComponent'
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
@@ -53,8 +53,6 @@ import { MathUtils, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import ComponentNamesUI from './ComponentNamesUI'
-
-const BehaviorComponent = ObservableComponent
 
 export const metadata = {
   title: 'Components Examples',
@@ -531,7 +529,7 @@ export const subComponentExamples = [
         const Q_Y_120 = new Quaternion().setFromAxisAngle(Vector3_Up, PI * (120 / 180))
 
         setComponent(buttonEntity, BehaviorComponent, {
-          observers: [
+          behaviors: [
             {
               conditions: [
                 {
