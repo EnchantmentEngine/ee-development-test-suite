@@ -35,7 +35,7 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
     setComponent(cameraEntity, CameraComponent)
     setComponent(cameraEntity, TransformComponent)
     setComponent(cameraEntity, VisibleComponent)
-    setComponent(cameraEntity, CameraOrbitComponent, { refocus: true })
+    setComponent(cameraEntity, CameraOrbitComponent)
     setComponent(cameraEntity, InputComponent)
     setComponent(cameraEntity, EntityTreeComponent, { parentEntity: UndefinedEntity })
 
