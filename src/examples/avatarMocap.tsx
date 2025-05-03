@@ -1,5 +1,5 @@
 import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
-import { Entity, UUIDComponent, generateEntityUUID, removeEntityNodeRecursively } from '@ir-engine/ecs'
+import { Entity, EntityUUID, UUIDComponent, generateEntityUUID, removeEntityNodeRecursively } from '@ir-engine/ecs'
 import { setComponent, useComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { AvatarRigComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@ir-engine/engine/src/mocap/MotionCaptureSystem'
@@ -57,7 +57,7 @@ const MocapAvatar = (props: {
   mocapData: Record<AvailablePoses, MotionCaptureResults>
 }) => {
   const { userID, activePose, mocapData } = props
-  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID]).value
+  const entity = UUIDComponent.useEntityByUUID((userID + '_avatar') as EntityUUID)
   const rig = useOptionalComponent(entity, AvatarRigComponent)
   const visible = !!useOptionalComponent(entity, VisibleComponent)?.value
   const avatarDebug = useHookstate(getMutableState(RendererState).avatarDebug)
