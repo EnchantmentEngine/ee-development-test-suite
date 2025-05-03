@@ -2,7 +2,6 @@ import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHo
 import { Entity, removeEntity, useOptionalComponent } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { getMutableState, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
-import '@ir-engine/ir-bot/src/functions/BotHookSystem'
 import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import React, { useEffect } from 'react'

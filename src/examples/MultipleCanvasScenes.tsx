@@ -12,7 +12,6 @@ import {
 } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
-import '@ir-engine/ir-bot/src/functions/BotHookSystem'
 import { AmbientLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { AssetPreviewCameraComponent } from '@ir-engine/spatial/src/camera/components/AssetPreviewCameraComponent'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
