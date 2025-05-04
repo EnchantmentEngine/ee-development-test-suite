@@ -2,6 +2,7 @@ import React from 'react'
 
 import '@ir-engine/client/src/engine'
 
+import DynamicAuthoring from './examples/DynamicAuthoring'
 import { gltfRoutes } from './examples/GLTFs'
 import InstanceConnection from './examples/InstanceConnection'
 import InstancedLODs from './examples/InstancedLODs'
@@ -117,6 +118,12 @@ export const examples: RouteCategories = [
         name: 'Multiple Canvases with different cameras',
         description: 'View the same scene from different cameras',
         entry: MultipleCanvasCameras
+      },
+      {
+        name: 'Dynamic Authoring',
+        description: 'Allows you to use editor APIs to edit entities at runtime',
+        sceneKey: 'projects/ir-engine/default-project/public/scenes/apartment.gltf',
+        entry: DynamicAuthoring
       }
     ]
   },
