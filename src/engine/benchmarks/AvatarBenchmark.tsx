@@ -4,7 +4,6 @@ import {
   Engine,
   Entity,
   EntityTreeComponent,
-  EntityUUID,
   UUIDComponent,
   createEntity,
   getComponent,
@@ -25,10 +24,9 @@ import { useHookstate } from '@ir-engine/hyperflux'
 import { NetworkObjectComponent } from '@ir-engine/network'
 import { TransformComponent } from '@ir-engine/spatial'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
-import { ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import React, { useEffect } from 'react'
-import { Group, MathUtils, Quaternion, Vector3 } from 'three'
+import { MathUtils, Quaternion, Vector3 } from 'three'
 import {
   createIkTargetsForAvatar,
   randomQuaternion,
@@ -186,26 +184,21 @@ const AvatarIKSetupReactor = (props: {
   const model = useOptionalComponent(entity, GLTFComponent)
 
   useEffect(() => {
-    const obj3d = new Group()
-    obj3d.entity = entity
-    const uuid = MathUtils.generateUUID()
-    setComponent(entity, UUIDComponent, uuid as EntityUUID)
+    const entityID = UUIDComponent.generate()
+    setComponent(entity, UUIDComponent, { entitySourceID: rootUUID.entitySourceID.value, entityID: entityID })
     setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
-    setComponent(entity, ObjectComponent, obj3d)
     setComponent(entity, TransformComponent, { position })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, RigidBodyComponent, { type: 'kinematic' })
-    setComponent(entity, NetworkObjectComponent, { ownerId: uuid as UserID })
+    setComponent(entity, NetworkObjectComponent, { ownerId: getComponent(entity, UUIDComponent) as any as UserID })
     setComponent(entity, GLTFComponent, { src: src })
     setComponent(entity, AvatarColliderComponent)
     setComponent(entity, AvatarComponent)
-    setComponent(entity, AvatarAnimationComponent, {
-      locomotion: new Vector3()
-    })
+    setComponent(entity, AvatarAnimationComponent)
     setComponent(entity, AvatarRigComponent)
 
-    spawnAvatar(rootUUID.value, uuid, src, { position, rotation: new Quaternion() })
-    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, uuid, randomVec3(), randomQuaternion())
+    spawnAvatar(UUIDComponent.concatenateUUID(rootUUID.value), entityID, src, { position, rotation: new Quaternion() })
+    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, randomVec3(), randomQuaternion())
 
     return () => {
       for (const targetUUID of targetUUIDs) {
