@@ -45,7 +45,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
         ownerID: userId,
-        entitySourceID: parentUUID,
+        entitySourceID: getComponent(Engine.instance.originEntity, UUIDComponent).entitySourceID,
         entityID: 'avatar' as EntityID,
         avatarURL: avatar.modelResource!.url,
         name: userId + '_avatar'
@@ -66,7 +66,6 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       userID: userId
     })
   )
-
   const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
 
   dispatchAction(
@@ -75,7 +74,7 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
       ownerID: userId,
-      entitySourceID: parentUUID,
+      entitySourceID: getComponent(Engine.instance.originEntity, UUIDComponent).entitySourceID,
       entityID: 'avatar' as EntityID,
       avatarURL: typeof avatar === 'string' ? avatar : avatar.modelResource!.url,
       name: userId + '_avatar'
@@ -176,7 +175,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
-  const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.getAsSourceID(Engine.instance.originEntity)
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
   setComponent(entity, UUIDComponent, {
     entitySourceID: parentUUID,
@@ -195,7 +194,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
-  const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.getAsSourceID(Engine.instance.originEntity)
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
   setComponent(entity, UUIDComponent, {
     entitySourceID: parentUUID,

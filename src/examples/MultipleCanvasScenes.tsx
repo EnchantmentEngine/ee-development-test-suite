@@ -2,7 +2,7 @@ import config from '@ir-engine/common/src/config'
 import {
   EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
@@ -29,7 +29,7 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
   const panelState = useHookstate(() => {
     const sceneEntity = createEntity()
     setComponent(sceneEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'scene' as EntityID
     })
     setComponent(sceneEntity, TransformComponent)
@@ -39,7 +39,7 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
 
     const cameraEntity = createEntity()
     setComponent(cameraEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'camera' as EntityID
     })
     setComponent(cameraEntity, CameraComponent)
@@ -101,7 +101,7 @@ export default function MultipleCanvasScenes() {
     const { cameraEntity, sceneEntity } = panel1State
     const modelEntity = createEntity()
     setComponent(modelEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'model 1' as EntityID
     })
     setComponent(modelEntity, TransformComponent)
@@ -118,7 +118,7 @@ export default function MultipleCanvasScenes() {
     const { cameraEntity, sceneEntity } = panel2State
     const modelEntity = createEntity()
     setComponent(modelEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'model 2' as EntityID
     })
     setComponent(modelEntity, TransformComponent)

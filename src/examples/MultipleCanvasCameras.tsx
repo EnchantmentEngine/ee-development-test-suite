@@ -2,7 +2,7 @@ import config from '@ir-engine/common/src/config'
 import {
   EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
@@ -59,7 +59,7 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
 
     setComponent(cameraEntity, NameComponent, '3D Preview Camera for ' + count)
     setComponent(cameraEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: ('camera' + count) as EntityID
     })
 
@@ -80,7 +80,7 @@ export default function MultipleCanvasCameras() {
   const sceneEntity = useHookstate(() => {
     const sceneEntity = createEntity()
     setComponent(sceneEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'scene' as EntityID
     })
     setComponent(sceneEntity, TransformComponent)
@@ -109,7 +109,7 @@ export default function MultipleCanvasCameras() {
     const camera2Entity = panel2State.cameraEntity
     const modelEntity = createEntity()
     setComponent(modelEntity, UUIDComponent, {
-      entitySourceID: 'engine' as EntityUUID,
+      entitySourceID: 'engine' as SourceID,
       entityID: 'model' as EntityID
     })
     setComponent(modelEntity, TransformComponent)

@@ -5,7 +5,7 @@ import {
   Entity,
   EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
@@ -59,7 +59,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
   const i = physicsEntityCount++
 
   const position = new Vector3(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-  setComponent(entity, UUIDComponent, { entitySourceID: 'engine' as EntityUUID, entityID: ('Ball-' + i) as EntityID })
+  setComponent(entity, UUIDComponent, { entitySourceID: 'engine' as SourceID, entityID: ('Ball-' + i) as EntityID })
   setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
   setComponent(entity, TransformComponent, { position, scale: new Vector3(2, 2, 2) })
   setComponent(entity, VisibleComponent, true)
@@ -69,7 +69,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
   const colliderEntity = createEntity()
   setComponent(colliderEntity, VisibleComponent, true)
   setComponent(colliderEntity, UUIDComponent, {
-    entitySourceID: 'engine' as EntityUUID,
+    entitySourceID: 'engine' as SourceID,
     entityID: ('Ball-' + i + '-collider') as EntityID
   })
   setComponent(colliderEntity, EntityTreeComponent, { parentEntity: entity })

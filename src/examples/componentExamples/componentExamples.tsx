@@ -348,7 +348,9 @@ export const subComponentExamples = [
           geometryParams: { radius: 0.2, segments: 10 }
         })
         setVisibleComponent(childEntity, true)
-        setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: UUIDComponent.getUUID(entity) })
+        setComponent(childEntity, SplineTrackComponent, {
+          splineEntityUUID: getComponent(entity, UUIDComponent).entityID
+        })
         onLoad(entity)
       }, [])
 

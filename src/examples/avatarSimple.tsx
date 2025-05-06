@@ -135,7 +135,7 @@ export default function AvatarSimpleEntry() {
           position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),
           parentUUID: parentUUID,
           avatarURL: randomAvatar.modelResource!.url,
-          entitySourceID: parentUUID,
+          entitySourceID: getComponent(entity.value, UUIDComponent).entitySourceID,
           entityID: 'avatar' as EntityID,
           name: 'test user ' + i,
           $peer: ('test peer ' + i) as PeerID
