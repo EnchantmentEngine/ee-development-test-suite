@@ -1,4 +1,4 @@
-import { EntityUUID } from '@ir-engine/ecs'
+import { SourceID } from '@ir-engine/ecs'
 import { getComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { ECSState } from '@ir-engine/ecs/src/ECSState'
 import { defineQuery } from '@ir-engine/ecs/src/QueryFunctions'
@@ -34,7 +34,7 @@ const execute = () => {
   const entities = entitiesQuery()
   //q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
   for (const entity of entities) {
-    const ownerID = getComponent(entity, NetworkObjectComponent).ownerId as any as EntityUUID
+    const ownerID = getComponent(entity, NetworkObjectComponent).ownerId as any as SourceID
     const headTargetEntity = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.head)
     const ikTargetLeftHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.leftHand)
     const ikTargetRightHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.rightHand)
