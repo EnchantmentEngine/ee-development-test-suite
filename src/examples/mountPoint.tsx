@@ -4,15 +4,14 @@ import { getMutableState, useMutableState } from '@ir-engine/hyperflux'
 
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
+  EntityID,
   EntityTreeComponent,
   UUIDComponent,
   createEntity,
-  generateEntityUUID,
   getComponent,
   removeEntity,
   setComponent
 } from '@ir-engine/ecs'
-import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
@@ -39,7 +38,11 @@ export default function MountPointEntry() {
     getMutableState(RendererState).physicsDebug.set(true)
 
     const geometryEntity = createEntity()
-    setComponent(geometryEntity, UUIDComponent, generateEntityUUID())
+    const sceneSourceID = getComponent(sceneEntity, UUIDComponent).entitySourceID
+    setComponent(geometryEntity, UUIDComponent, {
+      entitySourceID: sceneSourceID,
+      entityID: 'geometry' as EntityID
+    })
     setComponent(geometryEntity, TransformComponent, {
       position: new Vector3(2, 0.25, 2),
       scale: new Vector3(0.25, 0.5, 0.25)
@@ -49,8 +52,7 @@ export default function MountPointEntry() {
     setVisibleComponent(geometryEntity, true)
     setComponent(geometryEntity, MeshComponent, new Mesh(new CylinderGeometry(), new MeshStandardMaterial()))
 
-    const sourceID = GLTFComponent.getInstanceID(sceneEntity)
-    const entity = NodeIDComponent.create(sourceID, NodeIDComponent.generate())
+    const entity = NodeIDComponent.create(sceneEntity, UUIDComponent.generate())
     setComponent(entity, TransformComponent, { position: new Vector3(2, 0.4, 2) })
     setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(entity, NameComponent, 'Mount-Point-Example')

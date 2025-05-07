@@ -17,6 +17,7 @@ import { useFind } from '@ir-engine/common'
 import { avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
   createEntity,
+  EntityID,
   EntityTreeComponent,
   EntityUUID,
   getComponent,
@@ -72,8 +73,14 @@ export default function AvatarSimpleEntry() {
   useEffect(() => {
     if (!renderer?.value) return
 
+    const originEntity = getState(ReferenceSpaceState).originEntity
+    const originUUID = getComponent(originEntity, UUIDComponent)
+
     const lightEntity = createEntity()
-    setComponent(lightEntity, UUIDComponent, 'directional light' as EntityUUID)
+    setComponent(lightEntity, UUIDComponent, {
+      entitySourceID: originUUID.entitySourceID,
+      entityID: 'directional light' as EntityID
+    })
     setComponent(lightEntity, NameComponent, 'Directional Light')
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
     setComponent(lightEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
@@ -89,7 +96,7 @@ export default function AvatarSimpleEntry() {
     const blob = new Blob([JSON.stringify(gltf)], { type: 'application/json' })
     const blobURL = URL.createObjectURL(blob)
 
-    const gltfEntity = AssetState.load(blobURL, blobURL as EntityUUID)
+    const gltfEntity = AssetState.load(blobURL, 'scene' as EntityID)
     renderer.scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent)
     getMutableState(SceneState)[sceneURL].set(gltfEntity)
@@ -122,13 +129,14 @@ export default function AvatarSimpleEntry() {
         })
       )
       peerIndexesCreated.push(i)
-      const parentUUID = getComponent(entity.value, UUIDComponent)
+      const parentUUID = UUIDComponent.join(getComponent(entity.value, UUIDComponent))
       dispatchAction(
         AvatarNetworkAction.spawn({
           position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),
-          parentUUID,
+          parentUUID: parentUUID,
           avatarURL: randomAvatar.modelResource!.url,
-          entityUUID: ('test user ' + i + '_avatar') as EntityUUID,
+          entitySourceID: getComponent(entity.value, UUIDComponent).entitySourceID,
+          entityID: 'avatar' as EntityID,
           name: 'test user ' + i,
           $peer: ('test peer ' + i) as PeerID
         })

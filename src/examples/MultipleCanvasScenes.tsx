@@ -1,11 +1,11 @@
 import config from '@ir-engine/common/src/config'
 import {
+  EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
-  generateEntityUUID,
   hasComponent,
   removeEntityNodeRecursively,
   setComponent
@@ -28,15 +28,20 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
 
   const panelState = useHookstate(() => {
     const sceneEntity = createEntity()
-    const uuid = generateEntityUUID()
-    setComponent(sceneEntity, UUIDComponent, (uuid + '-scene') as EntityUUID)
+    setComponent(sceneEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'scene' as EntityID
+    })
     setComponent(sceneEntity, TransformComponent)
     setComponent(sceneEntity, VisibleComponent)
     setComponent(sceneEntity, EntityTreeComponent, { parentEntity: UndefinedEntity })
     setComponent(sceneEntity, SceneComponent)
 
     const cameraEntity = createEntity()
-    setComponent(cameraEntity, UUIDComponent, (uuid + '-camera') as EntityUUID)
+    setComponent(cameraEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'camera' as EntityID
+    })
     setComponent(cameraEntity, CameraComponent)
     setComponent(cameraEntity, TransformComponent)
     setComponent(cameraEntity, VisibleComponent)
@@ -95,7 +100,10 @@ export default function MultipleCanvasScenes() {
   useEffect(() => {
     const { cameraEntity, sceneEntity } = panel1State
     const modelEntity = createEntity()
-    setComponent(modelEntity, UUIDComponent, generateEntityUUID())
+    setComponent(modelEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'model 1' as EntityID
+    })
     setComponent(modelEntity, TransformComponent)
     setComponent(modelEntity, VisibleComponent)
     setComponent(modelEntity, NameComponent, 'Model Entity 1')
@@ -109,7 +117,10 @@ export default function MultipleCanvasScenes() {
   useEffect(() => {
     const { cameraEntity, sceneEntity } = panel2State
     const modelEntity = createEntity()
-    setComponent(modelEntity, UUIDComponent, generateEntityUUID())
+    setComponent(modelEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'model 2' as EntityID
+    })
     setComponent(modelEntity, TransformComponent)
     setComponent(modelEntity, VisibleComponent)
     setComponent(modelEntity, NameComponent, 'Model Entity 2')

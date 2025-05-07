@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 
-import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
+import { useHookstate } from '@ir-engine/hyperflux'
 
-import { UUIDComponent, useQuery } from '@ir-engine/ecs'
-import { getComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { useQuery } from '@ir-engine/ecs'
 import { Entity } from '@ir-engine/ecs/src/Entity'
-import { SelectionState } from '@ir-engine/editor/src/services/SelectionServices'
 import { PostProcessingComponent } from '@ir-engine/spatial/src/renderer/components/PostProcessingComponent'
 import PostProcessingSettingsEditor from '@ir-engine/ui/src/components/editor/properties/postProcessing'
 import { useSearchParams } from 'react-router-dom'
@@ -24,7 +22,7 @@ export default function PostProcessing() {
     // EditorControlFunctions.modifyProperty = (entities, component, properties) => {
     //   setComponent(entity.value!, PostProcessingComponent, properties)
     // }
-    getMutableState(SelectionState).selectedEntities.set([getComponent(entity.value!, UUIDComponent)])
+    // getMutableState(SelectionState).selectedEntities.set([getComponent(entity.value!, UUIDComponent)])
   }, [postProEnt])
 
   return (

@@ -6,7 +6,6 @@ import {
   UUIDComponent,
   UndefinedEntity,
   createEntity,
-  generateEntityUUID,
   getComponent,
   removeEntity,
   setComponent,
@@ -226,16 +225,14 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const particles = useOptionalComponent(entity, ParticleSystemComponent)
-      const source = GLTFComponent.useInstanceID(parent)
 
       useEffect(() => {
-        if (!source) return
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
-        setComponent(entity, SourceComponent, source)
+        setComponent(entity, SourceComponent, parent)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-      }, [source])
+      }, [])
 
       useEffect(() => {
         if (particles?.system.value) onLoad(entity)
@@ -351,7 +348,9 @@ export const subComponentExamples = [
           geometryParams: { radius: 0.2, segments: 10 }
         })
         setVisibleComponent(childEntity, true)
-        setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: getComponent(entity, NodeIDComponent) })
+        setComponent(childEntity, SplineTrackComponent, {
+          splineEntityUUID: getComponent(entity, UUIDComponent).entityID
+        })
         onLoad(entity)
       }, [])
 
@@ -495,7 +494,11 @@ export const ComponentExamples = (props: {
 
   useEffect(() => {
     const componentNamesUIEntity = createEntity()
-    setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
+    const sceneSourceID = getComponent(sceneEntity, UUIDComponent).entitySourceID
+    setComponent(componentNamesUIEntity, UUIDComponent, {
+      entitySourceID: sceneSourceID,
+      entityID: UUIDComponent.generate()
+    })
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
     const componentNamesUI = createXRUI(ComponentNamesUI, xrui, { interactable: false }, componentNamesUIEntity)

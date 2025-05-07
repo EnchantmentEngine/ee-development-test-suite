@@ -5,7 +5,7 @@ import { getComponent, removeComponent, setComponent } from '@ir-engine/ecs/src/
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { getMutableState, getState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 
-import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
+import { Entity, EntityID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
 import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
@@ -45,7 +45,12 @@ const GLTF = () => {
     let modelEntity: Entity | undefined
     if (loadOldModel) {
       modelEntity = createEntity()
-      setComponent(modelEntity, UUIDComponent, 'gltf viewer' as EntityUUID)
+      const originEntity = getState(ReferenceSpaceState).originEntity
+      const originUUID = getComponent(originEntity, UUIDComponent)
+      setComponent(modelEntity, UUIDComponent, {
+        entitySourceID: originUUID.entitySourceID,
+        entityID: '3D Preview Entity' as EntityID
+      })
       setComponent(modelEntity, NameComponent, '3D Preview Entity')
       setComponent(modelEntity, TransformComponent, { position: new Vector3(3, 0, 0) })
       setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
@@ -55,7 +60,12 @@ const GLTF = () => {
     }
 
     const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
+    const originEntity = getState(ReferenceSpaceState).originEntity
+    const originUUID = getComponent(originEntity, UUIDComponent)
+    setComponent(entity, UUIDComponent, {
+      entitySourceID: originUUID.entitySourceID,
+      entityID: 'directional light' as EntityID
+    })
     setComponent(entity, NameComponent, 'Directional Light')
     setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
     setComponent(entity, EntityTreeComponent, { parentEntity: getState(ReferenceSpaceState).originEntity })
