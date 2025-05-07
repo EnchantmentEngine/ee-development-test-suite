@@ -129,7 +129,7 @@ export default function AvatarSimpleEntry() {
         })
       )
       peerIndexesCreated.push(i)
-      const parentUUID = UUIDComponent.concatenateUUID(getComponent(entity.value, UUIDComponent))
+      const parentUUID = UUIDComponent.join(getComponent(entity.value, UUIDComponent))
       dispatchAction(
         AvatarNetworkAction.spawn({
           position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),

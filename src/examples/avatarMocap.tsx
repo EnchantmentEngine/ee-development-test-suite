@@ -177,15 +177,10 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
     })
     setComponent(entity, VisibleComponent, true)
 
-    const id = spawnAvatar(
-      UUIDComponent.concatenateUUID(rootUUID.value),
-      rootUUID.value.entityID,
-      selectedAvatar.value,
-      {
-        position: new Vector3(),
-        rotation: new Quaternion()
-      }
-    )
+    const id = spawnAvatar(UUIDComponent.join(rootUUID.value), rootUUID.value.entityID, selectedAvatar.value, {
+      position: new Vector3(),
+      rotation: new Quaternion()
+    })
     userID.set(id)
 
     return () => {

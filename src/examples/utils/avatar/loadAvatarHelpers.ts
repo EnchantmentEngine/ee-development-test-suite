@@ -38,7 +38,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         userID: userId
       })
     )
-    const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
+    const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID,
@@ -66,7 +66,7 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       userID: userId
     })
   )
-  const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
 
   dispatchAction(
     AvatarNetworkAction.spawn({
@@ -119,7 +119,7 @@ export const mockIKAvatars = async (avatarList: AvatarType[], avatarAmount = nul
 
 export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number) => {
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
-  const parentUUID = UUIDComponent.concatenateUUID(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
       parentUUID,
@@ -257,11 +257,11 @@ export const createIkTargetsForAvatar = (
   const rightFootUUID = ikTargets.rightFoot as EntityID
 
   const targetUUIDs = [headUUID, leftHandUUID, rightHandUUID, leftFootUUID, rightFootUUID].map((id) => {
-    return UUIDComponent.concatenateUUID({ entitySourceID: parentUUIDPair.entitySourceID, entityID: id })
+    return UUIDComponent.join({ entitySourceID: parentUUIDPair.entitySourceID, entityID: id })
   })
 
   const posRot = targetUUIDs.map(() => ({ position: position, rotation: rotation }))
-  const parentUUID = UUIDComponent.concatenateUUID(parentUUIDPair)
+  const parentUUID = UUIDComponent.join(parentUUIDPair)
 
   dispatchAction(
     AvatarNetworkAction.spawnIKTarget({

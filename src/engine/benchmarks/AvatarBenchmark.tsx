@@ -197,7 +197,7 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarAnimationComponent)
     setComponent(entity, AvatarRigComponent)
 
-    spawnAvatar(UUIDComponent.concatenateUUID(rootUUID.value), entityID, src, { position, rotation: new Quaternion() })
+    spawnAvatar(UUIDComponent.join(rootUUID.value), entityID, src, { position, rotation: new Quaternion() })
     const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, randomVec3(), randomQuaternion())
 
     return () => {
