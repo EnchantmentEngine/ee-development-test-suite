@@ -12,7 +12,6 @@ import {
   removeEntity,
   setComponent
 } from '@ir-engine/ecs'
-import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
   XRUIVisibilityOverride
@@ -52,7 +51,7 @@ export default function MountPointEntry() {
     setVisibleComponent(geometryEntity, true)
     setComponent(geometryEntity, MeshComponent, new Mesh(new CylinderGeometry(), new MeshStandardMaterial()))
 
-    const entity = NodeIDComponent.create(sceneEntity, UUIDComponent.generate())
+    const entity = UUIDComponent.create(sceneEntity)
     setComponent(entity, TransformComponent, { position: new Vector3(2, 0.4, 2) })
     setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(entity, NameComponent, 'Mount-Point-Example')
@@ -62,7 +61,7 @@ export default function MountPointEntry() {
       callbacks: [
         {
           callbackID: MountPointComponent.mountCallbackName,
-          target: getComponent(entity, NodeIDComponent)
+          target: getComponent(entity, UUIDComponent).entityID
         }
       ],
       uiInteractable: true,
