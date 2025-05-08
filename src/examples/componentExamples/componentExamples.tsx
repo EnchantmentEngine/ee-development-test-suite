@@ -31,7 +31,6 @@ import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineCo
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
-import { SplineHelperComponent } from '@ir-engine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
 import { useHookstate } from '@ir-engine/hyperflux'
@@ -338,7 +337,6 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Spline-Example')
         setComponent(entity, SplineComponent)
-        setComponent(entity, SplineHelperComponent, { layerMask: ObjectLayerMasks.Scene })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
 
