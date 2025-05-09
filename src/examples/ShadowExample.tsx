@@ -1,5 +1,4 @@
-import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
-import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
+import { Entity, getComponent, setComponent, UUIDComponent } from '@ir-engine/ecs'
 import { RenderSettingsComponent } from '@ir-engine/engine/src/scene/components/RenderSettingsComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import {
@@ -25,7 +24,7 @@ export default function ShadowExampleEntry(props: { sceneEntity: Entity }) {
 
   useEffect(() => {
     setComponent(settingsEntity, RenderSettingsComponent, {
-      primaryLight: getComponent(directionalLightEntity, NodeIDComponent)
+      primaryLight: getComponent(directionalLightEntity, UUIDComponent).entityID
     }) // required for CSM
     setComponent(platformEntity, TransformComponent, {
       position: new Vector3(0, -0.5, 0),

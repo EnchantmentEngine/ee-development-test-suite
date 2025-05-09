@@ -13,7 +13,6 @@ import {
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
   XRUIActivationType
@@ -26,7 +25,7 @@ import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/componen
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
 import { SceneDynamicLoadComponent } from '@ir-engine/engine/src/scene/components/SceneDynamicLoadComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
@@ -228,7 +227,6 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
-        setComponent(entity, SourceComponent, parent)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
       }, [])
@@ -430,7 +428,7 @@ export const subComponentExamples = [
           callbacks: [
             {
               callbackID: LinkComponent.linkCallbackName,
-              target: getComponent(entity, NodeIDComponent)
+              target: getComponent(entity, UUIDComponent).entityID
             }
           ]
         })
