@@ -6,7 +6,6 @@ import {
   UUIDComponent,
   UndefinedEntity,
   createEntity,
-  generateEntityUUID,
   getComponent,
   removeEntity,
   setComponent,
@@ -14,7 +13,6 @@ import {
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { NodeIDComponent } from '@ir-engine/engine/src/gltf/NodeIDComponent'
 import {
   InteractableComponent,
   XRUIActivationType
@@ -27,12 +25,11 @@ import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/componen
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
 import { SceneDynamicLoadComponent } from '@ir-engine/engine/src/scene/components/SceneDynamicLoadComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+
 import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
-import { SplineHelperComponent } from '@ir-engine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
 import { useHookstate } from '@ir-engine/hyperflux'
@@ -42,7 +39,6 @@ import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Q_IDENTITY, Q_Y_180 } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
@@ -226,16 +222,13 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const particles = useOptionalComponent(entity, ParticleSystemComponent)
-      const source = GLTFComponent.useInstanceID(parent)
 
       useEffect(() => {
-        if (!source) return
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
-        setComponent(entity, SourceComponent, source)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-      }, [source])
+      }, [])
 
       useEffect(() => {
         if (particles?.system.value) onLoad(entity)
@@ -341,7 +334,6 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Spline-Example')
         setComponent(entity, SplineComponent)
-        setComponent(entity, SplineHelperComponent, { layerMask: ObjectLayerMasks.Scene })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
 
@@ -351,7 +343,9 @@ export const subComponentExamples = [
           geometryParams: { radius: 0.2, segments: 10 }
         })
         setVisibleComponent(childEntity, true)
-        setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: getComponent(entity, NodeIDComponent) })
+        setComponent(childEntity, SplineTrackComponent, {
+          splineEntityUUID: getComponent(entity, UUIDComponent).entityID
+        })
         onLoad(entity)
       }, [])
 
@@ -433,7 +427,7 @@ export const subComponentExamples = [
           callbacks: [
             {
               callbackID: LinkComponent.linkCallbackName,
-              target: getComponent(entity, NodeIDComponent)
+              target: getComponent(entity, UUIDComponent).entityID
             }
           ]
         })
@@ -495,7 +489,11 @@ export const ComponentExamples = (props: {
 
   useEffect(() => {
     const componentNamesUIEntity = createEntity()
-    setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
+    const sceneSourceID = getComponent(sceneEntity, UUIDComponent).entitySourceID
+    setComponent(componentNamesUIEntity, UUIDComponent, {
+      entitySourceID: sceneSourceID,
+      entityID: UUIDComponent.generate()
+    })
     setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
     const componentNamesUI = createXRUI(ComponentNamesUI, xrui, { interactable: false }, componentNamesUIEntity)

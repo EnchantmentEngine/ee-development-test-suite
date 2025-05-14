@@ -98,7 +98,6 @@ export default function InstanceConnection() {
       locationName: null! as string,
       currentLocation: {
         location: LocationSeed as LocationType,
-        bannedUsers: [] as string[],
         selfUserBanned: false,
         selfNotAuthorized: false
       },

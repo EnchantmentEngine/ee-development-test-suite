@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { ComponentType, getComponent, setComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { State, getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
 
-import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
+import { Entity, EntityID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
 import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
@@ -648,7 +648,12 @@ const GLTF = (props: {
 
     const imageEntity = createEntity()
 
-    setComponent(imageEntity, UUIDComponent, UUIDComponent.generateUUID())
+    const rootSourceID = getComponent(root, UUIDComponent).entitySourceID
+
+    setComponent(imageEntity, UUIDComponent, {
+      entitySourceID: rootSourceID,
+      entityID: 'screenshot' as EntityID
+    })
     setComponent(imageEntity, NameComponent, 'Screenshot')
     setComponent(imageEntity, TransformComponent)
     setComponent(imageEntity, EntityTreeComponent, { parentEntity: root })
@@ -718,7 +723,11 @@ export default function GLTFViewer(props: {
     if (!props.light || !sceneEntity) return
 
     const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
+    const sourceID = getComponent(sceneEntity, UUIDComponent).entitySourceID
+    setComponent(entity, UUIDComponent, {
+      entitySourceID: sourceID,
+      entityID: 'ambient light' as EntityID
+    })
     setComponent(entity, NameComponent, 'Ambient Light')
     setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
     setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })

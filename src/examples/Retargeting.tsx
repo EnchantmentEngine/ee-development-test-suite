@@ -9,13 +9,13 @@ import { defineState, getMutableState, getState, none, useHookstate } from '@ir-
 
 import { EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
 import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching'
+import { VRMHumanBoneName } from '@ir-engine/engine/src/avatar/maps/VRMHumanBoneName'
 import { AssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { BoneComponent } from '@ir-engine/spatial/src/renderer/components/BoneComponent'
 import { ObjectComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { VRMHumanBoneName } from '@pixiv/three-vrm'
 import { Template } from './utils/template'
 
 const bones = Object.keys(VRMHumanBoneName)

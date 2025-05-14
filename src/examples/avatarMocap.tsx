@@ -1,5 +1,5 @@
 import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
-import { Entity, UUIDComponent, generateEntityUUID, removeEntityNodeRecursively } from '@ir-engine/ecs'
+import { Entity, EntityID, EntityUUID, UUIDComponent, removeEntityNodeRecursively } from '@ir-engine/ecs'
 import { setComponent, useComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { AvatarRigComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@ir-engine/engine/src/mocap/MotionCaptureSystem'
@@ -65,7 +65,7 @@ const MocapAvatar = (props: {
   mocapData: Record<AvailablePoses, MotionCaptureResults>
 }) => {
   const { userID, activePose, mocapData } = props
-  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID]).value
+  const entity = UUIDComponent.useEntityByUUID((userID + '_avatar') as EntityUUID)
   const rig = useOptionalComponent(entity, AvatarRigComponent)
   const visible = !!useOptionalComponent(entity, VisibleComponent)?.value
   const avatarDebug = useHookstate(getMutableState(RendererState).avatarDebug)
@@ -178,12 +178,14 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
   useEffect(() => {
     if (!selectedAvatar.value || !network?.ready.value) return
 
-    const uuid = generateEntityUUID()
     const entity = setupEntity(props.sceneEntity)
-    setComponent(entity, UUIDComponent, uuid)
+    setComponent(entity, UUIDComponent, {
+      entitySourceID: rootUUID.value.entitySourceID,
+      entityID: 'avatar' as EntityID
+    })
     setComponent(entity, VisibleComponent, true)
 
-    const id = spawnAvatar(rootUUID.value, uuid, selectedAvatar.value, {
+    const id = spawnAvatar(UUIDComponent.join(rootUUID.value), rootUUID.value.entityID, selectedAvatar.value, {
       position: new Vector3(),
       rotation: new Quaternion()
     })

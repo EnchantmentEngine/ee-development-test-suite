@@ -1,18 +1,17 @@
 import config from '@ir-engine/common/src/config'
 import {
+  EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
-  generateEntityUUID,
   hasComponent,
   removeEntityNodeRecursively,
   setComponent
 } from '@ir-engine/ecs'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { useHookstate } from '@ir-engine/hyperflux'
-import '@ir-engine/ir-bot/src/functions/BotHookSystem'
 import { AmbientLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { AssetPreviewCameraComponent } from '@ir-engine/spatial/src/camera/components/AssetPreviewCameraComponent'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -29,19 +28,24 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
 
   const panelState = useHookstate(() => {
     const sceneEntity = createEntity()
-    const uuid = generateEntityUUID()
-    setComponent(sceneEntity, UUIDComponent, (uuid + '-scene') as EntityUUID)
+    setComponent(sceneEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'scene' as EntityID
+    })
     setComponent(sceneEntity, TransformComponent)
     setComponent(sceneEntity, VisibleComponent)
     setComponent(sceneEntity, EntityTreeComponent, { parentEntity: UndefinedEntity })
     setComponent(sceneEntity, SceneComponent)
 
     const cameraEntity = createEntity()
-    setComponent(cameraEntity, UUIDComponent, (uuid + '-camera') as EntityUUID)
+    setComponent(cameraEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'camera' as EntityID
+    })
     setComponent(cameraEntity, CameraComponent)
     setComponent(cameraEntity, TransformComponent)
     setComponent(cameraEntity, VisibleComponent)
-    setComponent(cameraEntity, CameraOrbitComponent, { refocus: true })
+    setComponent(cameraEntity, CameraOrbitComponent)
     setComponent(cameraEntity, InputComponent)
     setComponent(cameraEntity, EntityTreeComponent, { parentEntity: UndefinedEntity })
 
@@ -96,7 +100,10 @@ export default function MultipleCanvasScenes() {
   useEffect(() => {
     const { cameraEntity, sceneEntity } = panel1State
     const modelEntity = createEntity()
-    setComponent(modelEntity, UUIDComponent, generateEntityUUID())
+    setComponent(modelEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'model 1' as EntityID
+    })
     setComponent(modelEntity, TransformComponent)
     setComponent(modelEntity, VisibleComponent)
     setComponent(modelEntity, NameComponent, 'Model Entity 1')
@@ -110,7 +117,10 @@ export default function MultipleCanvasScenes() {
   useEffect(() => {
     const { cameraEntity, sceneEntity } = panel2State
     const modelEntity = createEntity()
-    setComponent(modelEntity, UUIDComponent, generateEntityUUID())
+    setComponent(modelEntity, UUIDComponent, {
+      entitySourceID: 'engine' as SourceID,
+      entityID: 'model 2' as EntityID
+    })
     setComponent(modelEntity, TransformComponent)
     setComponent(modelEntity, VisibleComponent)
     setComponent(modelEntity, NameComponent, 'Model Entity 2')

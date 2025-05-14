@@ -1,4 +1,4 @@
-import { UUIDComponent, createEntity, removeEntity, setComponent } from '@ir-engine/ecs'
+import { EntityID, SourceID, UUIDComponent, createEntity, removeEntity, setComponent } from '@ir-engine/ecs'
 import { State, useHookstate, useImmediateEffect } from '@ir-engine/hyperflux'
 import ComponentDropdown from '@ir-engine/ui/src/components/editor/ComponentDropdown'
 import EulerInput from '@ir-engine/ui/src/components/editor/input/Euler'
@@ -17,7 +17,7 @@ export const Transform = (props: {
 
   const entity = useHookstate(() => {
     const entity = createEntity()
-    setComponent(entity, UUIDComponent, UUIDComponent.generateUUID())
+    setComponent(entity, UUIDComponent, { entitySourceID: 'detatched' as SourceID, entityID: 'transform' as EntityID })
     return entity
   }).value
 
