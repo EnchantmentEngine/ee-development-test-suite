@@ -3,8 +3,9 @@ import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHo
 import {
   Engine,
   Entity,
+  EntityID,
   EntityTreeComponent,
-  EntityUUID,
+  SourceID,
   UUIDComponent,
   UndefinedEntity,
   createEntity,
@@ -37,14 +38,14 @@ import { InputComponent } from '@ir-engine/spatial/src/input/components/InputCom
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
-import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
+import { RendererComponent } from '@ir-engine/spatial/src/renderer/components/RendererComponent'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import {
   MaterialInstanceComponent,
   MaterialStateComponent
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
-import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
+// TransformComponent is already imported above
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
@@ -58,7 +59,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
   const i = physicsEntityCount++
 
   const position = new Vector3(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-  setComponent(entity, UUIDComponent, ('Ball-' + i) as EntityUUID)
+  setComponent(entity, UUIDComponent, { entitySourceID: 'engine' as SourceID, entityID: ('Ball-' + i) as EntityID })
   setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
   setComponent(entity, TransformComponent, { position, scale: new Vector3(2, 2, 2) })
   setComponent(entity, VisibleComponent, true)
@@ -67,7 +68,10 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
 
   const colliderEntity = createEntity()
   setComponent(colliderEntity, VisibleComponent, true)
-  setComponent(colliderEntity, UUIDComponent, ('Ball-' + i + '-collider') as EntityUUID)
+  setComponent(colliderEntity, UUIDComponent, {
+    entitySourceID: 'engine' as SourceID,
+    entityID: ('Ball-' + i + '-collider') as EntityID
+  })
   setComponent(colliderEntity, EntityTreeComponent, { parentEntity: entity })
   setComponent(colliderEntity, TransformComponent, { scale: new Vector3(0.25, 0.25, 0.25) })
   setComponent(colliderEntity, ColliderComponent, {
@@ -100,7 +104,7 @@ const execute = () => {
     const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
     const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
     if (!materialInstance) continue
-    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
+    const materialEntity = materialInstance.entities[0]
     const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
     material.color.set(isPointerOver ? 'red' : 'white')
   }
@@ -167,7 +171,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     Cache.enabled = true
     Cache.add(sceneURL, gltf)
 
-    const gltfEntity = AssetState.load(sceneURL, sceneURL as EntityUUID, Engine.instance.originEntity)
+    const gltfEntity = AssetState.load(sceneURL, sceneID as EntityID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
     setComponent(gltfEntity, SceneComponent, { active: true })
     getMutableState(SceneState)[sceneURL].set(gltfEntity)
@@ -192,7 +196,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
       rotation: new Quaternion(),
       scale: new Vector3(0.5, 0.5, 0.5)
     })
-    computeTransformMatrix(gltfEntity)
+    TransformComponent.computeTransformMatrix(gltfEntity)
 
     // apply transform state
     const transformComponent = getComponent(gltfEntity, TransformComponent)
@@ -203,7 +207,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
       transformComponent.rotation,
       transformComponent.scale
     )
-    computeTransformMatrix(gltfEntity)
+    TransformComponent.computeTransformMatrix(gltfEntity)
   }, [transform.position, transform.rotation, transform.scale])
 
   useEffect(() => {
