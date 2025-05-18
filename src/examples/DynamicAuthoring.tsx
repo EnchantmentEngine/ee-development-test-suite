@@ -2,6 +2,7 @@ import {
   Entity,
   Layers,
   QueryReactor,
+  UUIDComponent,
   getAuthoringCounterpart,
   loadEntitiesIntoAuthoring,
   unloadEntitiesFromAuthoring,
@@ -9,7 +10,6 @@ import {
 } from '@ir-engine/ecs'
 import { AuthoringState } from '@ir-engine/engine/src/authoring/AuthoringState'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
 import { getState } from '@ir-engine/hyperflux'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import React, { useCallback } from 'react'
@@ -40,13 +40,13 @@ const SelectEditReactor = (props: { entity: Entity }) => {
   const { entity } = props
   const isInAuthoring = !!getAuthoringCounterpart(entity)
 
-  useQuery([SourceComponent], Layers.Authoring) // trigger rerender
+  useQuery([UUIDComponent], Layers.Authoring) // trigger rerender
 
   // Handle loading entity into authoring
   const handleLoadIntoAuthoring = useCallback(() => {
     try {
-      const source = GLTFComponent.getInstanceID(entity)
-      const entities = SourceComponent.getEntitiesBySource(source)
+      const source = GLTFComponent.getSourceID(entity)
+      const entities = UUIDComponent.getEntitiesBySource(source, Layers.Simulation)
       loadEntitiesIntoAuthoring([entity, ...entities])
       console.log('Loaded entities into authoring:', [entity, ...entities])
     } catch (error) {
@@ -58,8 +58,8 @@ const SelectEditReactor = (props: { entity: Entity }) => {
   const handleUnloadFromAuthoring = useCallback(() => {
     try {
       const authoringEntity = getAuthoringCounterpart(entity)
-      const source = GLTFComponent.getInstanceID(authoringEntity)
-      const entities = SourceComponent.getEntitiesBySource(source, Layers.Authoring)
+      const source = GLTFComponent.getSourceID(authoringEntity)
+      const entities = UUIDComponent.getEntitiesBySource(source, Layers.Authoring)
       unloadEntitiesFromAuthoring([authoringEntity, ...entities])
       console.log('Unloaded entities from authoring:', [authoringEntity, ...entities])
     } catch (error) {
