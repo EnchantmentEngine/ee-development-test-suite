@@ -1,6 +1,6 @@
 import { Engine, Entity, getComponent, removeEntity, setComponent } from '@ir-engine/ecs'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
-import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { TransformComponent } from '@ir-engine/spatial'
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
@@ -27,7 +27,7 @@ const createPhysicsEntity = (rootEntity: Entity) => {
   setComponent(entity, ObjectComponent, obj3d)
   setComponent(entity, TransformComponent, { position, scale })
   setComponent(entity, PrimitiveGeometryComponent, {
-    geometryType: GeometryTypeEnum.SphereGeometry,
+    geometryType: GeometryType.SphereGeometry,
     geometryParams: {
       radius: 1,
       widthSegments: 32,
