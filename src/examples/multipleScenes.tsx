@@ -38,14 +38,14 @@ import { InputComponent } from '@ir-engine/spatial/src/input/components/InputCom
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
-import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
+import { RendererComponent } from '@ir-engine/spatial/src/renderer/components/RendererComponent'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import {
   MaterialInstanceComponent,
   MaterialStateComponent
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
-import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
+// TransformComponent is already imported above
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
@@ -196,7 +196,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
       rotation: new Quaternion(),
       scale: new Vector3(0.5, 0.5, 0.5)
     })
-    computeTransformMatrix(gltfEntity)
+    TransformComponent.computeTransformMatrix(gltfEntity)
 
     // apply transform state
     const transformComponent = getComponent(gltfEntity, TransformComponent)
@@ -207,7 +207,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
       transformComponent.rotation,
       transformComponent.scale
     )
-    computeTransformMatrix(gltfEntity)
+    TransformComponent.computeTransformMatrix(gltfEntity)
   }, [transform.position, transform.rotation, transform.scale])
 
   useEffect(() => {
