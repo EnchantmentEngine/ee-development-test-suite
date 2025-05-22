@@ -25,12 +25,13 @@ import {
   setComponent,
   UndefinedEntity,
   useOptionalComponent,
-  UUIDComponent
+  UUIDComponent,
+  WorldNetworkAction
 } from '@ir-engine/ecs'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
-import { NetworkActions, WorldNetworkAction } from '@ir-engine/network'
+import { NetworkActions } from '@ir-engine/hyperflux'
 import {
   AmbientLightComponent,
   DirectionalLightComponent,
