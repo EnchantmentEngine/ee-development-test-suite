@@ -23,7 +23,7 @@ import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import {
   DirectionalLightComponent,
@@ -81,7 +81,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
     restitution: MathUtils.randFloat(0.1, 1.0)
   })
   setComponent(colliderEntity, PrimitiveGeometryComponent, {
-    geometryType: GeometryTypeEnum.SphereGeometry
+    geometryType: GeometryType.SphereGeometry
   })
   setComponent(colliderEntity, InputComponent)
   setComponent(colliderEntity, ShadowComponent)
