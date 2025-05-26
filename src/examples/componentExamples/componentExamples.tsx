@@ -291,11 +291,12 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Geometry-Example')
         setComponent(entity, PrimitiveGeometryComponent, {
-          geometryType: GeometryType.DodecahedronGeometry,
-          geometryParams: { radius: 0.5, detail: 0 }
+          geometryType: GeometryType.TorusKnotGeometry,
+          geometryParams: {}
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+        getComponent(entity, TransformComponent).scale.setScalar(0.25)
         onLoad(entity)
       }, [])
 
@@ -337,7 +338,7 @@ export const subComponentExamples = [
         setComponent(childEntity, NameComponent, 'Spline-Follow-Example')
         setComponent(childEntity, PrimitiveGeometryComponent, {
           geometryType: GeometryType.SphereGeometry,
-          geometryParams: { radius: 0.2, segments: 10 }
+          geometryParams: { radius: 0.5 }
         })
         setVisibleComponent(childEntity, true)
         setComponent(childEntity, SplineTrackComponent, {
