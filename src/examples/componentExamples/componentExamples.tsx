@@ -289,11 +289,10 @@ export const subComponentExamples = [
       const entity = useExampleEntity(parent)
 
       useEffect(() => {
-        const geoTypes = Object.values(GeometryType).filter((value) => typeof value === 'number') as GeometryType[]
-        const geoType = geoTypes[MathUtils.randInt(0, geoTypes.length)]
         setComponent(entity, NameComponent, 'Geometry-Example')
         setComponent(entity, PrimitiveGeometryComponent, {
-          geometryType: geoType
+          geometryType: GeometryType.DodecahedronGeometry,
+          geometryParams: { radius: 0.5, detail: 0 }
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
