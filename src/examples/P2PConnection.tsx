@@ -4,8 +4,7 @@ import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHo
 import { LocationService, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
 import { InstanceID } from '@ir-engine/common/src/schema.type.module'
-import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
-import { NetworkState } from '@ir-engine/network'
+import { getMutableState, NetworkState, useHookstate } from '@ir-engine/hyperflux'
 
 export default function P2PConnection() {
   const online = useHookstate(true)

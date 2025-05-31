@@ -30,7 +30,7 @@ import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineCo
 import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
-import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
@@ -289,16 +289,14 @@ export const subComponentExamples = [
       const entity = useExampleEntity(parent)
 
       useEffect(() => {
-        const geoTypes = Object.values(GeometryTypeEnum).filter(
-          (value) => typeof value === 'number'
-        ) as GeometryTypeEnum[]
-        const geoType = geoTypes[MathUtils.randInt(0, geoTypes.length)]
         setComponent(entity, NameComponent, 'Geometry-Example')
         setComponent(entity, PrimitiveGeometryComponent, {
-          geometryType: geoType
+          geometryType: GeometryType.TorusKnotGeometry,
+          geometryParams: {}
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+        getComponent(entity, TransformComponent).scale.setScalar(0.25)
         onLoad(entity)
       }, [])
 
@@ -339,8 +337,8 @@ export const subComponentExamples = [
 
         setComponent(childEntity, NameComponent, 'Spline-Follow-Example')
         setComponent(childEntity, PrimitiveGeometryComponent, {
-          geometryType: GeometryTypeEnum.SphereGeometry,
-          geometryParams: { radius: 0.2, segments: 10 }
+          geometryType: GeometryType.SphereGeometry,
+          geometryParams: { radius: 0.5 }
         })
         setVisibleComponent(childEntity, true)
         setComponent(childEntity, SplineTrackComponent, {
