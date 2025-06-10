@@ -3,6 +3,7 @@ import {
   dispatchAction,
   getMutableState,
   getState,
+  NetworkState,
   none,
   PeerID,
   useHookstate,
@@ -21,8 +22,10 @@ import {
   EntityTreeComponent,
   EntityUUID,
   getComponent,
+  removeComponent,
   removeEntity,
   setComponent,
+  SourceID,
   UndefinedEntity,
   useOptionalComponent,
   UUIDComponent,
@@ -38,7 +41,9 @@ import {
   ReferenceSpaceState,
   TransformComponent
 } from '@ir-engine/spatial'
+import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { RendererComponent } from '@ir-engine/spatial/src/renderer/components/RendererComponent'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
@@ -70,9 +75,13 @@ export default function AvatarSimpleEntry() {
   const avatars = useFind(avatarPath)
   const engine = useMutableState(ReferenceSpaceState)
   const renderer = useOptionalComponent(engine.viewerEntity.value, RendererComponent)
+  const network = useHookstate(NetworkState.worldNetworkState)
 
   useEffect(() => {
     if (!renderer?.value) return
+
+    setComponent(engine.viewerEntity.value, CameraOrbitComponent)
+    setComponent(engine.viewerEntity.value, InputComponent)
 
     const originEntity = getState(ReferenceSpaceState).originEntity
     const originUUID = getComponent(originEntity, UUIDComponent)
@@ -104,16 +113,19 @@ export default function AvatarSimpleEntry() {
 
     entity.set(gltfEntity)
 
+    CameraOrbitComponent.setFocus(engine.viewerEntity.value, new Vector3(0, 1.5, 0))
+
     return () => {
       const idx = renderer.scenes.value.indexOf(gltfEntity)
       renderer.scenes[idx].set(none)
       removeEntity(gltfEntity)
       removeEntity(lightEntity)
+      removeComponent(engine.viewerEntity.value, CameraOrbitComponent)
     }
   }, [!!renderer?.scenes.value])
 
   useEffect(() => {
-    if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return
+    if (!network.value || !avatars.data.length || gltfComponent?.progress?.value !== 100) return
 
     const spread = 25
 
@@ -126,7 +138,8 @@ export default function AvatarSimpleEntry() {
         NetworkActions.peerJoined({
           peerID: ('test peer ' + i) as PeerID,
           peerIndex: i,
-          userID: ('test user ' + i) as UserID
+          userID: ('test user ' + i) as UserID,
+          $network: NetworkState.worldNetwork.id
         })
       )
       peerIndexesCreated.push(i)
@@ -136,13 +149,16 @@ export default function AvatarSimpleEntry() {
           position: new Vector3((Math.random() - 0.5) * spread, 0, (Math.random() - 0.5) * spread),
           parentUUID: parentUUID,
           avatarURL: randomAvatar.modelResource!.url,
-          entitySourceID: getComponent(entity.value, UUIDComponent).entitySourceID,
+          ownerID: ('test user ' + i) as UserID,
+          entitySourceID: ('test user ' + i) as SourceID,
           entityID: 'avatar' as EntityID,
           name: 'test user ' + i,
-          $peer: ('test peer ' + i) as PeerID
+          $peer: ('test peer ' + i) as PeerID,
+          $user: ('test user ' + i) as UserID,
+          $network: NetworkState.worldNetwork.id
         })
       )
-      spawnedEntitiyUUIDs.push(('test user ' + i + '_avatar') as EntityUUID)
+      spawnedEntitiyUUIDs.push((getComponent(entity.value, UUIDComponent).entitySourceID + 'avatar' + i) as EntityUUID)
     }
     return () => {
       for (const uuid of spawnedEntitiyUUIDs) {
@@ -154,7 +170,7 @@ export default function AvatarSimpleEntry() {
         )
       }
     }
-  }, [gltfComponent?.progress?.value, avatars.data.length])
+  }, [!!network.value, gltfComponent?.progress?.value, avatars.data.length])
 
   useNetwork({ online: false })
 
