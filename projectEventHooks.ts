@@ -14,6 +14,9 @@ const config = {
     await app.service('route-activate').create({ project: manifestJson.name, route: '/examples', activate: true })
     await app.service('route-activate').create({ project: manifestJson.name, route: '/benchmarks', activate: true })
     await app.service('route-activate').create({ project: manifestJson.name, route: '/benchmarksAll', activate: true })
+    await app
+      .service('route-activate')
+      .create({ project: manifestJson.name, route: '/benchmarkIsolation', activate: true })
 
     await Promise.all(
       fs

@@ -12,6 +12,9 @@ const config: ProjectConfigInterface = {
     },
     '/benchmarksAll': {
       component: () => import('./src/benchmarksAllRoute')
+    },
+    '/benchmarkIsolation': {
+      component: () => import('./src/benchmarkIsolation')
     }
   },
   services: undefined,
