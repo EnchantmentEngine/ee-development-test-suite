@@ -23,6 +23,7 @@ import { MathUtils, Vector3 } from 'three'
 
 import '@ir-engine/engine'
 
+import Debug from '@ir-engine/client-core/src/components/Debug'
 import '@ir-engine/client-core/src/world/LocationModule'
 import { ReferenceSpaceState } from '@ir-engine/spatial'
 
@@ -115,6 +116,7 @@ export const HomePage = (): any => {
       >
         Remove All Entities
       </button>
+      <Debug />
     </div>
   )
 }
