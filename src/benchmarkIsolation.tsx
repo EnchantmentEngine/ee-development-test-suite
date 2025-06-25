@@ -26,8 +26,10 @@ import '@ir-engine/engine'
 import Debug from '@ir-engine/client-core/src/components/Debug'
 import '@ir-engine/client-core/src/world/LocationModule'
 import { ReferenceSpaceState } from '@ir-engine/spatial'
+import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
+import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 
-const spawnMesh = () => {
+const spawnMesh = (parentEntity: Entity, colliders: 'off' | 'separate' | 'combined') => {
   const entity = createEntity()
 
   const position = new Vector3(MathUtils.randFloat(-10, 10), MathUtils.randFloat(0, 5), MathUtils.randFloat(-10, 10))
@@ -39,15 +41,31 @@ const spawnMesh = () => {
   setComponent(entity, VisibleComponent)
   setComponent(entity, UUIDComponent, { entitySourceID: 'benchmark' as SourceID, entityID: `${entity}` as EntityID })
   setComponent(entity, PrimitiveGeometryComponent, { geometryType: GeometryType.BoxGeometry })
-  const parentEntity = getState(ReferenceSpaceState).originEntity
   setComponent(entity, EntityTreeComponent, { parentEntity })
+  if (colliders === 'combined') {
+    setComponent(entity, ColliderComponent, { shape: 'box' })
+  } else if (colliders === 'separate') {
+    setComponent(entity, ColliderComponent, { shape: 'box' })
+    setComponent(entity, RigidBodyComponent)
+  }
 
+  return entity
+}
+
+const createRigidbodyEntity = () => {
+  const entity = createEntity()
+  setComponent(entity, NameComponent, `Spawned Mesh ${entity}`)
+  setComponent(entity, TransformComponent)
+  setComponent(entity, VisibleComponent)
+  setComponent(entity, UUIDComponent, { entitySourceID: 'benchmark' as SourceID, entityID: `${entity}` as EntityID })
+  setComponent(entity, RigidBodyComponent)
   return entity
 }
 
 export const HomePage = (): any => {
   const ref = useRef(document.body)
   const spawnedCount = useHookstate(0)
+  const colliders = useHookstate('off' as 'off' | 'separate' | 'combined')
 
   useImmediateEffect(() => {
     initializeSpatialEngine()
@@ -62,12 +80,17 @@ export const HomePage = (): any => {
     const count = spawnedCount.value
     if (count === 0) return
 
+    const colliderMode = colliders.value
+    const parentEntity =
+      colliderMode === 'separate' ? createRigidbodyEntity() : getState(ReferenceSpaceState).originEntity
+
     const entities: Entity[] = []
     for (let i = 0; i < count; i++) {
-      entities.push(spawnMesh())
+      entities.push(spawnMesh(parentEntity, colliderMode))
     }
 
     return () => {
+      if (colliderMode === 'separate') removeEntity(parentEntity)
       entities.forEach(removeEntity)
     }
   }, [spawnedCount.value])
@@ -92,6 +115,21 @@ export const HomePage = (): any => {
     <div className="pointer-events-auto fixed left-5 top-5 z-[1000] flex flex-col gap-2.5 rounded-lg bg-black/80 p-5 font-sans text-white">
       <h3 className="m-0 mb-2.5">Mesh Spawning Benchmark</h3>
       <div className="mb-2.5">Current count: {spawnedCount.value}</div>
+      <div className="mb-2.5">Colliders: {colliders.value}</div>
+      <button
+        onClick={() => {
+          if (colliders.value === 'off') {
+            colliders.set('combined')
+          } else if (colliders.value === 'combined') {
+            colliders.set('separate')
+          } else {
+            colliders.set('off')
+          }
+        }}
+        className="cursor-pointer rounded border-none bg-purple-500 px-5 py-2.5 text-sm text-white transition-colors hover:bg-purple-600"
+      >
+        Toggle Colliders
+      </button>
       <button
         onClick={handleSpawn100}
         className="cursor-pointer rounded border-none bg-green-500 px-5 py-2.5 text-sm text-white transition-colors hover:bg-green-600"
