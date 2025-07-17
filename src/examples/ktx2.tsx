@@ -5,8 +5,8 @@ import { SRGBColorSpace, Texture } from 'three'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
 
-import { AssetLoaderState } from '@ir-engine/engine/src/assets/state/AssetLoaderState'
 import { getState } from '@ir-engine/hyperflux'
+import { KTX2LoaderState } from '@ir-engine/spatial/src/resources/loaders/ktx2/KTX2LoaderState'
 import { Template } from './utils/template'
 
 let mesh
@@ -28,7 +28,7 @@ const KTX2DND = () => {
 
       if (file.name.endsWith('.ktx2')) {
         const url = URL.createObjectURL(file)
-        const ktxLoader = getState(AssetLoaderState).ktx2Loader
+        const ktxLoader = getState(KTX2LoaderState)
         if (!ktxLoader) throw new Error('KTX2Loader not yet initialized')
         ktxLoader.load(
           url,

@@ -1,7 +1,6 @@
 import { Entity, setComponent, useOptionalComponent } from '@ir-engine/ecs'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { commitProperty } from '@ir-engine/editor/src/components/properties/Util'
-import { DomainConfigState } from '@ir-engine/engine/src/assets/state/DomainConfigState'
 import { InstancingComponent } from '@ir-engine/engine/src/scene/components/InstancingComponent'
 import {
   Devices,
@@ -14,6 +13,7 @@ import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Vector3_Left, Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { DomainConfigState } from '@ir-engine/spatial/src/resources/DomainConfigState'
 import InputGroup from '@ir-engine/ui/src/components/editor/input/Group'
 import ModelInput from '@ir-engine/ui/src/components/editor/input/Model'
 import NumericInput from '@ir-engine/ui/src/components/editor/input/Numeric'
