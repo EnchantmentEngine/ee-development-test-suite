@@ -342,17 +342,6 @@ export const gltfRoutes = [
     )
   },
   {
-    name: 'EE_material',
-    description: 'Ethereal Engine Material Extension',
-    entry: ({ sceneEntity }) => (
-      <GLTFViewer
-        sceneEntity={sceneEntity!}
-        src={fileServer + '/projects/enchantmentengine/ee-development-test-suite/assets/GLTF/double-mat-test.gltf'}
-        light
-      />
-    )
-  },
-  {
     name: 'Simple Material',
     description: 'Simple Material',
     entry: ({ sceneEntity }) => (
