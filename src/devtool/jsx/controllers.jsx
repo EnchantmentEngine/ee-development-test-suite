@@ -20,7 +20,7 @@ import {
 } from '../js/messenger';
 import config from '@ir-engine/common/src/config';
 
-const assetURL = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/src/devtool'
+const assetURL = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/src/devtool'
 
 import { Joystick } from '../js/joystick';
 import React from 'react';

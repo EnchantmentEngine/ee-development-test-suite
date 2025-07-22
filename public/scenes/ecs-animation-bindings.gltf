@@ -339,7 +339,7 @@
           "shadowMapType": 2
         },
         "EE_scene_settings": {
-          "thumbnailURL": "__$project$__/ir-engine/ir-development-test-suite/public/scenes/.thumbnail.jpg?hash=85cbf8",
+          "thumbnailURL": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/scenes/.thumbnail.jpg?hash=85cbf8",
           "loadingScreenURL": "__$project$__/ir-engine/default-project/public/scenes/default.loadingscreen.ktx2",
           "primaryColor": "#B3B3B3",
           "backgroundColor": "#2C2C2C",
@@ -717,7 +717,7 @@
       "name": "New Object",
       "extensions": {
         "EE_model": {
-          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/pillars/pillars.gltf?hash=4b64c0",
+          "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/pillars/pillars.gltf?hash=4b64c0",
           "cameraOcclusion": false
         },
         "EE_shadow": {

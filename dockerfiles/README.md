@@ -6,7 +6,7 @@
     - In this Dockerfile we have use Ubuntu image. 
     - Then we have Install nodejs and chrome in Ubuntu image.
     - Cloned EtherealEngine repository
-    - Then change WORKDIR and installed ir-development-test-suite and ir-bot in this path /etherealengine/packages/projects/projects/
+    - Then change WORKDIR and installed ee-development-test-suite and ir-bot in this path /etherealengine/packages/projects/projects/
     - Then we have change WORKDIR to etherealengine and copied the env's to .env.local
     - Then we have installed dependencies of etherealengine.
     - Pass ENV APP_HOST=default-value to pass env when we run the Dockerfile_bot

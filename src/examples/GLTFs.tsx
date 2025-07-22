@@ -136,7 +136,7 @@ export const gltfRoutes = [
       <GLTFViewer
         sceneEntity={sceneEntity!}
         src={
-          fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
+          fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
         }
         light
         animationClip={'Sphere'}
@@ -331,11 +331,11 @@ export const gltfRoutes = [
   {
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
-    sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
+    sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Unlit.gltf',
     entry: ({ sceneEntity }) => (
       <GLTFViewer
         sceneEntity={sceneEntity!}
-        src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/lightmaptest.glb'}
+        src={fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/lightmaptest.glb'}
         // light
       />
     )
@@ -346,7 +346,7 @@ export const gltfRoutes = [
     entry: ({ sceneEntity }) => (
       <GLTFViewer
         sceneEntity={sceneEntity!}
-        src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/double-mat-test.gltf'}
+        src={fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/double-mat-test.gltf'}
         light
       />
     )

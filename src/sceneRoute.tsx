@@ -62,7 +62,7 @@ const Header = (props: { header: string }) => {
 }
 
 export const useRouteScene = (
-  projectName = 'ir-engine/ir-development-test-suite',
+  projectName = 'EnchantmentEngine/ee-development-test-suite',
   sceneName = 'public/scenes/Examples.gltf'
 ) => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })

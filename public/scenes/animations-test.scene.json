@@ -356,9 +356,9 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/rings.glb",
+            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb",
             "resource": {
-              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/rings.glb"
+              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb"
             },
             "generateBVH": false,
             "avoidCameraOcclusion": false
@@ -423,9 +423,9 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/transforms.glb",
+            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/transforms.glb",
             "resource": {
-              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/transforms.glb"
+              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/transforms.glb"
             },
             "generateBVH": false,
             "avoidCameraOcclusion": false
@@ -490,7 +490,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/Racer-transformed.gltf",
+            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/Racer-transformed.gltf",
             "generateBVH": false,
             "avoidCameraOcclusion": false
           }

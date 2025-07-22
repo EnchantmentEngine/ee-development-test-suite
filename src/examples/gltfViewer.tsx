@@ -28,11 +28,11 @@ export const metadata = {
 
 const loadOldModel = false
 const defaultSource = config.client.fileServer + '/projects/default-project/assets/apartment.glb'
-// const defaultSource = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
-// const defaultSource = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Duck/binary/Duck.glb'
-// const defaultSource = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Duck/draco/Duck.gltf'
-// const defaultSource = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Duck/embedded/Duck.gltf'
-// const defaultSource = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Duck/binary/Duck.glb'
+// const defaultSource = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Duck/draco/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Duck/embedded/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
 // const defaultSource = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/UnlitTest/glTF-Binary/UnlitTest.glb'
 
 const GLTF = () => {

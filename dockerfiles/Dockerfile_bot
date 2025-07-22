@@ -21,9 +21,9 @@ RUN apt-get install -y google-chrome-stable
 # Clone the ir-engine repository
 RUN git clone -b dev --depth 1 https://github.com/ir-engine/ir-engine.git /ir-engine
 
-# Clone ir-development-test-suite and ir-bot inside ir-engine/packages/projects/projects/
+# Clone ee-development-test-suite and ir-bot inside ir-engine/packages/projects/projects/
 WORKDIR /ir-engine/packages/projects/projects/
-RUN git clone -b test/bot-test --depth 1 https://github.com/IREngine/ir-development-test-suite.git && \
+RUN git clone -b test/bot-test --depth 1 https://github.com/IREngine/ee-development-test-suite.git && \
     git clone -b test/bot-test --depth 1 https://github.com/IREngine/ir-bot.git
 
 # Cleanup
@@ -37,7 +37,7 @@ RUN cp .env.local.default .env.local
 
 RUN npm install --loglevel notice --legacy-peer-deps
 
-WORKDIR /ir-engine/packages/projects/projects/ir-engine/ir-development-test-suite
+WORKDIR /ir-engine/packages/projects/projects/EnchantmentEngine/ee-development-test-suite
 
 ENV DOMAIN=test2.ir-engine.com
 ENV LOCATION=default

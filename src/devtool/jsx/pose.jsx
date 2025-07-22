@@ -14,7 +14,7 @@ import initKeyboardControl from '../js/keyboard';
 
 
 import config from '@ir-engine/common/src/config';
-const assetURL = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/src/devtool'
+const assetURL = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/src/devtool'
 
 export default function PoseBar({ device, setInputMode }) {
 	const saveDefaultPoseRef = React.useRef();

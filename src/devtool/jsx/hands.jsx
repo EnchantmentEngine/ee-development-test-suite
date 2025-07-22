@@ -17,7 +17,7 @@ import React from 'react';
 import { createAnalogPressFunction } from './controllers.jsx';
 
 import config from '@ir-engine/common/src/config';
-const assetURL = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/src/devtool'
+const assetURL = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/src/devtool'
 
 
 export default function HandPanel({ deviceKey, device }) {

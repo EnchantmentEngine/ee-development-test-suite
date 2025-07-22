@@ -111,7 +111,7 @@ const execute = () => {
 }
 
 export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  uuid: 'ee-development-test-suite.multiplescenes.ball-reset-system',
   insert: { before: PhysicsPreTransformSystem },
   execute
 })
