@@ -49,7 +49,7 @@
             "bakeType": "Baked",
             "resolution": 2048,
             "refreshMode": "OnAwake",
-            "envMapOrigin": "__$project$__/EnchantmentEngine/default-project/default.envmap.ktx2",
+            "envMapOrigin": "__$project$__/enchantmentengine/default-project/default.envmap.ktx2",
             "boxProjection": true
           }
         },
@@ -132,7 +132,7 @@
           "props": {
             "backgroundColor": 0,
             "equirectangularPath": "",
-            "cubemapPath": "__$project$__/EnchantmentEngine/default-project/assets/skyboxsun25deg/",
+            "cubemapPath": "__$project$__/enchantmentengine/default-project/assets/skyboxsun25deg/",
             "backgroundType": 1,
             "skyboxProps": {
               "turbidity": 10,
@@ -356,9 +356,9 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/rings.glb",
             "resource": {
-              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb"
+              "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/rings.glb"
             },
             "generateBVH": false,
             "avoidCameraOcclusion": false
@@ -423,9 +423,9 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/transforms.glb",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/transforms.glb",
             "resource": {
-              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/transforms.glb"
+              "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/transforms.glb"
             },
             "generateBVH": false,
             "avoidCameraOcclusion": false
@@ -490,7 +490,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/Racer-transformed.gltf",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/Racer-transformed.gltf",
             "generateBVH": false,
             "avoidCameraOcclusion": false
           }
@@ -501,7 +501,7 @@
             "type": "None",
             "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 4095,
-            "envMapSourceURL": "__$project$__/EnchantmentEngine/default-project/default.envmap.ktx2",
+            "envMapSourceURL": "__$project$__/enchantmentengine/default-project/default.envmap.ktx2",
             "envMapIntensity": 1
           }
         },

@@ -59,7 +59,7 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
         {
           src:
             getState(DomainConfigState).cloudDomain +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+            '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
           metadata: {
             minDistance: 0,
             maxDistance: 20
@@ -68,7 +68,7 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
         {
           src:
             getState(DomainConfigState).cloudDomain +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+            '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
           metadata: {
             minDistance: 20,
             maxDistance: 50
@@ -77,7 +77,7 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
         {
           src:
             getState(DomainConfigState).cloudDomain +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+            '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
           metadata: {
             minDistance: 50,
             maxDistance: 100

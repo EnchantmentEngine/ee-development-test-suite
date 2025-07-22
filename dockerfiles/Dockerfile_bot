@@ -37,7 +37,7 @@ RUN cp .env.local.default .env.local
 
 RUN npm install --loglevel notice --legacy-peer-deps
 
-WORKDIR /ir-engine/packages/projects/projects/EnchantmentEngine/ee-development-test-suite
+WORKDIR /ir-engine/packages/projects/projects/enchantmentengine/ee-development-test-suite
 
 ENV DOMAIN=test2.ir-engine.com
 ENV LOCATION=default

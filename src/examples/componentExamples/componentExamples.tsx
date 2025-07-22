@@ -67,7 +67,7 @@ export const subComponentExamples = [
           cameraOcclusion: true,
           src:
             config.client.fileServer +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+            '/projects/enchantmentengine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
         })
         setComponent(entity, ShadowComponent, { receive: false })
         setVisibleComponent(entity, true)
@@ -95,7 +95,7 @@ export const subComponentExamples = [
           cameraOcclusion: true,
           src:
             config.client.fileServer +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+            '/projects/enchantmentengine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).scale.set(3, 3, 3)
@@ -157,7 +157,7 @@ export const subComponentExamples = [
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
           animationPack:
-            config.client.fileServer + '/projects/EnchantmentEngine/default-project/assets/animations/emotes.glb',
+            config.client.fileServer + '/projects/enchantmentengine/default-project/assets/animations/emotes.glb',
           activeClipIndex: validAvatarAnimations[Math.floor(Math.random() * validAvatarAnimations.length)]
         })
       }, [avatars])
@@ -185,7 +185,7 @@ export const subComponentExamples = [
             {
               src:
                 config.client.fileServer +
-                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+                '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
               metadata: {
                 minDistance: 0,
                 maxDistance: 5
@@ -194,7 +194,7 @@ export const subComponentExamples = [
             {
               src:
                 config.client.fileServer +
-                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+                '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
               metadata: {
                 minDistance: 5,
                 maxDistance: 10
@@ -203,7 +203,7 @@ export const subComponentExamples = [
             {
               src:
                 config.client.fileServer +
-                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+                '/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
               metadata: {
                 minDistance: 10,
                 maxDistance: 15
@@ -256,7 +256,7 @@ export const subComponentExamples = [
         setComponent(entity, ImageComponent, {
           source:
             config.client.fileServer +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/Images/testImage.jpg'
+            '/projects/enchantmentengine/ee-development-test-suite/assets/Images/testImage.jpg'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -278,7 +278,7 @@ export const subComponentExamples = [
         setComponent(entity, VideoComponent)
         setComponent(entity, MediaComponent, {
           resources: [
-            config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/Videos/HDVideo.mp4'
+            config.client.fileServer + '/projects/enchantmentengine/ee-development-test-suite/assets/Videos/HDVideo.mp4'
           ]
         })
         setVisibleComponent(entity, true)
@@ -372,7 +372,7 @@ export const subComponentExamples = [
         setComponent(entity, GLTFComponent, {
           src:
             config.client.fileServer +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
+            '/projects/enchantmentengine/ee-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, { activeClipIndex: 0 })
@@ -400,7 +400,7 @@ export const subComponentExamples = [
         setComponent(entity, GLTFComponent, {
           src:
             config.client.fileServer +
-            '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
+            '/projects/enchantmentengine/ee-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)

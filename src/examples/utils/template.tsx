@@ -24,7 +24,7 @@ export function useSpawnAvatar(spawnAvatar?: boolean) {
 export function Template(props: { projectName?: string; sceneName?: string; spawnAvatar?: boolean }) {
   useSpawnAvatar(props.spawnAvatar)
   useLoadScene({
-    projectName: props.projectName ?? 'EnchantmentEngine/default-project',
+    projectName: props.projectName ?? 'enchantmentengine/default-project',
     sceneName: props.sceneName ?? 'public/scenes/default.gltf'
   })
   useNetwork({ online: false })

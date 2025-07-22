@@ -13,7 +13,7 @@ import { useRouteScene } from '../sceneRoute'
 import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 
 export default function ImmersiveAR() {
-  useRouteScene('EnchantmentEngine/default-project', 'public/scenes/apartment.gltf')
+  useRouteScene('enchantmentengine/default-project', 'public/scenes/apartment.gltf')
   useNetwork({ online: false })
   const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 

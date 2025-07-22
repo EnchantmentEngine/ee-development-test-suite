@@ -1,5 +1,5 @@
 {
-  "name": "EnchantmentEngine/ee-development-test-suite",
+  "name": "enchantmentengine/ee-development-test-suite",
   "version": "0.0.0",
   "engineVersion": "1.6.0",
   "description": "Assets and tests for iR Engine core development",

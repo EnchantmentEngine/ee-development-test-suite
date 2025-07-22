@@ -46,7 +46,7 @@ export const examples: RouteCategories = [
       name: sub.name,
       description: sub.description,
       spawnAvatar: sub.spawnAvatar,
-      sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Empty.gltf',
+      sceneKey: 'projects/enchantmentengine/ee-development-test-suite/public/scenes/Empty.gltf',
       entry: ({ sceneEntity }) => <ComponentExamples sceneEntity={sceneEntity!} Reactor={sub.Reactor} />
     }))
   },
@@ -83,7 +83,7 @@ export const examples: RouteCategories = [
       {
         name: 'Shadows',
         description: 'Cast shadows from directional, point, and spot lights',
-        sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Unlit.gltf',
+        sceneKey: 'projects/enchantmentengine/ee-development-test-suite/public/scenes/Unlit.gltf',
         entry: ShadowExampleEntry
       },
       {
@@ -99,13 +99,13 @@ export const examples: RouteCategories = [
       {
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
-        sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Empty.gltf',
+        sceneKey: 'projects/enchantmentengine/ee-development-test-suite/public/scenes/Empty.gltf',
         entry: ResourceTrackingRoute
       },
       {
         name: 'Instanced LODs',
         description: 'Instanced LODs example',
-        sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Empty.gltf',
+        sceneKey: 'projects/enchantmentengine/ee-development-test-suite/public/scenes/Empty.gltf',
         entry: InstancedLODs
       },
       {
@@ -123,7 +123,7 @@ export const examples: RouteCategories = [
   {
     category: 'GLTF',
     routes: gltfRoutes.map((route) => ({
-      sceneKey: 'projects/EnchantmentEngine/ee-development-test-suite/public/scenes/Empty.gltf',
+      sceneKey: 'projects/enchantmentengine/ee-development-test-suite/public/scenes/Empty.gltf',
       ...route
     }))
   },
@@ -133,7 +133,7 @@ export const examples: RouteCategories = [
       {
         name: 'Dynamic objects',
         description: 'Dynamic objects example',
-        sceneKey: 'projects/EnchantmentEngine/default-project/public/scenes/default.gltf',
+        sceneKey: 'projects/enchantmentengine/default-project/public/scenes/default.gltf',
         entry: PhysicsDynamicObjects,
         spawnAvatar: true
       }

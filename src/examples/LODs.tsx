@@ -69,21 +69,21 @@ const LODsDND = () => {
 
     setVariant(entity, [
       {
-        url: `${fileServerURL}/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
+        url: `${fileServerURL}/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
         metadata: {
           minDistance: 0,
           maxDistance: 5
         }
       },
       {
-        url: `${fileServerURL}/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
+        url: `${fileServerURL}/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
         metadata: {
           minDistance: 5,
           maxDistance: 10
         }
       },
       {
-        url: `${fileServerURL}/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
+        url: `${fileServerURL}/projects/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
         metadata: {
           minDistance: 10,
           maxDistance: 15
@@ -127,7 +127,7 @@ const LODsDND = () => {
           const result = await uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
             args: {
-              project: 'EnchantmentEngine/ee-development-test-suite'
+              project: 'enchantmentengine/ee-development-test-suite'
             } as AdminAssetUploadArgumentsType,
             variants: true
           }).promise

@@ -45,7 +45,7 @@
             "bakeType": "Baked",
             "resolution": 2048,
             "refreshMode": "OnAwake",
-            "envMapOrigin": "__$project$__/EnchantmentEngine/default-project/default.envmap.ktx2",
+            "envMapOrigin": "__$project$__/enchantmentengine/default-project/default.envmap.ktx2",
             "boxProjection": true
           }
         },
@@ -298,7 +298,7 @@
           "props": {
             "backgroundColor": 0,
             "equirectangularPath": "",
-            "cubemapPath": "__$project$__/EnchantmentEngine/default-project/assets/skyboxsun25deg/",
+            "cubemapPath": "__$project$__/enchantmentengine/default-project/assets/skyboxsun25deg/",
             "backgroundType": 1,
             "skyboxProps": {
               "turbidity": 10,
@@ -510,7 +510,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -531,21 +531,21 @@
           "props": {
             "levels": [
               {
-                "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
+                "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
                 "metadata": {
                   "minDistance": 0,
                   "maxDistance": 5
                 }
               },
               {
-                "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
+                "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
                 "metadata": {
                   "minDistance": 5,
                   "maxDistance": 10
                 }
               },
               {
-                "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+                "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
                 "metadata": {
                   "minDistance": 10,
                   "maxDistance": 15
@@ -621,7 +621,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/default-project/assets/Skybase.glb",
+            "src": "__$project$__/enchantmentengine/default-project/assets/Skybase.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -765,7 +765,7 @@
             "controls": true,
             "autoplay": true,
             "resources": [
-              "__$project$__/EnchantmentEngine/default-project/assets/SampleVideo.mp4"
+              "__$project$__/enchantmentengine/default-project/assets/SampleVideo.mp4"
             ],
             "volume": 1,
             "synchronize": true,
@@ -904,7 +904,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/default-project/assets/test-equippable.glb",
+            "src": "__$project$__/enchantmentengine/default-project/assets/test-equippable.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -1051,7 +1051,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/default-project/assets/avatars/male_01.vrm",
+            "src": "__$project$__/enchantmentengine/default-project/assets/avatars/male_01.vrm",
             "generateBVH": true,
             "avoidCameraOcclusion": false,
             "convertToVRM": true
@@ -1082,7 +1082,7 @@
           "name": "EE_loop_animation",
           "props": {
             "activeClipIndex": 3,
-            "animationPack": "__$project$__/EnchantmentEngine/default-project/assets/animations/emotes.glb",
+            "animationPack": "__$project$__/enchantmentengine/default-project/assets/animations/emotes.glb",
             "paused": false,
             "time": 0,
             "timeScale": 1,
@@ -1474,7 +1474,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/rings.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -1593,7 +1593,7 @@
         {
           "name": "EE_model",
           "props": {
-            "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
+            "src": "__$project$__/enchantmentengine/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
             "cameraOcclusion": true,
             "convertToVRM": false
           }

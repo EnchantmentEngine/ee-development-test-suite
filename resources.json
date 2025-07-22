@@ -22,7 +22,7 @@
     ],
     "dependencies": [],
     "name": "Racer-transformed.gltf",
-    "thumbnailKey": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_animations_Racer-transformed.gltf-thumbnail.png",
+    "thumbnailKey": "__$project$__/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_animations_Racer-transformed.gltf-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
@@ -72,7 +72,7 @@
     ],
     "dependencies": [],
     "name": "rings.glb",
-    "thumbnailKey": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_animations_rings.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_animations_rings.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/tornado-mobile-xr.glb": {
@@ -82,7 +82,7 @@
     ],
     "dependencies": [],
     "name": "tornado-mobile-xr.glb",
-    "thumbnailKey": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_animations_tornado-mobile-xr.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_animations_tornado-mobile-xr.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/animations/transforms.glb": {
@@ -92,7 +92,7 @@
     ],
     "dependencies": [],
     "name": "transforms.glb",
-    "thumbnailKey": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_animations_transforms.glb-thumbnail.png",
+    "thumbnailKey": "__$project$__/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_animations_transforms.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/envmaps/hall.glb": {
@@ -102,7 +102,7 @@
     ],
     "dependencies": [],
     "name": "hall.glb",
-    "thumbnailKey": "projects/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_hall.glb-thumbnail.png",
+    "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_hall.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/GLTF/double-mat-test_data.bin": {
@@ -120,7 +120,7 @@
     ],
     "dependencies": [],
     "name": "double-mat-test.gltf",
-    "thumbnailKey": "projects/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_GLTF_double-mat-test.gltf-thumbnail.png",
+    "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_GLTF_double-mat-test.gltf-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/GLTF/Duck/basic/Duck.gltf": {
@@ -354,7 +354,7 @@
     ],
     "dependencies": [],
     "name": "lightmaptest.glb",
-    "thumbnailKey": "projects/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_GLTF_lightmaptest.glb-thumbnail.png",
+    "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_GLTF_lightmaptest.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/GLTF/MultiplePrimitivesMorphTargets.glb": {
@@ -364,7 +364,7 @@
     ],
     "dependencies": [],
     "name": "MultiplePrimitivesMorphTargets.glb",
-    "thumbnailKey": "projects/EnchantmentEngine/ee-development-test-suite/public/thumbnails/assets_GLTF_MultiplePrimitivesMorphTargets.glb-thumbnail.png",
+    "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/assets_GLTF_MultiplePrimitivesMorphTargets.glb-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "assets/graph/default-graph.json": {
@@ -645,16 +645,16 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/Adam_data.bin",
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/Adam_data.bin",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
     ],
     "name": "Adam.gltf",
-    "thumbnailKey": "projects/EnchantmentEngine/ee-development-test-suite/public/thumbnails/public_avatars_Adam.gltf-thumbnail.png",
+    "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/public_avatars_Adam.gltf-thumbnail.png",
     "thumbnailMode": "automatic"
   },
   "public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
@@ -727,7 +727,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_01.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_01.png"
     ],
     "name": "female_01.vrm"
   },
@@ -745,7 +745,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_02.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_02.png"
     ],
     "name": "female_02.vrm"
   },
@@ -763,7 +763,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_03.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_03.png"
     ],
     "name": "female_03.vrm"
   },
@@ -781,7 +781,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_04.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_04.png"
     ],
     "name": "female_04.vrm"
   },
@@ -799,7 +799,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_05.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_05.png"
     ],
     "name": "female_05.vrm"
   },
@@ -817,7 +817,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/female_06.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/female_06.png"
     ],
     "name": "female_06.vrm"
   },
@@ -835,7 +835,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/male_01.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/male_01.png"
     ],
     "name": "male_01.vrm"
   },
@@ -853,7 +853,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/male_02.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/male_02.png"
     ],
     "name": "male_02.vrm"
   },
@@ -871,7 +871,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/male_03.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/male_03.png"
     ],
     "name": "male_03.vrm"
   },
@@ -889,7 +889,7 @@
       "Model"
     ],
     "dependencies": [
-      "projects/EnchantmentEngine/ee-development-test-suite/public/avatars/male_04.png"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/male_04.png"
     ],
     "name": "male_04.vrm"
   },
@@ -992,7 +992,7 @@
     ],
     "dependencies": [],
     "name": "ecs-animation-bindings.gltf",
-    "thumbnailKey": "projects/EnchantmentEngine/default-project/public/scenes/default.thumbnail.jpg"
+    "thumbnailKey": "projects/enchantmentengine/default-project/public/scenes/default.thumbnail.jpg"
   },
   "public/scenes/Empty.gltf": {
     "type": "scene",
