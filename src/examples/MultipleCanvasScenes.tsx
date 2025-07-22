@@ -109,7 +109,7 @@ export default function MultipleCanvasScenes() {
     setComponent(modelEntity, NameComponent, 'Model Entity 1')
     setComponent(modelEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(modelEntity, GLTFComponent, {
-      src: config.client.fileServer + '/projects/ir-engine/default-project/public/scenes/apartment.gltf'
+      src: config.client.fileServer + '/projects/EnchantmentEngine/default-project/public/scenes/apartment.gltf'
     })
     setComponent(cameraEntity, AssetPreviewCameraComponent, { targetModelEntity: modelEntity })
   }, [])
@@ -126,7 +126,7 @@ export default function MultipleCanvasScenes() {
     setComponent(modelEntity, NameComponent, 'Model Entity 2')
     setComponent(modelEntity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(modelEntity, GLTFComponent, {
-      src: config.client.fileServer + '/projects/ir-engine/default-project/public/scenes/sky-station.gltf'
+      src: config.client.fileServer + '/projects/EnchantmentEngine/default-project/public/scenes/sky-station.gltf'
     })
     setComponent(cameraEntity, AssetPreviewCameraComponent, { targetModelEntity: modelEntity })
   }, [])

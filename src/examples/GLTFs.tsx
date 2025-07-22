@@ -136,7 +136,8 @@ export const gltfRoutes = [
       <GLTFViewer
         sceneEntity={sceneEntity!}
         src={
-          fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
+          fileServer +
+          '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
         }
         light
         animationClip={'Sphere'}

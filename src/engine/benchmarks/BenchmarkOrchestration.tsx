@@ -18,14 +18,16 @@ type Benchmark = {
   systemUUIDs: SystemUUID[]
 }
 
-export enum BenchmarkStage {
-  Particles = 'Particles',
-  Physics = 'Physics',
-  Avatar = 'Avatar',
-  Animation = 'Animation',
-  Rendering = 'Rendering',
-  IK = 'IK'
-}
+export const BenchmarkStage = {
+  Particles: 'Particles',
+  Physics: 'Physics',
+  Avatar: 'Avatar',
+  Animation: 'Animation',
+  Rendering: 'Rendering',
+  IK: 'IK'
+} as const
+
+export type BenchmarkStageType = (typeof BenchmarkStage)[keyof typeof BenchmarkStage]
 
 const benchmarkOrder = [
   BenchmarkStage.Physics,
@@ -36,7 +38,7 @@ const benchmarkOrder = [
   BenchmarkStage.IK
 ]
 
-export const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
+export const benchmarks: { [key in BenchmarkStageType]: Benchmark | null } = {
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
     systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]
@@ -58,7 +60,7 @@ export const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
 }
 
 type BenchmarkData = Record<
-  BenchmarkStage,
+  BenchmarkStageType,
   Record<
     SystemUUID,
     {

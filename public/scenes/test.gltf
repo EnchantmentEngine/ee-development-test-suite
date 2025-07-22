@@ -33,7 +33,7 @@
           "bakeType": "Baked",
           "resolution": 2048,
           "refreshMode": "OnAwake",
-          "envMapOrigin": "__$project$__/ir-engine/default-project/default.envmap.ktx2",
+          "envMapOrigin": "__$project$__/EnchantmentEngine/default-project/default.envmap.ktx2",
           "boxProjection": true
         },
         "EE_fog": {
@@ -220,7 +220,7 @@
         "EE_skybox": {
           "backgroundColor": 0,
           "equirectangularPath": "",
-          "cubemapPath": "__$project$__/ir-engine/default-project/assets/skyboxsun25deg/",
+          "cubemapPath": "__$project$__/EnchantmentEngine/default-project/assets/skyboxsun25deg/",
           "backgroundType": 1,
           "skyboxProps": {
             "turbidity": 10,
@@ -357,7 +357,7 @@
       "extensions": {
         "EE_uuid": "60a15eb3-1ae8-44a8-8952-ea1f67fa8084",
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/Skybase.glb",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/Skybase.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -414,7 +414,7 @@
         "EE_media": {
           "controls": true,
           "autoplay": true,
-          "resources": ["__$project$__/ir-engine/default-project/assets/SampleVideo.mp4"],
+          "resources": ["__$project$__/EnchantmentEngine/default-project/assets/SampleVideo.mp4"],
           "volume": 1,
           "synchronize": true,
           "playMode": "loop",
@@ -521,7 +521,7 @@
       "extensions": {
         "EE_uuid": "7bca6953-d646-459b-abe5-673e6ba9f510",
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/test-equippable.glb",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/test-equippable.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -584,14 +584,14 @@
       "extensions": {
         "EE_uuid": "68130937-16a1-4b95-a0db-7e32b99212fa",
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/avatars/male_01.vrm",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/avatars/male_01.vrm",
           "generateBVH": true,
           "avoidCameraOcclusion": false,
           "convertToVRM": true
         },
         "EE_loop_animation": {
           "activeClipIndex": 3,
-          "animationPack": "__$project$__/ir-engine/default-project/assets/animations/emotes.glb",
+          "animationPack": "__$project$__/EnchantmentEngine/default-project/assets/animations/emotes.glb",
           "paused": false,
           "time": 0,
           "timeScale": 1,

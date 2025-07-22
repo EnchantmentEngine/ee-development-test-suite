@@ -26,7 +26,7 @@ import { CylinderGeometry, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import { useRouteScene } from '../sceneRoute'
 
 export default function MountPointEntry() {
-  const sceneEntity = useRouteScene('ir-engine/default-project', 'public/scenes/default.gltf')
+  const sceneEntity = useRouteScene('EnchantmentEngine/default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
   const viewerEntity = useMutableState(ReferenceSpaceState).viewerEntity.value
 

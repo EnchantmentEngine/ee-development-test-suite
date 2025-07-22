@@ -46,7 +46,7 @@
           "bakeType": "Baked",
           "resolution": 2048,
           "refreshMode": "OnAwake",
-          "envMapOrigin": "__$project$__/ir-engine/default-project/public/scenes/default.envmap.ktx2",
+          "envMapOrigin": "__$project$__/EnchantmentEngine/default-project/public/scenes/default.envmap.ktx2",
           "boxProjection": true
         },
         "EE_fog": {
@@ -340,7 +340,7 @@
         },
         "EE_scene_settings": {
           "thumbnailURL": "__$project$__/EnchantmentEngine/ee-development-test-suite/public/scenes/.thumbnail.jpg?hash=85cbf8",
-          "loadingScreenURL": "__$project$__/ir-engine/default-project/public/scenes/default.loadingscreen.ktx2",
+          "loadingScreenURL": "__$project$__/EnchantmentEngine/default-project/public/scenes/default.loadingscreen.ktx2",
           "primaryColor": "#B3B3B3",
           "backgroundColor": "#2C2C2C",
           "alternativeColor": "#A1A1A1",
@@ -381,8 +381,8 @@
         "EE_visible": true,
         "EE_skybox": {
           "backgroundColor": 3026478,
-          "equirectangularPath": "__$project$__/ir-engine/default-project/assets/generic_midday_02.png?hash=96ae3d",
-          "cubemapPath": "__$project$__/ir-engine/default-project/assets/skyboxsun25deg/",
+          "equirectangularPath": "__$project$__/EnchantmentEngine/default-project/assets/generic_midday_02.png?hash=96ae3d",
+          "cubemapPath": "__$project$__/EnchantmentEngine/default-project/assets/skyboxsun25deg/",
           "backgroundType": 2,
           "skyboxProps": {
             "turbidity": 10,
@@ -473,7 +473,7 @@
       "name": "New Object",
       "extensions": {
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/lotus_elise_sceneanim/scene.gltf?hash=0938ea",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/lotus_elise_sceneanim/scene.gltf?hash=0938ea",
           "cameraOcclusion": false
         },
         "EE_shadow": {
@@ -549,7 +549,7 @@
       "name": "New Object",
       "extensions": {
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/avatars/male_01.vrm?hash=a0adc0",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/avatars/male_01.vrm?hash=a0adc0",
           "cameraOcclusion": false
         },
         "EE_shadow": {
@@ -559,7 +559,7 @@
         "EE_envmap": {
           "type": null,
           "envMapSourceColor": 4095,
-          "envMapSourceURL": "__$project$__/ir-engine/default-project/assets/generic_midday_02.png?hash=96ae3d",
+          "envMapSourceURL": "__$project$__/EnchantmentEngine/default-project/assets/generic_midday_02.png?hash=96ae3d",
           "envMapSourceEntityUUID": "",
           "envMapIntensity": 1
         },
@@ -605,7 +605,7 @@
       "name": "New Object",
       "extensions": {
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/avatars/male_02.vrm?hash=a0adc0",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/avatars/male_02.vrm?hash=a0adc0",
           "cameraOcclusion": false
         },
         "EE_shadow": {
@@ -615,7 +615,7 @@
         "EE_envmap": {
           "type": null,
           "envMapSourceColor": 4095,
-          "envMapSourceURL": "__$project$__/ir-engine/default-project/assets/generic_midday_02.png?hash=96ae3d",
+          "envMapSourceURL": "__$project$__/EnchantmentEngine/default-project/assets/generic_midday_02.png?hash=96ae3d",
           "envMapSourceEntityUUID": "",
           "envMapIntensity": 1
         },
@@ -661,7 +661,7 @@
       "name": "New Object",
       "extensions": {
         "EE_model": {
-          "src": "__$project$__/ir-engine/default-project/assets/rings.glb?hash=08af56",
+          "src": "__$project$__/EnchantmentEngine/default-project/assets/rings.glb?hash=08af56",
           "cameraOcclusion": false
         },
         "EE_shadow": {
