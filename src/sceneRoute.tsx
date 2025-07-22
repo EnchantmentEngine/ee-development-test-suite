@@ -62,7 +62,7 @@ const Header = (props: { header: string }) => {
 }
 
 export const useRouteScene = (
-  projectName = 'ir-engine/ir-development-test-suite',
+  projectName = 'EnchantmentEngine/ee-development-test-suite',
   sceneName = 'public/scenes/Examples.gltf'
 ) => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })
@@ -92,7 +92,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
 
   const hidden = useMutableState(ExampleRouteState).hidden
 
-  const ref = React.useRef<HTMLDivElement>(null)
+  const ref = React.useRef(document.body)
 
   useSpatialEngine()
   useEngineCanvas(ref)
@@ -198,7 +198,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
             })}
           </div>
         </div>
-        <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        <div id="examples-panel" style={{ flexGrow: 1, pointerEvents: 'none' }} />
         {routeReady && <Entry sceneEntity={sceneEntity} />}
       </div>
       <Debug />

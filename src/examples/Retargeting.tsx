@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
 
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@ir-engine/common/src/constants/AvatarConstants'
-import { createEntity, getChildrenWithComponents, removeEntity } from '@ir-engine/ecs'
-import { Entity } from '@ir-engine/ecs/src/Entity'
+import { createEntity, getChildrenWithComponents, removeEntity, UUIDComponent } from '@ir-engine/ecs'
+import { Entity, EntityID, SourceID } from '@ir-engine/ecs/src/Entity'
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
 
@@ -12,9 +12,8 @@ import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching
 import { VRMHumanBoneName } from '@ir-engine/engine/src/avatar/maps/VRMHumanBoneName'
 import { AssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
-import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { BoneComponent } from '@ir-engine/spatial/src/renderer/components/BoneComponent'
-import { ObjectComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
+import { addObjectToGroup, ObjectComponent } from '@ir-engine/spatial/src/renderer/components/ObjectComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { Template } from './utils/template'
 
@@ -254,7 +253,10 @@ const RetargetingDND = () => {
           scale: helper.scale
         })
         addObjectToGroup(helperEntity, helper)
-        setComponent(helperEntity, NameComponent, bone.name + '--helper')
+        setComponent(helperEntity, UUIDComponent, {
+          entitySourceID: 'helper' as SourceID,
+          entityID: (bone.name + '--helper') as EntityID
+        })
         setComponent(helperEntity, EntityTreeComponent, { parentEntity: entity })
 
         if (bones.includes(bone.name)) getMutableState(BoneMatchedState)[bone.name].set(true)
@@ -285,7 +287,12 @@ const RetargetingDND = () => {
     const originalBoneName = useHookstate(() => bone.name)
 
     const boneHelper = getComponent(
-      NameComponent.getEntitiesByName(boneName.value + '--helper')[0],
+      UUIDComponent.getEntityByUUID(
+        UUIDComponent.join({
+          entitySourceID: 'helper' as SourceID,
+          entityID: (boneName.value + '--helper') as EntityID
+        })
+      ),
       ObjectComponent
     ) as Mesh<ConeGeometry, MeshBasicMaterial>
     const isBone = bone.type === 'Bone'
@@ -301,8 +308,16 @@ const RetargetingDND = () => {
       boneHelper.name = name + '--helper'
       const currentBoneName = boneName.value as MixamoBoneNames
       boneName.set(name)
-      const helperEntity = NameComponent.getEntitiesByName(currentBoneName + '--helper')[0]
-      setComponent(helperEntity, NameComponent, name + '--helper')
+      const helperEntity = UUIDComponent.getEntityByUUID(
+        UUIDComponent.join({
+          entitySourceID: 'helper' as SourceID,
+          entityID: (currentBoneName + '--helper') as EntityID
+        })
+      )
+      setComponent(helperEntity, UUIDComponent, {
+        entitySourceID: 'helper' as SourceID,
+        entityID: (name + '--helper') as EntityID
+      })
     }
 
     useEffect(() => {

@@ -22,12 +22,12 @@ type AssetMetaData = {
 const assets: AssetMetaData[] = [
   {
     name: 'Test Image',
-    endpoint: '/projects/ir-engine/ir-development-test-suite/assets/Images/testImage.jpg',
+    endpoint: '/projects/EnchantmentEngine/ee-development-test-suite/assets/Images/testImage.jpg',
     type: 'image'
   },
   {
     name: 'Flight Helmet',
-    endpoint: '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf',
+    endpoint: '/projects/EnchantmentEngine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf',
     type: 'gltf'
   }
 ]

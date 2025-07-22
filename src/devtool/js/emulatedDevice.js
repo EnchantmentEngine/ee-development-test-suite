@@ -24,7 +24,7 @@ import { generateUUID } from 'three/src/math/MathUtils.js';
 import { updateUserObjects } from './messenger';
 
 import config from '@ir-engine/common/src/config';
-const assetURL = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/devtool'
+const assetURL = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/src/devtool'
 
 const SELECTION_MOUSE_DOWN_THRESHOLD = 300;
 

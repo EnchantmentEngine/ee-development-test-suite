@@ -23,7 +23,7 @@ import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import {
   DirectionalLightComponent,
@@ -47,7 +47,7 @@ import {
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
 // TransformComponent is already imported above
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
+import { Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
 export const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
@@ -81,7 +81,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
     restitution: MathUtils.randFloat(0.1, 1.0)
   })
   setComponent(colliderEntity, PrimitiveGeometryComponent, {
-    geometryType: GeometryTypeEnum.SphereGeometry
+    geometryType: GeometryType.SphereGeometry
   })
   setComponent(colliderEntity, InputComponent)
   setComponent(colliderEntity, ShadowComponent)
@@ -111,7 +111,7 @@ const execute = () => {
 }
 
 export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  uuid: 'ee-development-test-suite.multiplescenes.ball-reset-system',
   insert: { before: PhysicsPreTransformSystem },
   execute
 })
@@ -166,10 +166,8 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     const sceneID = `scene-${coord.x}-${coord.z}`
     const gltf = createSceneGLTF(sceneID)
 
-    const sceneURL = `/${sceneID}.gltf`
-
-    Cache.enabled = true
-    Cache.add(sceneURL, gltf)
+    const blob = new Blob([JSON.stringify(gltf)], { type: 'application/json' })
+    const sceneURL = URL.createObjectURL(blob)
 
     const gltfEntity = AssetState.load(sceneURL, sceneID as EntityID, Engine.instance.originEntity)
     getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])

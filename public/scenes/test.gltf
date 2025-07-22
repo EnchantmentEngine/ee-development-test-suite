@@ -302,7 +302,7 @@
       "extensions": {
         "EE_uuid": "b62536da-bbf2-4c83-aaef-9a8cd59d85e4",
         "EE_model": {
-          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD2.glb",
+          "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -314,21 +314,21 @@
         "EE_variant": {
           "levels": [
             {
-              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD0.glb",
+              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
               "metadata": {
                 "minDistance": 0,
                 "maxDistance": 5
               }
             },
             {
-              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD1.glb",
+              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
               "metadata": {
                 "minDistance": 5,
                 "maxDistance": 10
               }
             },
             {
-              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD2.glb",
+              "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
               "metadata": {
                 "minDistance": 10,
                 "maxDistance": 15
@@ -792,7 +792,7 @@
           "loop": true
         },
         "EE_model": {
-          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/rings.glb",
+          "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -865,7 +865,7 @@
       "extensions": {
         "EE_uuid": "6f0df209-4b99-4650-b9d1-f7c53e6a528a",
         "EE_model": {
-          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/animations/tornado-mobile-xr.glb",
+          "src": "__$project$__/EnchantmentEngine/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
           "cameraOcclusion": true,
           "convertToVRM": false
         },

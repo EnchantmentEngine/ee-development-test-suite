@@ -18,7 +18,7 @@ import React from 'react';
 import { changeRoomDimension } from '../js/messenger';
 
 import config from '@ir-engine/common/src/config';
-const assetURL = config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/devtool'
+const assetURL = config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/src/devtool'
 
 export default function Inspector({ device, inputMode }) {
 	const sceneContainerRef = React.useRef();
