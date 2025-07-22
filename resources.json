@@ -992,7 +992,7 @@
     ],
     "dependencies": [],
     "name": "ecs-animation-bindings.gltf",
-    "thumbnailKey": "projects/ir-engine/default-project/public/scenes/default.thumbnail.jpg"
+    "thumbnailKey": "projects/EnchantmentEngine/default-project/public/scenes/default.thumbnail.jpg"
   },
   "public/scenes/Empty.gltf": {
     "type": "scene",

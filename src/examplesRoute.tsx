@@ -133,7 +133,7 @@ export const examples: RouteCategories = [
       {
         name: 'Dynamic objects',
         description: 'Dynamic objects example',
-        sceneKey: 'projects/ir-engine/default-project/public/scenes/default.gltf',
+        sceneKey: 'projects/EnchantmentEngine/default-project/public/scenes/default.gltf',
         entry: PhysicsDynamicObjects,
         spawnAvatar: true
       }

@@ -156,7 +156,8 @@ export const subComponentExamples = [
         setComponent(entity, GLTFComponent, { src: avatarSrc })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
-          animationPack: config.client.fileServer + '/projects/ir-engine/default-project/assets/animations/emotes.glb',
+          animationPack:
+            config.client.fileServer + '/projects/EnchantmentEngine/default-project/assets/animations/emotes.glb',
           activeClipIndex: validAvatarAnimations[Math.floor(Math.random() * validAvatarAnimations.length)]
         })
       }, [avatars])
@@ -182,21 +183,27 @@ export const subComponentExamples = [
           heuristic: Heuristic.DISTANCE,
           levels: [
             {
-              src: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+              src:
+                config.client.fileServer +
+                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
               metadata: {
                 minDistance: 0,
                 maxDistance: 5
               }
             },
             {
-              src: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+              src:
+                config.client.fileServer +
+                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
               metadata: {
                 minDistance: 5,
                 maxDistance: 10
               }
             },
             {
-              src: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+              src:
+                config.client.fileServer +
+                '/projects/EnchantmentEngine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
               metadata: {
                 minDistance: 10,
                 maxDistance: 15
@@ -247,7 +254,9 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Image-Example')
         setComponent(entity, ImageComponent, {
-          source: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/Images/testImage.jpg'
+          source:
+            config.client.fileServer +
+            '/projects/EnchantmentEngine/ee-development-test-suite/assets/Images/testImage.jpg'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -361,7 +370,9 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Animation-Example')
         setComponent(entity, GLTFComponent, {
-          src: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
+          src:
+            config.client.fileServer +
+            '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, { activeClipIndex: 0 })
@@ -387,7 +398,9 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Dynamic Load Example')
         setComponent(entity, SceneDynamicLoadComponent, { distance: 5 })
         setComponent(entity, GLTFComponent, {
-          src: config.client.fileServer + '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
+          src:
+            config.client.fileServer +
+            '/projects/EnchantmentEngine/ee-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
