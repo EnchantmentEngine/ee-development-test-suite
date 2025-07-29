@@ -6,7 +6,7 @@ import {
   UUIDComponent,
   UndefinedEntity,
   createEntity,
-  getMutableComponent,
+  getComponent,
   hasComponent,
   removeEntityNodeRecursively,
   setComponent
@@ -122,8 +122,8 @@ export default function MultipleCanvasCameras() {
     setComponent(camera1Entity, AssetPreviewCameraComponent, { targetModelEntity: modelEntity })
     setComponent(camera2Entity, AssetPreviewCameraComponent, { targetModelEntity: modelEntity })
 
-    getMutableComponent(camera1Entity, RendererComponent).scenes.merge([sceneEntity])
-    getMutableComponent(camera2Entity, RendererComponent).scenes.merge([sceneEntity])
+    getComponent(camera1Entity, RendererComponent).scenes.push(sceneEntity)
+    getComponent(camera2Entity, RendererComponent).scenes.push(sceneEntity)
 
     return () => {
       removeEntityNodeRecursively(sceneEntity)

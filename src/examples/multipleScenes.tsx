@@ -13,7 +13,6 @@ import {
   defineQuery,
   defineSystem,
   getComponent,
-  getMutableComponent,
   getOptionalComponent,
   removeEntity,
   setComponent,
@@ -170,7 +169,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     const sceneURL = URL.createObjectURL(blob)
 
     const gltfEntity = AssetState.load(sceneURL, sceneID as EntityID, Engine.instance.originEntity)
-    getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
+    getComponent(Engine.instance.viewerEntity, RendererComponent).scenes.push(gltfEntity)
     setComponent(gltfEntity, SceneComponent, { active: true })
     getMutableState(SceneState)[sceneURL].set(gltfEntity)
 
@@ -209,7 +208,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
   }, [transform.position, transform.rotation, transform.scale])
 
   useEffect(() => {
-    if (gltfComponent?.progress?.value !== 100) return
+    if (gltfComponent?.progress !== 100) return
     const entities = [] as Entity[]
     for (let i = 0; i < 10; i++) {
       entities.push(createPhysicsEntity(gltfEntityState.value))
@@ -219,7 +218,7 @@ const SceneReactor = (props: { coord: Vector3 }) => {
         removeEntity(entity)
       }
     }
-  }, [gltfComponent?.progress?.value])
+  }, [gltfComponent?.progress])
 
   return null
 }
@@ -235,7 +234,7 @@ const MultipleScenesReactor = () => {
     setComponent(lightEntity, NameComponent, 'directional light')
     setComponent(lightEntity, VisibleComponent)
     setComponent(lightEntity, DirectionalLightComponent, { intensity: 1, color: new Color(0xffffff) })
-    getMutableComponent(viewerEntity, RendererComponent).scenes.merge([lightEntity])
+    getComponent(viewerEntity, RendererComponent).scenes.push(lightEntity)
 
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
