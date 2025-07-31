@@ -4,7 +4,6 @@ import {
   getMutableState,
   getState,
   NetworkState,
-  none,
   PeerID,
   useHookstate,
   useMutableState,
@@ -78,7 +77,7 @@ export default function AvatarSimpleEntry() {
   const network = useHookstate(NetworkState.worldNetworkState)
 
   useEffect(() => {
-    if (!renderer?.value) return
+    if (!renderer) return
 
     setComponent(engine.viewerEntity.value, CameraOrbitComponent)
     setComponent(engine.viewerEntity.value, InputComponent)
@@ -107,7 +106,7 @@ export default function AvatarSimpleEntry() {
     const blobURL = URL.createObjectURL(blob)
 
     const gltfEntity = AssetState.load(blobURL, 'scene' as EntityID)
-    renderer.scenes.merge([gltfEntity])
+    renderer.scenes.push(gltfEntity)
     setComponent(gltfEntity, SceneComponent)
     getMutableState(SceneState)[sceneURL].set(gltfEntity)
 
@@ -116,16 +115,16 @@ export default function AvatarSimpleEntry() {
     CameraOrbitComponent.setFocus(engine.viewerEntity.value, new Vector3(0, 1.5, 0))
 
     return () => {
-      const idx = renderer.scenes.value.indexOf(gltfEntity)
-      renderer.scenes[idx].set(none)
+      const idx = renderer.scenes.indexOf(gltfEntity)
+      renderer.scenes.splice(idx, 1)
       removeEntity(gltfEntity)
       removeEntity(lightEntity)
       removeComponent(engine.viewerEntity.value, CameraOrbitComponent)
     }
-  }, [!!renderer?.scenes.value])
+  }, [!!renderer?.scenes])
 
   useEffect(() => {
-    if (!network.value || !avatars.data.length || gltfComponent?.progress?.value !== 100) return
+    if (!network.value || !avatars.data.length || gltfComponent?.progress !== 100) return
 
     const spread = 25
 
@@ -170,7 +169,7 @@ export default function AvatarSimpleEntry() {
         )
       }
     }
-  }, [!!network.value, gltfComponent?.progress?.value, avatars.data.length])
+  }, [!!network.value, gltfComponent?.progress, avatars.data.length])
 
   useNetwork({ online: false })
 

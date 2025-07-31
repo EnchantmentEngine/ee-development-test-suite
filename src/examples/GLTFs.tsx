@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { ComponentType, getComponent, setComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { State, getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
+import { getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
 
 import { Entity, EntityID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
@@ -664,8 +664,7 @@ const GLTF = (props: {
     }
   }, [screenshotURL])
 
-  const playAnimation = (component: State<ComponentType<typeof AnimationComponent>> | undefined) => {
-    const animationComponent = component?.value
+  const playAnimation = (animationComponent: ComponentType<typeof AnimationComponent> | undefined) => {
     if (!animationComponent?.animations || !animationClip) return
 
     const clips = animationComponent.animations as AnimationClip[]

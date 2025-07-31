@@ -116,7 +116,7 @@ const AvatarSetupReactor = (props: {
     setComponent(entity, TransformComponent, { position })
   }, [])
 
-  const loaded = model?.progress.value === 100
+  const loaded = model?.progress === 100
 
   useEffect(() => {
     if (loaded) onComplete()
@@ -185,7 +185,7 @@ const AvatarIKSetupReactor = (props: {
 
   useEffect(() => {
     const entityID = UUIDComponent.generate()
-    setComponent(entity, UUIDComponent, { entitySourceID: rootUUID.entitySourceID.value, entityID: entityID })
+    setComponent(entity, UUIDComponent, { entitySourceID: rootUUID.entitySourceID, entityID: entityID })
     setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
     setComponent(entity, TransformComponent, { position })
     setComponent(entity, VisibleComponent, true)
@@ -197,8 +197,8 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarAnimationComponent)
     setComponent(entity, AvatarRigComponent)
 
-    spawnAvatar(UUIDComponent.join(rootUUID.value), entityID, src, { position, rotation: new Quaternion() })
-    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, randomVec3(), randomQuaternion())
+    spawnAvatar(UUIDComponent.join(rootUUID), entityID, src, { position, rotation: new Quaternion() })
+    const targetUUIDs = createIkTargetsForAvatar(rootUUID, randomVec3(), randomQuaternion())
 
     return () => {
       for (const targetUUID of targetUUIDs) {
@@ -209,7 +209,7 @@ const AvatarIKSetupReactor = (props: {
     }
   }, [])
 
-  const loaded = model?.progress.value === 100
+  const loaded = model?.progress === 100
 
   useEffect(() => {
     if (loaded) onComplete()

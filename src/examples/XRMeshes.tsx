@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial, Vector3 } from 'three'
+import { Mesh, MeshBasicMaterial, MeshNormalMaterial, Vector3 } from 'three'
 
 import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs'
 import { setComponent, useComponent } from '@ir-engine/ecs/src/ComponentFunctions'
@@ -26,10 +26,9 @@ export const DetectedPlanes = () => {
   const xrPlane = useComponent(entity, XRDetectedPlaneComponent)
 
   useEffect(() => {
-    if (!xrPlane.geometry.value) return
-    const planeName =
-      'XR Plane ' + entity + '(' + (xrPlane.plane.value.semanticLabel ?? xrPlane.plane.orientation.value) + ')'
-    const geometry = xrPlane.geometry.value as BufferGeometry
+    if (!xrPlane.geometry) return
+    const planeName = 'XR Plane ' + entity + '(' + (xrPlane.plane.semanticLabel ?? xrPlane.plane.orientation) + ')'
+    const geometry = xrPlane.geometry
     const box = geometry.boundingBox!
     const height = box.max.x - box.min.x
     const width = box.max.z - box.min.z
@@ -44,7 +43,7 @@ export const DetectedPlanes = () => {
     })
     setComponent(meshEntity, TransformComponent)
     setComponent(meshEntity, VisibleComponent)
-    const transparentMesh = new Mesh(xrPlane.geometry.value as BufferGeometry, normalMaterial)
+    const transparentMesh = new Mesh(xrPlane.geometry, normalMaterial)
     setComponent(meshEntity, MeshComponent, transparentMesh)
 
     const colliderEntity = createEntity()
@@ -78,9 +77,9 @@ export const DetectedMeshes = () => {
   const xrmesh = useComponent(entity, XRDetectedMeshComponent)
 
   useEffect(() => {
-    if (!xrmesh.geometry.value) return
+    if (!xrmesh.geometry) return
 
-    const meshName = 'XR Mesh ' + (xrmesh.mesh.value.semanticLabel ?? entity)
+    const meshName = 'XR Mesh ' + (xrmesh.mesh.semanticLabel ?? entity)
 
     const meshEntity = createEntity()
     setComponent(meshEntity, NameComponent, meshName + ' Mesh')
@@ -89,7 +88,7 @@ export const DetectedMeshes = () => {
     })
     setComponent(meshEntity, TransformComponent)
     setComponent(meshEntity, VisibleComponent)
-    const mesh = new Mesh(xrmesh.geometry.value as BufferGeometry, wireframeMaterial)
+    const mesh = new Mesh(xrmesh.geometry, wireframeMaterial)
     setComponent(meshEntity, MeshComponent, mesh)
 
     const colliderEntity = createEntity()

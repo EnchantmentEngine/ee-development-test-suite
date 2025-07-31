@@ -79,7 +79,7 @@ const MocapAvatar = (props: {
   }
 
   useEffect(() => {
-    if (!rig?.value) return
+    if (!rig) return
     const data = mocapData[activePose]
 
     const timer = setInterval(() => {
@@ -180,12 +180,12 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
 
     const entity = setupEntity(props.sceneEntity)
     setComponent(entity, UUIDComponent, {
-      entitySourceID: rootUUID.value.entitySourceID,
+      entitySourceID: rootUUID.entitySourceID,
       entityID: 'avatar' as EntityID
     })
     setComponent(entity, VisibleComponent, true)
 
-    const id = spawnAvatar(UUIDComponent.join(rootUUID.value), rootUUID.value.entityID, selectedAvatar.value, {
+    const id = spawnAvatar(UUIDComponent.join(rootUUID), rootUUID.entityID, selectedAvatar.value, {
       position: new Vector3(),
       rotation: new Quaternion()
     })

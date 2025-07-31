@@ -75,7 +75,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (gltfComponent?.progress.value === 100) onLoad(entity)
+        if (gltfComponent?.progress === 100) onLoad(entity)
       }, [gltfComponent?.progress])
 
       return null
@@ -132,7 +132,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (gltfComponent?.progress.value === 100) onLoad(entity)
+        if (gltfComponent?.progress === 100) onLoad(entity)
       }, [gltfComponent?.progress])
 
       return null
@@ -163,7 +163,7 @@ export const subComponentExamples = [
       }, [avatars])
 
       useEffect(() => {
-        if (gltfComponent?.progress.value === 100) onLoad(entity)
+        if (gltfComponent?.progress === 100) onLoad(entity)
       }, [gltfComponent?.progress])
 
       return null
@@ -216,7 +216,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (gltfComponent?.progress.value === 100) onLoad(entity)
+        if (gltfComponent?.progress === 100) onLoad(entity)
       }, [gltfComponent?.progress])
 
       return null
@@ -238,7 +238,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (particles?.system.value) onLoad(entity)
+        if (particles?.system) onLoad(entity)
       }, [particles?.system])
 
       return null
@@ -380,7 +380,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (gltfComponent?.progress.value === 100) onLoad(entity)
+        if (gltfComponent?.progress === 100) onLoad(entity)
       }, [gltfComponent?.progress])
 
       return null
@@ -407,7 +407,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        onLoad(gltfComponent?.progress.value === 100 ? entity : UndefinedEntity)
+        onLoad(gltfComponent?.progress === 100 ? entity : UndefinedEntity)
       }, [gltfComponent?.progress])
 
       return null
@@ -427,7 +427,7 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (!callback?.value) return
+        if (!callback) return
         setComponent(entity, InputComponent, { highlight: true, grow: true })
         setComponent(entity, InteractableComponent, {
           label: 'Click me',

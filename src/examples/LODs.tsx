@@ -97,7 +97,7 @@ const LODsDND = () => {
   useEffect(() => {
     if (!variantComponent) return
     getComponent(visualizerEntity, TransformComponent).position.copy(getComponent(entity, TransformComponent).position)
-    variantComponent.value.levels.map((level, i) => {
+    variantComponent.levels.map((level, i) => {
       if (i === 0) return
       addObjectToGroup(
         visualizerEntity,

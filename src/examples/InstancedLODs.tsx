@@ -8,7 +8,7 @@ import {
   VariantComponent,
   VariantLevel
 } from '@ir-engine/engine/src/scene/components/VariantComponent'
-import { State, getState } from '@ir-engine/hyperflux'
+import { getState } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Vector3_Left, Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
@@ -103,20 +103,20 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
             <PaginatedList
               options={{ countPerPage: 6 }}
               list={variantComponent.levels}
-              element={(level: State<VariantLevel>, index) => {
+              element={(level: VariantLevel, index) => {
                 return (
                   <div className="bg-theme-secondary m-2 flex flex-col gap-1 py-1">
                     <InputGroup name="src" label={t('editor:properties.variant.src')}>
                       <ModelInput
-                        value={level.src.value}
+                        value={level.src}
                         onRelease={commitProperty(VariantComponent, `levels.${index}.src` as any)}
                       />
                     </InputGroup>
-                    {variantComponent.heuristic.value === Heuristic.DEVICE && (
+                    {variantComponent.heuristic === Heuristic.DEVICE && (
                       <>
                         <InputGroup name="device" label={t('editor:properties.variant.device')}>
                           <SelectInput
-                            value={level.metadata['device'].value}
+                            value={level.metadata['device']}
                             onChange={commitProperty(VariantComponent, `levels.${index}.metadata.device` as any)}
                             options={[
                               { value: Devices.MOBILE, label: t('editor:properties.variant.device-mobile') },
@@ -127,17 +127,17 @@ const SceneReactor = (props: { sceneEntity: Entity }) => {
                         </InputGroup>
                       </>
                     )}
-                    {variantComponent.heuristic.value === Heuristic.DISTANCE && (
+                    {variantComponent.heuristic === Heuristic.DISTANCE && (
                       <>
                         <InputGroup name="minDistance" label={t('editor:properties.variant.minDistance')}>
                           <NumericInput
-                            value={level.metadata['minDistance'].value}
+                            value={level.metadata['minDistance']}
                             onChange={commitProperty(VariantComponent, `levels.${index}.metadata.minDistance` as any)}
                           />
                         </InputGroup>
                         <InputGroup name="maxDistance" label={t('editor:properties.variant.maxDistance')}>
                           <NumericInput
-                            value={level.metadata['maxDistance'].value}
+                            value={level.metadata['maxDistance']}
                             onChange={commitProperty(VariantComponent, `levels.${index}.metadata.maxDistance` as any)}
                           />
                         </InputGroup>

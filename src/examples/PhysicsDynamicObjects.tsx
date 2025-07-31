@@ -20,7 +20,7 @@ export default function PhysicsDynamicObjects(props: { sceneEntity: Entity }) {
   const gltfComponent = useOptionalComponent(props.sceneEntity, GLTFComponent)
 
   useEffect(() => {
-    if (gltfComponent?.progress?.value !== 100) return
+    if (gltfComponent?.progress !== 100) return
     const entities = [] as Entity[]
     for (let i = 0; i < 1000; i++) {
       entities.push(createPhysicsEntity(props.sceneEntity))
@@ -30,7 +30,7 @@ export default function PhysicsDynamicObjects(props: { sceneEntity: Entity }) {
         removeEntity(entity)
       }
     }
-  }, [gltfComponent?.progress?.value])
+  }, [gltfComponent?.progress])
 
   return <></>
 }
