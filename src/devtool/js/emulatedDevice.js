@@ -120,7 +120,7 @@ export default class EmulatedDevice extends EventEmitter {
 				this.render();
 			});
 			this._transformControls[deviceKey] = controls;
-			this._scene.add(controls);
+			controls.attach(node);
 		});
 
 		this._userObjects = {};
