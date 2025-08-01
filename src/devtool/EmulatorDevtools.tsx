@@ -74,7 +74,6 @@ const setup = async (mode: 'immersive-vr' | 'immersive-ar') => {
 
   return device
 }
-
 export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' }) => {
   const xrState = useMutableState(XRState)
   const xrActive = xrState.sessionActive.value && !xrState.requestingSession.value
@@ -88,15 +87,21 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
 
   // Panel state
   const [panelPosition, setPanelPosition] = useState({ x: window.innerWidth - 720, y: 20 })
-  const [panelSize, setPanelSize] = useState({ width: 700, height: 1000 })
+  const [panelSize, setPanelSize] = useState({ width: 700, height: 900 })
   const [isDragging, setIsDragging] = useState(false)
   const [isResizing, setIsResizing] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const [resizeDirection, setResizeDirection] = useState('')
   const [isVisible, setIsVisible] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
+
   const panelRef = useRef<HTMLDivElement>(null)
   const resizeHandleRef = useRef<HTMLDivElement>(null)
+
+  // Refs for performance optimization
+  const dragPosRef = useRef(panelPosition)
+  const sizeRef = useRef(panelSize)
+  const rafRef = useRef<number | null>(null)
 
   const toggleXR = async () => {
     if (xrActive) {
@@ -116,27 +121,23 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     }
   }
 
-  const handleClosePanel = () => {
-    setIsVisible(false)
-  }
+  const handleClosePanel = () => setIsVisible(false)
 
   const handleMinimizePanel = () => {
     setIsMinimized(!isMinimized)
-    if (isMinimized) {
-      setPanelSize(prev => ({ ...prev, height: 600 }))
-    } else {
-      setPanelSize(prev => ({ ...prev, height: 50 }))
-    }
+    setPanelSize(prev => ({
+      ...prev,
+      height: isMinimized ? 600 : 50
+    }))
   }
 
   // Mouse event handlers for dragging
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only start dragging if clicking on the header or panel background
     const target = e.target as HTMLElement
     const isHeader = target.closest('.floating-panel-header')
     const isPanel = target === panelRef.current
     const isResizeHandle = target.closest('.resize-handle')
-    
+
     if (isHeader || isPanel) {
       e.preventDefault()
       setIsDragging(true)
@@ -150,35 +151,55 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     }
   }
 
+  const updatePanelPosition = (x: number, y: number) => {
+    dragPosRef.current = { x, y }
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(() => {
+        setPanelPosition({ ...dragPosRef.current })
+        rafRef.current = null
+      })
+    }
+  }
+
+  const updatePanelSize = (width: number, height: number) => {
+    sizeRef.current = { width, height }
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(() => {
+        setPanelSize({ ...sizeRef.current })
+        rafRef.current = null
+      })
+    }
+  }
+
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
       e.preventDefault()
       const newX = e.clientX - dragOffset.x
       const newY = e.clientY - dragOffset.y
-      
-      // Boundary constraints
+
       const maxX = window.innerWidth - panelSize.width
       const maxY = window.innerHeight - panelSize.height
-      
-      setPanelPosition({
-        x: Math.max(0, Math.min(newX, maxX)),
-        y: Math.max(0, Math.min(newY, maxY))
-      })
+
+      updatePanelPosition(
+        Math.max(0, Math.min(newX, maxX)),
+        Math.max(0, Math.min(newY, maxY))
+      )
     } else if (isResizing) {
       e.preventDefault()
-      const newSize = { ...panelSize }
-      if (resizeDirection.includes('e')) newSize.width = e.clientX - panelPosition.x
-      if (resizeDirection.includes('s')) newSize.height = e.clientY - panelPosition.y
-      
-      // Minimum size constraints
-      newSize.width = Math.max(300, newSize.width)
-      newSize.height = Math.max(400, newSize.height)
-      
-      // Maximum size constraints (keep within viewport)
-      newSize.width = Math.min(newSize.width, window.innerWidth - panelPosition.x)
-      newSize.height = Math.min(newSize.height, window.innerHeight - panelPosition.y)
-      
-      setPanelSize(newSize)
+      let width = sizeRef.current.width
+      let height = sizeRef.current.height
+
+      if (resizeDirection.includes('e')) {
+        width = e.clientX - panelPosition.x
+      }
+      if (resizeDirection.includes('s')) {
+        height = e.clientY - panelPosition.y
+      }
+
+      width = Math.max(300, Math.min(width, window.innerWidth - panelPosition.x))
+      height = Math.max(400, Math.min(height, window.innerHeight - panelPosition.y))
+
+      updatePanelSize(width, height)
     }
   }
 
@@ -186,9 +207,12 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     setIsDragging(false)
     setIsResizing(false)
     setResizeDirection('')
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
   }
 
-  // Resize handlers
   const handleResizeMouseDown = (direction: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -209,10 +233,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     return (
       <>
         <style type="text/css">{devtoolCSS.toString()}</style>
-        <button 
-          className="show-panel-btn"
-          onClick={() => setIsVisible(true)}
-        >
+        <button className="show-panel-btn" onClick={() => setIsVisible(true)}>
           Show XR Devtool
         </button>
       </>
@@ -222,8 +243,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
   return (
     <>
       <style type="text/css">{devtoolCSS.toString()}</style>
-      
-      {/* Floating Devtool Panel */}
+
       <div
         ref={panelRef}
         className={`floating-devtool-panel ${isMinimized ? 'minimized' : ''}`}
@@ -236,38 +256,34 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
         }}
         onMouseDown={handleMouseDown}
       >
-        {/* Panel Header */}
-        <div 
-          className="floating-panel-header"
-          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-        >
+        <div className="floating-panel-header" style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
           <div className="text-white text-sm font-medium">XR Devtool Panel</div>
           <div className="flex gap-2">
-            <button 
-              className="panel-control-btn bg-gray-600 hover:bg-gray-500 text-white" 
+            <button
+              className="panel-control-btn bg-gray-600 hover:bg-gray-500 text-white"
               onClick={handleMinimizePanel}
-              title={isMinimized ? "Maximize" : "Minimize"}
+              title={isMinimized ? 'Maximize' : 'Minimize'}
             >
               {isMinimized ? '□' : '−'}
             </button>
-            <Button 
-              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white" 
-              onClick={toggleXR} 
+            <Button
+              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white"
+              onClick={toggleXR}
               disabled={xrState.requestingSession.value}
             >
               {(xrActive ? 'Exit ' : 'Enter ') + (props.mode === 'immersive-ar' ? 'AR' : 'VR')}
             </Button>
             {props.mode === 'immersive-ar' && (
-              <Button 
-                className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white" 
-                onClick={togglePlacement} 
+              <Button
+                className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white"
+                onClick={togglePlacement}
                 disabled={!xrActive}
               >
                 Place Scene
               </Button>
             )}
-            <button 
-              className="panel-control-btn bg-red-600 hover:bg-red-700 text-white" 
+            <button
+              className="panel-control-btn bg-red-600 hover:bg-red-700 text-white"
               onClick={handleClosePanel}
               title="Close"
             >
@@ -276,7 +292,6 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
           </div>
         </div>
 
-        {/* Panel Content */}
         <div className="floating-panel-content" style={{ opacity: isMinimized ? 0 : 1 }}>
           <div className="floating-panel-scroll">
             {deviceState.value ? (
@@ -292,7 +307,6 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
           </div>
         </div>
 
-        {/* Resize Handle */}
         {!isMinimized && (
           <div
             ref={resizeHandleRef}
