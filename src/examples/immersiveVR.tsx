@@ -27,7 +27,7 @@ export default function ImmersiveVR() {
       <QueryReactor Components={[XRDetectedPlaneComponent]} ChildEntityReactor={DetectedPlanes} />
       <QueryReactor Components={[XRDetectedMeshComponent]} ChildEntityReactor={DetectedMeshes} />
       <MediaIconsBox />
-      <div className="pointer-events-auto absolute right-0 z-50 flex h-full w-[350px] flex-col justify-start gap-1.5">
+      <div className="pointer-events-auto absolute right-0 z-50 flex h-full w-[30%] flex-col justify-start gap-1.5">
         <EmulatorDevtools mode="immersive-vr" />
       </div>
     </>
