@@ -231,7 +231,7 @@ export default function ControllerPanel({ deviceKey, device }) {
 								<button
 									ref={joystickStickyRef}
 									type="button"
-									className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-l-md mr-0.5"
+									className="flex flex-row items-center gap-2 h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-l-md mr-0.5"
 									onClick={onStickyToggle}
 								>
 									<img
