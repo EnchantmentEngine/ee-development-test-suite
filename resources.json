@@ -645,13 +645,13 @@
       "Model"
     ],
     "dependencies": [
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2",
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2",
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin",
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin",
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2",
       "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/Adam_data.bin",
-      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2",
+      "projects/enchantmentengine/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2"
     ],
     "name": "Adam.gltf",
     "thumbnailKey": "projects/enchantmentengine/ee-development-test-suite/public/thumbnails/public_avatars_Adam.gltf-thumbnail.png",

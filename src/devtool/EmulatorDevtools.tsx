@@ -1,7 +1,7 @@
 import { useHookstate, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
 import { endXRSession, requestXRSession } from '@ir-engine/spatial/src/xr/XRSessionFunctions'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import EmulatedDevice from './js/emulatedDevice'
 import { EmulatorSettings, emulatorStates } from './js/emulatorStates'
@@ -86,6 +86,18 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     })
   }, [])
 
+  // Panel state
+  const [panelPosition, setPanelPosition] = useState({ x: window.innerWidth - 720, y: 20 })
+  const [panelSize, setPanelSize] = useState({ width: 700, height: 1000 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [isResizing, setIsResizing] = useState(false)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const [resizeDirection, setResizeDirection] = useState('')
+  const [isVisible, setIsVisible] = useState(false)
+  const [isMinimized, setIsMinimized] = useState(false)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const resizeHandleRef = useRef<HTMLDivElement>(null)
+
   const toggleXR = async () => {
     if (xrActive) {
       endXRSession()
@@ -104,24 +116,190 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
     }
   }
 
+  const handleClosePanel = () => {
+    setIsVisible(false)
+  }
+
+  const handleMinimizePanel = () => {
+    setIsMinimized(!isMinimized)
+    if (isMinimized) {
+      setPanelSize(prev => ({ ...prev, height: 600 }))
+    } else {
+      setPanelSize(prev => ({ ...prev, height: 50 }))
+    }
+  }
+
+  // Mouse event handlers for dragging
+  const handleMouseDown = (e: React.MouseEvent) => {
+    // Only start dragging if clicking on the header or panel background
+    const target = e.target as HTMLElement
+    const isHeader = target.closest('.floating-panel-header')
+    const isPanel = target === panelRef.current
+    const isResizeHandle = target.closest('.resize-handle')
+    
+    if (isHeader || isPanel) {
+      e.preventDefault()
+      setIsDragging(true)
+      const rect = panelRef.current?.getBoundingClientRect()
+      if (rect) {
+        setDragOffset({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        })
+      }
+    }
+  }
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      e.preventDefault()
+      const newX = e.clientX - dragOffset.x
+      const newY = e.clientY - dragOffset.y
+      
+      // Boundary constraints
+      const maxX = window.innerWidth - panelSize.width
+      const maxY = window.innerHeight - panelSize.height
+      
+      setPanelPosition({
+        x: Math.max(0, Math.min(newX, maxX)),
+        y: Math.max(0, Math.min(newY, maxY))
+      })
+    } else if (isResizing) {
+      e.preventDefault()
+      const newSize = { ...panelSize }
+      if (resizeDirection.includes('e')) newSize.width = e.clientX - panelPosition.x
+      if (resizeDirection.includes('s')) newSize.height = e.clientY - panelPosition.y
+      
+      // Minimum size constraints
+      newSize.width = Math.max(300, newSize.width)
+      newSize.height = Math.max(400, newSize.height)
+      
+      // Maximum size constraints (keep within viewport)
+      newSize.width = Math.min(newSize.width, window.innerWidth - panelPosition.x)
+      newSize.height = Math.min(newSize.height, window.innerHeight - panelPosition.y)
+      
+      setPanelSize(newSize)
+    }
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+    setIsResizing(false)
+    setResizeDirection('')
+  }
+
+  // Resize handlers
+  const handleResizeMouseDown = (direction: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizing(true)
+    setResizeDirection(direction)
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', handleMouseUp)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isDragging, isResizing, dragOffset, panelPosition, panelSize, resizeDirection])
+
+  if (!isVisible) {
+    return (
+      <>
+        <style type="text/css">{devtoolCSS.toString()}</style>
+        <button 
+          className="show-panel-btn"
+          onClick={() => setIsVisible(true)}
+        >
+          Show XR Devtool
+        </button>
+      </>
+    )
+  }
+
   return (
     <>
       <style type="text/css">{devtoolCSS.toString()}</style>
+      
+      {/* Floating Devtool Panel */}
       <div
-        id="devtools"
-        className="flex-no-wrap m-0 flex h-full h-full select-none flex-col overflow-hidden overflow-hidden bg-gray-900 text-xs text-gray-900"
+        ref={panelRef}
+        className={`floating-devtool-panel ${isMinimized ? 'minimized' : ''}`}
+        style={{
+          left: panelPosition.x,
+          top: panelPosition.y,
+          width: panelSize.width,
+          height: panelSize.height,
+          cursor: isDragging ? 'grabbing' : 'grab'
+        }}
+        onMouseDown={handleMouseDown}
       >
-        <div className="flex-no-wrap z-50 flex h-10 select-none flex-row bg-gray-800 text-xs text-gray-900">
-          <Button className="my-1 ml-auto mr-6 px-10" onClick={toggleXR} disabled={xrState.requestingSession.value}>
-            {(xrActive ? 'Exit ' : 'Enter ') + (props.mode === 'immersive-ar' ? 'AR' : 'VR')}
-          </Button>
-          {props.mode === 'immersive-ar' && (
-            <Button className="my-1 ml-auto mr-6 px-10" onClick={togglePlacement} disabled={!xrActive}>
-              Place Scene
+        {/* Panel Header */}
+        <div 
+          className="floating-panel-header"
+          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        >
+          <div className="text-white text-sm font-medium">XR Devtool Panel</div>
+          <div className="flex gap-2">
+            <button 
+              className="panel-control-btn bg-gray-600 hover:bg-gray-500 text-white" 
+              onClick={handleMinimizePanel}
+              title={isMinimized ? "Maximize" : "Minimize"}
+            >
+              {isMinimized ? '□' : '−'}
+            </button>
+            <Button 
+              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white" 
+              onClick={toggleXR} 
+              disabled={xrState.requestingSession.value}
+            >
+              {(xrActive ? 'Exit ' : 'Enter ') + (props.mode === 'immersive-ar' ? 'AR' : 'VR')}
             </Button>
-          )}
+            {props.mode === 'immersive-ar' && (
+              <Button 
+                className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white" 
+                onClick={togglePlacement} 
+                disabled={!xrActive}
+              >
+                Place Scene
+              </Button>
+            )}
+            <button 
+              className="panel-control-btn bg-red-600 hover:bg-red-700 text-white" 
+              onClick={handleClosePanel}
+              title="Close"
+            >
+              ×
+            </button>
+          </div>
         </div>
-        {deviceState.value && <Devtool device={deviceState.value} />}
+
+        {/* Panel Content */}
+        <div className="floating-panel-content" style={{ opacity: isMinimized ? 0 : 1 }}>
+          <div className="floating-panel-scroll">
+            {deviceState.value ? (
+              <Devtool device={deviceState.value} />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-400 mx-auto mb-2"></div>
+                  <div>Initializing XR Devtool...</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Resize Handle */}
+        {!isMinimized && (
+          <div
+            ref={resizeHandleRef}
+            className="resize-handle"
+            onMouseDown={handleResizeMouseDown('se')}
+          />
+        )}
       </div>
     </>
   )

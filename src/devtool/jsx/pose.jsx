@@ -40,7 +40,7 @@ export default function PoseBar({ device, setInputMode }) {
 		EmulatorSettings.instance.actionMappingOn =
 			!EmulatorSettings.instance.actionMappingOn;
 		actionMappingToggleRef.current.classList.toggle(
-			'button-pressed',
+			'bg-blue-600',
 			EmulatorSettings.instance.actionMappingOn,
 		);
 		EmulatorSettings.instance.write();
@@ -51,11 +51,11 @@ export default function PoseBar({ device, setInputMode }) {
 		EmulatorSettings.instance.write();
 		changeInputMode();
 		controllerModeToggleRef.current.classList.toggle(
-			'button-pressed',
+			'bg-blue-600',
 			inputMode === 'controllers',
 		);
 		handModeToggleRef.current.classList.toggle(
-			'button-pressed',
+			'bg-blue-600',
 			inputMode === 'hands',
 		);
 		setInputMode(inputMode);
@@ -67,16 +67,16 @@ export default function PoseBar({ device, setInputMode }) {
 	}, []);
 
 	return (
-		<div className="card pose-card">
-			<div className="card-body">
-				<div className="row">
-					<div className="col-8 d-flex justify-content-start align-items-center">
-						<img src={assetURL + "/assets/images/pose.png"} className="control-icon" />
-						<div className="control-button-group">
+		<div className="rounded-b-lg bg-gray-800 text-gray-300 mx-1 mb-0">
+			<div className="py-1">
+				<div className="flex items-center justify-between">
+					<div className="flex items-center justify-start w-2/3">
+						<img src={assetURL + "/assets/images/pose.png"} className="w-8 h-8" />
+						<div className="flex ml-1">
 							<button
 								ref={saveDefaultPoseRef}
 								type="button"
-								className="btn pose-action-button"
+								className="h-8 inline-block rounded-md border-none px-1.5 py-0.5 m-0 text-sm bg-gray-600 text-gray-200 text-center align-middle hover:bg-gray-500 transition-colors"
 								onClick={onSaveDefaultPose}
 							>
 								Save as default pose
@@ -84,41 +84,39 @@ export default function PoseBar({ device, setInputMode }) {
 							<button
 								ref={resetPoseRef}
 								type="button"
-								className="btn pose-action-button"
+								className="h-8 inline-block rounded-md border-none px-1.5 py-0.5 m-0 text-sm bg-gray-600 text-gray-200 text-center align-middle hover:bg-gray-500 transition-colors ml-0.5"
 								onClick={() => {
 									device.resetPose();
 								}}
 							>
-								<img src={assetURL + "/assets/images/reset.png"} className="action-icon" />
+								<img src={assetURL + "/assets/images/reset.png"} className="w-5 h-5" />
 							</button>
 						</div>
 					</div>
 
-					<div className="col-4 d-flex justify-content-end align-items-center">
-						<div className="control-button-group">
+					<div className="flex items-center justify-end w-1/3">
+						<div className="flex">
 							<button
 								ref={actionMappingToggleRef}
 								type="button"
 								className={
-									EmulatorSettings.instance.actionMappingOn
-										? 'btn pose-action-button button-pressed'
-										: 'btn pose-action-button'
+									'h-8 inline-block rounded-md border-none px-1.5 py-0.5 m-0 text-sm bg-gray-600 text-gray-200 text-center align-middle hover:bg-gray-500 transition-colors' +
+									(EmulatorSettings.instance.actionMappingOn ? ' bg-blue-600 hover:bg-blue-500' : '')
 								}
 								title="Keyboard Action Mapping"
 								onClick={onActionMappingToggle}
 							>
 								<img
 									src={assetURL + "/assets/images/keyboard.png"}
-									className="action-icon"
+									className="w-5 h-5"
 								/>
 							</button>
 							<button
 								ref={controllerModeToggleRef}
 								type="button"
 								className={
-									EmulatorSettings.instance.inputMode === 'controllers'
-										? 'btn pose-action-button button-pressed'
-										: 'btn pose-action-button'
+									'h-8 inline-block rounded-md border-none px-1.5 py-0.5 m-0 text-sm bg-gray-600 text-gray-200 text-center align-middle hover:bg-gray-500 transition-colors ml-0.5' +
+									(EmulatorSettings.instance.inputMode === 'controllers' ? ' bg-blue-600 hover:bg-blue-500' : '')
 								}
 								title="Controller Mode"
 								onClick={() => {
@@ -127,16 +125,15 @@ export default function PoseBar({ device, setInputMode }) {
 							>
 								<img
 									src={assetURL + "/assets/images/gamepad.png"}
-									className="action-icon"
+									className="w-5 h-5"
 								/>
 							</button>
 							<button
 								ref={handModeToggleRef}
 								type="button"
 								className={
-									EmulatorSettings.instance.inputMode === 'hands'
-										? 'btn pose-action-button button-pressed'
-										: 'btn pose-action-button'
+									'h-8 inline-block rounded-md border-none px-1.5 py-0.5 m-0 text-sm bg-gray-600 text-gray-200 text-center align-middle hover:bg-gray-500 transition-colors ml-0.5' +
+									(EmulatorSettings.instance.inputMode === 'hands' ? ' bg-blue-600 hover:bg-blue-500' : '')
 								}
 								title="Hands Mode"
 								onClick={() => {
@@ -145,7 +142,7 @@ export default function PoseBar({ device, setInputMode }) {
 							>
 								<img
 									src={assetURL + "/assets/images/hand-tracking.png"}
-									className="action-icon"
+									className="w-5 h-5"
 								/>
 							</button>
 						</div>
