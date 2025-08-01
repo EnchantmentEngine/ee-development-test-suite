@@ -20,18 +20,13 @@ export default function App({ device }) {
 	);
 	const [showInspector, setShowInspector] = React.useState(true);
 	const [showControls, setShowControls] = React.useState(true);
-	const sizeWarningRef = React.useRef();
 
-	// Since we're now in a floating panel, we don't need complex resize logic
-	// The panel itself handles resizing, so we can always show all components
 	React.useEffect(() => {
-		// Always show all components in the floating panel
 		setShowInspector(true);
 		setShowControls(true);
 	}, [inputMode]);
 
 	React.useEffect(() => {
-		// Trigger device render when input mode changes
 		if (device && typeof device.render === 'function') {
 			device.render();
 		}

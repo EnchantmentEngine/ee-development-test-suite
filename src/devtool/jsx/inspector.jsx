@@ -68,7 +68,7 @@ export default function Inspector({ device, inputMode }) {
 				[key]: clampedValue,
 			}));
 			// Split the key into its components
-			const [deviceName, type, index] = key.split('-');
+			const [deviceName, type, index] = key.split('_');
 			const deviceKey = Object.keys(OBJECT_NAME).find(
 				(key) => OBJECT_NAME[key] === deviceName,
 			);
@@ -208,7 +208,7 @@ export default function Inspector({ device, inputMode }) {
 																value={inputValues[`${deviceName}-${type}-${i}`]}
 																onChange={(event) =>
 																	handleInputChange(
-																		`${deviceName}-${type}-${i}`,
+																		`${deviceName}_${type}_${i}`,
 																		event,
 																	)
 																}
