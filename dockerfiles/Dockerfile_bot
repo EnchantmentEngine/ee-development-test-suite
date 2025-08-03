@@ -35,7 +35,7 @@ WORKDIR /ir-engine
 
 RUN cp .env.local.default .env.local
 
-RUN npm install --loglevel notice --legacy-peer-deps
+RUN npm install --loglevel notice
 
 WORKDIR /ir-engine/packages/projects/projects/enchantmentengine/ee-development-test-suite
 
