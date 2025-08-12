@@ -46,4 +46,4 @@ ENV AUDIO=false
 ENV VIDEO=false
 ENV END_MINUTE=59
 
-CMD npx ts-node --swc e2e/benchmark/run-bot --domain ${DOMAIN} --location ${LOCATION} --movement ${MOVEMENT} --audio ${AUDIO} --video ${VIDEO} --endMinute ${END_MINUTE}
+CMD npx tsx e2e/benchmark/run-bot --domain ${DOMAIN} --location ${LOCATION} --movement ${MOVEMENT} --audio ${AUDIO} --video ${VIDEO} --endMinute ${END_MINUTE}
