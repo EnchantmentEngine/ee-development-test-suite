@@ -35,7 +35,7 @@ WORKDIR /ir-engine
 
 RUN cp .env.local.default .env.local
 
-RUN npm install --loglevel notice --legacy-peer-deps
+RUN npm install --loglevel notice
 
 WORKDIR /ir-engine/packages/projects/projects/enchantmentengine/ee-development-test-suite
 
@@ -46,4 +46,4 @@ ENV AUDIO=false
 ENV VIDEO=false
 ENV END_MINUTE=59
 
-CMD npx ts-node --swc e2e/benchmark/run-bot --domain ${DOMAIN} --location ${LOCATION} --movement ${MOVEMENT} --audio ${AUDIO} --video ${VIDEO} --endMinute ${END_MINUTE}
+CMD npx tsx e2e/benchmark/run-bot --domain ${DOMAIN} --location ${LOCATION} --movement ${MOVEMENT} --audio ${AUDIO} --video ${VIDEO} --endMinute ${END_MINUTE}
