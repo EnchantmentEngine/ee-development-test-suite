@@ -5,6 +5,124 @@
   LICENSE file in the root directory of this source tree.
 */
 
+/* Floating Panel Styles */
+.floating-devtool-panel {
+  position: fixed;
+  z-index: 1000;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  user-select: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.floating-devtool-panel.minimized {
+  height: 50px !important;
+}
+
+.floating-panel-header {
+  background-color: #374151;
+  padding: 8px 16px;
+  border-radius: 8px 8px 0 0;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #4b5563;
+  transition: background-color 0.2s ease;
+}
+
+.floating-panel-header:hover {
+  background-color: #4b5563;
+}
+
+.floating-panel-header:active {
+  cursor: grabbing;
+}
+
+.floating-panel-content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  overflow: hidden;
+  transition: opacity 0.2s ease;
+  min-height: 300px;
+}
+
+.floating-panel-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 8px;
+  transition: opacity 0.2s ease;
+  min-height: 250px;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, #6b7280 50%);
+  transition: background 0.2s ease;
+}
+
+.resize-handle:hover {
+  background: linear-gradient(135deg, transparent 50%, #9ca3af 50%);
+}
+
+/* Panel control buttons */
+.panel-control-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.panel-control-btn:hover {
+  transform: scale(1.05);
+}
+
+.panel-control-btn:active {
+  transform: scale(0.95);
+}
+
+/* Show panel button */
+.show-panel-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.show-panel-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure Devtool content works in floating panel */
+.floating-panel-scroll .root-panel {
+  margin-bottom: 8px;
+}
+
+.floating-panel-scroll .component-container {
+  margin-bottom: 4px;
+}
+
 .row {
 	margin: 0px;
 }

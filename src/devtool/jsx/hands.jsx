@@ -41,10 +41,12 @@ export default function HandPanel({ deviceKey, device }) {
 	}
 
 	function toggleDeviceVisibility(event) {
-		setShowHand(!showHand); // React state only applies to the next rendering frame
-		device.toggleHandVisibility(deviceKey, !showHand);
-		toggleHandVisibility(deviceKey, !showHand);
-		event.target.classList.toggle('button-pressed', showHand);
+		const newShowState = !showHand;
+		setShowHand(newShowState);
+		device.toggleHandVisibility(deviceKey, newShowState);
+		toggleHandVisibility(deviceKey, newShowState);
+		event.target.classList.toggle('bg-blue-600', !newShowState);
+		event.target.textContent = newShowState ? 'Hide' : 'Show';
 	}
 
 	const onPressAnalog = createAnalogPressFunction(
@@ -56,45 +58,42 @@ export default function HandPanel({ deviceKey, device }) {
 	React.useEffect(onRangeInput, []);
 
 	return (
-		<div className="col">
-			<div className="component-container">
-				<div className="card controller-card hand-card">
-					<div className="card-header d-flex justify-content-between align-items-center">
-						<div className="title">
+		<div className="w-1/2 p-0 first:mr-1 last:ml-1">
+			<div className="w-full p-0">
+				<div className="rounded-lg bg-gray-800 text-gray-300 relative">
+					<div className="border-b-2 border-gray-700 px-1 py-0.5 flex justify-between items-center">
+						<div className="flex items-center">
 							<img
 								src={`${assetURL}/assets/images/${strings.name}.png`}
-								className="control-icon"
+								className="w-8 h-8"
 							/>
-							<span className="control-label">{strings.displayName}</span>
+							<span className="capitalize pl-1">{strings.displayName}</span>
 						</div>
 						<button
-							className="btn special-button"
+							className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors"
 							type="button"
 							onClick={(event) => toggleDeviceVisibility(event)}
 							style={{ zIndex: 11, position: 'relative' }}
 						>
-							Hide
+							{showHand ? 'Hide' : 'Show'}
 						</button>
 					</div>
-					<div
-						style={{
-							backgroundColor: 'rgba(0,0,0,0.5)',
-							zIndex: 10,
-							position: 'absolute',
-							height: (showHand ? 0 : 100) + '%',
-							width: '100%',
-						}}
-					></div>
-					<div className="card-body">
-						<div className="row">
-							<div className="col-4 d-flex align-items-center">
-								<span className="control-label">Pose</span>
+					{!showHand && (
+						<div
+							className="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-b-lg"
+							style={{ pointerEvents: 'none' }}
+						></div>
+					)}
+					<div className={`p-0 pb-0.5 ${!showHand ? 'opacity-50' : ''}`}>
+						<div className="flex my-1">
+							<div className="w-1/3 flex items-center">
+								<span className="capitalize pl-1">Pose</span>
 							</div>
-							<div className="col-8 d-flex justify-content-end">
+							<div className="w-2/3 flex justify-end">
 								<div>
 									<select
 										ref={poseSelectRef}
-										className="form-select btn special-button"
+										className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors appearance-none"
 										onChange={onHandPoseChange}
 										defaultValue={
 											EmulatorSettings.instance.handPoses[strings.name]
@@ -106,24 +105,24 @@ export default function HandPanel({ deviceKey, device }) {
 								</div>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-3 d-flex align-items-center">
-								<span className="control-label">Pinch</span>
+						<div className="flex my-1">
+							<div className="w-1/4 flex items-center">
+								<span className="capitalize pl-1">Pinch</span>
 							</div>
-							<div className="col-9 d-flex justify-content-end">
-								<div className="control-button-group">
+							<div className="w-3/4 flex justify-end">
+								<div className="flex ml-1">
 									<button
 										ref={pressRef}
 										type="button"
-										className="btn special-button"
+										className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-l-md mr-0.5"
 										onClick={onPressAnalog}
 									>
-										<img src={assetURL + "/assets/images/hand-pose.png"} />
+										<img src={assetURL + "/assets/images/hand-pose.png"} className="w-5 h-5" />
 									</button>
 									<input
 										ref={rangeRef}
 										type="range"
-										className="form-range special-button"
+										className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-r-md mr-0 max-w-20"
 										onInput={onRangeInput}
 										defaultValue={0}
 									/>

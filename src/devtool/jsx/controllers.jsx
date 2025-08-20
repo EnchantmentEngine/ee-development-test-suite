@@ -36,7 +36,7 @@ function ControlButtonGroup({ isAnalog, deviceKey, buttonKey }) {
 	function onTouchToggle() {
 		buttonState.touched = !buttonState.touched;
 		buttonState.touched ||= buttonState.pressed;
-		touchRef.current.classList.toggle('button-pressed', buttonState.touched);
+		touchRef.current.classList.toggle('bg-blue-600', buttonState.touched);
 		applyControllerButtonChanged(
 			deviceKey,
 			BUTTON_POLYFILL_INDEX_MAPPING[buttonKey],
@@ -50,7 +50,7 @@ function ControlButtonGroup({ isAnalog, deviceKey, buttonKey }) {
 		buttonState.pressed = !buttonState.pressed;
 		buttonState.touched ||= buttonState.pressed;
 		pressRef.current.disabled = buttonState.pressed;
-		holdRef.current.classList.toggle('button-pressed', buttonState.pressed);
+		holdRef.current.classList.toggle('bg-blue-600', buttonState.pressed);
 		applyControllerButtonPressed(
 			deviceKey,
 			BUTTON_POLYFILL_INDEX_MAPPING[buttonKey],
@@ -105,16 +105,16 @@ function ControlButtonGroup({ isAnalog, deviceKey, buttonKey }) {
 	});
 
 	return (
-		<div className="control-button-group">
+		<div className="flex ml-1">
 			<button
-				className="btn special-button"
+				className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-l-md mr-0.5"
 				ref={touchRef}
 				onClick={onTouchToggle}
 			>
-				<img src={assetURL + "/assets/images/press.png"} />
+				<img src={assetURL + "/assets/images/press.png"} className="w-5 h-5" />
 			</button>
 			<button
-				className="btn special-button"
+				className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors mr-0.5"
 				ref={pressRef}
 				onClick={isAnalog ? onPressAnalog : onPressBinary}
 			>
@@ -124,16 +124,16 @@ function ControlButtonGroup({ isAnalog, deviceKey, buttonKey }) {
 				<input
 					ref={rangeRef}
 					type="range"
-					className="form-range special-button"
+					className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-r-md mr-0"
 					onInput={onRangeInput}
 				/>
 			) : (
 				<button
-					className="btn special-button"
+					className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-r-md mr-0"
 					ref={holdRef}
 					onClick={onHoldToggle}
 				>
-					<img src={assetURL + "/assets/images/lock.png"} />
+					<img src={assetURL + "/assets/images/lock.png"} className="w-5 h-5" />
 				</button>
 			)}
 		</div>
@@ -165,16 +165,18 @@ export default function ControllerPanel({ deviceKey, device }) {
 	function onStickyToggle() {
 		joystick.setSticky(!joystick.sticky);
 		joystickStickyRef.current.classList.toggle(
-			'button-pressed',
+			'bg-blue-600',
 			joystick.sticky,
 		);
 	}
 
 	function toggleDeviceVisibility(event) {
-		setShowController(!showController); // React state only applies to the next rendering frame
-		device.toggleControllerVisibility(deviceKey, !showController);
-		toggleControllerVisibility(deviceKey, !showController);
-		event.target.classList.toggle('button-pressed', showController);
+		const newShowState = !showController;
+		setShowController(newShowState);
+		device.toggleControllerVisibility(deviceKey, newShowState);
+		toggleControllerVisibility(deviceKey, newShowState);
+		event.target.classList.toggle('bg-blue-600', !newShowState);
+		event.target.textContent = newShowState ? 'Hide' : 'Show';
 	}
 
 	React.useEffect(() => {
@@ -182,44 +184,41 @@ export default function ControllerPanel({ deviceKey, device }) {
 	}, []);
 
 	return (
-		<div className="col">
-			<div className="component-container">
-				<div className="card controller-card">
-					<div className="card-header d-flex justify-content-between align-items-center">
-						<div className="title">
+		<div className="w-1/2 p-0 first:mr-1 last:ml-1">
+			<div className="w-full p-0">
+				<div className="rounded-lg bg-gray-800 text-gray-300 relative">
+					<div className="border-b-2 border-gray-700 px-1 py-0.5 flex justify-between items-center">
+						<div className="flex items-center">
 							<img
 								src={`${assetURL}/assets/images/${strings.name}.png`}
-								className="control-icon"
+								className="w-8 h-8"
 							/>
-							<span className="control-label">{strings.displayName}</span>
+							<span className="capitalize pl-1">{strings.displayName}</span>
 						</div>
 						<button
-							className="btn special-button"
+							className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors"
 							type="button"
 							onClick={(event) => toggleDeviceVisibility(event)}
 							style={{ zIndex: 11, position: 'relative' }}
 						>
-							Hide
+							{showController ? 'Hide' : 'Show'}
 						</button>
 					</div>
-					<div
-						style={{
-							backgroundColor: 'rgba(0,0,0,0.5)',
-							zIndex: 10,
-							position: 'absolute',
-							height: (showController ? 0 : 100) + '%',
-							width: '100%',
-						}}
-					></div>
-					<div className="card-body">
-						<div className="row">
-							<div className="col-4 d-flex align-items-center">
+					{!showController && (
+						<div
+							className="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-b-lg"
+							style={{ pointerEvents: 'none' }}
+						></div>
+					)}
+					<div className={`p-0 pb-0.5 ${!showController ? 'opacity-50' : ''}`}>
+						<div className="flex my-1">
+							<div className="w-1/3 flex items-center">
 								<div
 									ref={joystickContainerRef}
-									className="joystick-panel"
+									className="w-20 relative top-8 left-0"
 								></div>
 							</div>
-							<div className="col-8 d-flex justify-content-end">
+							<div className="w-2/3 flex justify-end">
 								<ControlButtonGroup
 									isAnalog={false}
 									deviceKey={deviceKey}
@@ -227,38 +226,36 @@ export default function ControllerPanel({ deviceKey, device }) {
 								/>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-12 d-flex justify-content-end">
-								<div className="control-button-group">
-									<button
-										ref={joystickStickyRef}
-										type="button"
-										className="btn special-button"
-										onClick={onStickyToggle}
-									>
-										<img
-											src={assetURL + "/assets/images/sticky.png"}
-											className="action-icon"
-										/>
-										Sticky
-									</button>
-									<button
-										ref={joystickResetRef}
-										type="button"
-										className="btn special-button"
-										onClick={joystick.reset.bind(joystick)}
-									>
-										<img
-											src={assetURL + "/assets/images/reset.png"}
-											className="action-icon"
-										/>
-									</button>
-								</div>
+						<div className="flex justify-end my-1">
+							<div className="flex ml-1">
+								<button
+									ref={joystickStickyRef}
+									type="button"
+									className="flex flex-row items-center gap-2 h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-l-md mr-0.5"
+									onClick={onStickyToggle}
+								>
+									<img
+										src={assetURL + "/assets/images/sticky.png"}
+										className="w-5 h-5"
+									/>
+									Sticky
+								</button>
+								<button
+									ref={joystickResetRef}
+									type="button"
+									className="h-8 rounded-md border-none px-1 py-1 m-0 text-sm bg-gray-600 text-gray-200 hover:bg-gray-500 transition-colors rounded-r-md mr-0"
+									onClick={joystick.reset.bind(joystick)}
+								>
+									<img
+										src={assetURL + "/assets/images/reset.png"}
+										className="w-5 h-5"
+									/>
+								</button>
 							</div>
 						</div>
 						{['trigger', 'grip'].map((controlName) => (
-							<div key={controlName} className="row">
-								<div className="col-3 d-flex align-items-center">
+							<div key={controlName} className="flex my-1">
+								<div className="w-1/4 flex items-center">
 									<img
 										src={
 											assetURL+
@@ -268,11 +265,11 @@ export default function ControllerPanel({ deviceKey, device }) {
 											strings.handedness +
 											'.png'
 										}
-										className="control-icon"
+										className="w-8 h-8"
 									/>
-									<span className="control-label">{controlName}</span>
+									<span className="capitalize pl-1">{controlName}</span>
 								</div>
-								<div className="col-9 d-flex justify-content-end">
+								<div className="w-3/4 flex justify-end">
 									<ControlButtonGroup
 										isAnalog={true}
 										deviceKey={deviceKey}
@@ -282,15 +279,15 @@ export default function ControllerPanel({ deviceKey, device }) {
 							</div>
 						))}
 						{['button2', 'button1'].map((controlName) => (
-							<div key={controlName} className="row">
-								<div className="col-4 d-flex align-items-center">
+							<div key={controlName} className="flex my-1">
+								<div className="w-1/3 flex items-center">
 									<img
 										src={`${assetURL}/assets/images/${controlName}-${strings.handedness}.png`}
-										className="control-icon"
+										className="w-8 h-8"
 									/>
-									<span className="control-label">{strings[controlName]}</span>
+									<span className="capitalize pl-1">{strings[controlName]}</span>
 								</div>
-								<div className="col-8 d-flex justify-content-end">
+								<div className="w-2/3 flex justify-end">
 									<ControlButtonGroup
 										isAnalog={false}
 										deviceKey={deviceKey}
