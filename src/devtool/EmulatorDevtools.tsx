@@ -1,7 +1,7 @@
 import { useHookstate, useImmediateEffect, useMutableState } from '@ir-engine/hyperflux'
 import { endXRSession, requestXRSession } from '@ir-engine/spatial/src/xr/XRSessionFunctions'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import EmulatedDevice from './js/emulatedDevice'
 import { EmulatorSettings, emulatorStates } from './js/emulatorStates'
@@ -15,15 +15,8 @@ import { WebXREventDispatcher } from '@ir-engine/spatial/tests/webxr/emulator/We
 import { POLYFILL_ACTIONS } from '@ir-engine/spatial/tests/webxr/emulator/actions'
 
 export async function overrideXR(args: { mode: 'immersive-vr' | 'immersive-ar' }) {
-  // inject the webxr polyfill from the webxr emulator source - this is a script added by the bot
-  // globalThis.WebXRPolyfillInjection()
-
   const { CustomWebXRPolyfill } = await import('@ir-engine/spatial/tests/webxr/emulator/CustomWebXRPolyfill')
   new CustomWebXRPolyfill()
-  // override session supported request, it hangs indefinitely for some reason
-  ;(navigator as any).xr.isSessionSupported = () => {
-    return true
-  }
 
   const deviceDefinition = {
     id: 'Oculus Quest',
@@ -125,7 +118,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
 
   const handleMinimizePanel = () => {
     setIsMinimized(!isMinimized)
-    setPanelSize(prev => ({
+    setPanelSize((prev) => ({
       ...prev,
       height: isMinimized ? 600 : 50
     }))
@@ -180,10 +173,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
       const maxX = window.innerWidth - panelSize.width
       const maxY = window.innerHeight - panelSize.height
 
-      updatePanelPosition(
-        Math.max(0, Math.min(newX, maxX)),
-        Math.max(0, Math.min(newY, maxY))
-      )
+      updatePanelPosition(Math.max(0, Math.min(newX, maxX)), Math.max(0, Math.min(newY, maxY)))
     } else if (isResizing) {
       e.preventDefault()
       let width = sizeRef.current.width
@@ -257,17 +247,17 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
         onMouseDown={handleMouseDown}
       >
         <div className="floating-panel-header" style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
-          <div className="text-white text-sm font-medium">XR Devtool Panel</div>
+          <div className="text-sm font-medium text-white">XR Devtool Panel</div>
           <div className="flex gap-2">
             <button
-              className="panel-control-btn bg-gray-600 hover:bg-gray-500 text-white"
+              className="panel-control-btn bg-gray-600 text-white hover:bg-gray-500"
               onClick={handleMinimizePanel}
               title={isMinimized ? 'Maximize' : 'Minimize'}
             >
               {isMinimized ? '□' : '−'}
             </button>
             <Button
-              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white"
+              className="bg-gray-600 px-3 py-1 text-xs text-white hover:bg-gray-500"
               onClick={toggleXR}
               disabled={xrState.requestingSession.value}
             >
@@ -275,7 +265,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
             </Button>
             {props.mode === 'immersive-ar' && (
               <Button
-                className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-500 text-white"
+                className="bg-gray-600 px-3 py-1 text-xs text-white hover:bg-gray-500"
                 onClick={togglePlacement}
                 disabled={!xrActive}
               >
@@ -283,7 +273,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
               </Button>
             )}
             <button
-              className="panel-control-btn bg-red-600 hover:bg-red-700 text-white"
+              className="panel-control-btn bg-red-600 text-white hover:bg-red-700"
               onClick={handleClosePanel}
               title="Close"
             >
@@ -297,9 +287,9 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
             {deviceState.value ? (
               <Devtool device={deviceState.value} />
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-400">
+              <div className="flex h-full items-center justify-center text-gray-400">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-400 mx-auto mb-2"></div>
+                  <div className="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2 border-gray-400"></div>
                   <div>Initializing XR Devtool...</div>
                 </div>
               </div>
@@ -308,11 +298,7 @@ export const EmulatorDevtools = (props: { mode: 'immersive-vr' | 'immersive-ar' 
         </div>
 
         {!isMinimized && (
-          <div
-            ref={resizeHandleRef}
-            className="resize-handle"
-            onMouseDown={handleResizeMouseDown('se')}
-          />
+          <div ref={resizeHandleRef} className="resize-handle" onMouseDown={handleResizeMouseDown('se')} />
         )}
       </div>
     </>
