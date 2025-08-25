@@ -45,14 +45,14 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         userID: userId
       })
     )
-    const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
+    const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID,
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
         ownerID: userId,
-        entitySourceID: getComponent(Engine.instance.originEntity, UUIDComponent).entitySourceID,
+        entitySourceID: getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent).entitySourceID,
         entityID: 'avatar' as EntityID,
         avatarURL: avatar.modelResource!.url,
         name: userId + '_avatar'
@@ -73,7 +73,7 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       userID: userId
     })
   )
-  const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
 
   dispatchAction(
     AvatarNetworkAction.spawn({
@@ -81,7 +81,7 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
       ownerID: userId,
-      entitySourceID: getComponent(Engine.instance.originEntity, UUIDComponent).entitySourceID,
+      entitySourceID: getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent).entitySourceID,
       entityID: 'avatar' as EntityID,
       avatarURL: typeof avatar === 'string' ? avatar : avatar.modelResource!.url,
       name: userId + '_avatar'
@@ -126,7 +126,7 @@ export const mockIKAvatars = async (avatarList: AvatarType[], avatarAmount = nul
 
 export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number) => {
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
-  const parentUUID = UUIDComponent.join(getComponent(Engine.instance.originEntity, UUIDComponent))
+  const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
       parentUUID,
@@ -182,7 +182,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
-  const parentUUID = UUIDComponent.getAsSourceID(Engine.instance.originEntity)
+  const parentUUID = UUIDComponent.getAsSourceID(getState(ReferenceSpaceState).originEntity)
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
   setComponent(entity, UUIDComponent, {
     entitySourceID: parentUUID,
@@ -201,7 +201,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
-  const parentUUID = UUIDComponent.getAsSourceID(Engine.instance.originEntity)
+  const parentUUID = UUIDComponent.getAsSourceID(getState(ReferenceSpaceState).originEntity)
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
   setComponent(entity, UUIDComponent, {
     entitySourceID: parentUUID,

@@ -54,7 +54,7 @@ const useRendererInfo = () => {
 }
 
 function getRandomPosition() {
-  const position = getComponent(Engine.instance.cameraEntity, TransformComponent).position.clone()
+  const position = getComponent(getState(ReferenceSpaceState).viewerEntity, TransformComponent).position.clone()
   position.setZ(position.z - MathUtils.randFloat(4, 14))
   position.setX(position.x + MathUtils.randFloat(-3.0, 3.0))
   position.setY(0)

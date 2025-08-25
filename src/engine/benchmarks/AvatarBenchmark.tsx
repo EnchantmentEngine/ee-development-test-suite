@@ -60,7 +60,7 @@ export const AvatarBenchmark = (props: { rootEntity: Entity; onComplete: () => v
 
     const props = [] as AvatarSetupProps[]
     for (let i = avatarsToCreate; i > 0; i--) {
-      const position = getComponent(Engine.instance.viewerEntity, TransformComponent).position.clone()
+      const position = getComponent(getState(ReferenceSpaceState).viewerEntity, TransformComponent).position.clone()
       position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
       position.setY(0)
       position.setZ(position.z - 3.0 * i - avatarsToCreate / 3)
@@ -137,7 +137,7 @@ export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () =>
 
     const props = [] as AvatarSetupProps[]
     for (let i = 0; i < avatarsToCreate; i++) {
-      const position = getComponent(Engine.instance.viewerEntity, TransformComponent).position.clone()
+      const position = getComponent(getState(ReferenceSpaceState).viewerEntity, TransformComponent).position.clone()
       position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
       position.setY(0)
       position.setZ(position.z - 3.0 * i - avatarsToCreate / 3)

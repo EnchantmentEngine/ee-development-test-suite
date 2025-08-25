@@ -14,7 +14,7 @@ const simulateTime = 3000
 const createParticleEntity = (rootEntity: Entity) => {
   const entity = setupEntity(rootEntity)
 
-  const position = getComponent(Engine.instance.cameraEntity, TransformComponent).position.clone()
+  const position = getComponent(getState(ReferenceSpaceState).viewerEntity, TransformComponent).position.clone()
   position.setZ(position.z - 7.0)
   position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
   const obj3d = new Group()
