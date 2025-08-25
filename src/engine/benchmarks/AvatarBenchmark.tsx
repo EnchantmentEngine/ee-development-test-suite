@@ -1,7 +1,6 @@
 import config from '@ir-engine/common/src/config'
 import { UserID } from '@ir-engine/common/src/schema.type.module'
 import {
-  Engine,
   Entity,
   EntityTreeComponent,
   NetworkObjectComponent,
@@ -21,8 +20,8 @@ import { AvatarComponent } from '@ir-engine/engine/src/avatar/components/AvatarC
 import { AvatarColliderComponent } from '@ir-engine/engine/src/avatar/components/AvatarControllerComponent'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { useHookstate } from '@ir-engine/hyperflux'
-import { TransformComponent } from '@ir-engine/spatial'
+import { getState, useHookstate } from '@ir-engine/hyperflux'
+import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import React, { useEffect } from 'react'

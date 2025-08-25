@@ -1,7 +1,6 @@
 import { GLTF } from '@gltf-transform/core'
 import { useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
-  Engine,
   Entity,
   EntityID,
   EntityTreeComponent,
@@ -23,7 +22,7 @@ import { AssetState, SceneState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, getState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import {
   DirectionalLightComponent,
   PhysicsPreTransformSystem,

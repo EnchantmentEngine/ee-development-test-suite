@@ -1,23 +1,23 @@
 import { AvatarState } from '@ir-engine/client-core/src/user/services/AvatarService'
 import config from '@ir-engine/common/src/config'
 import { AvatarType } from '@ir-engine/common/src/schema.type.module'
-import {
-  Engine,
-  EntityID,
-  EntityUUID,
-  EntityUUIDPair,
-  NetworkId,
-  SourceID,
-  UUIDComponent,
-  createEntity
-} from '@ir-engine/ecs'
+import { EntityID, EntityUUID, EntityUUIDPair, NetworkId, SourceID, UUIDComponent, createEntity } from '@ir-engine/ecs'
 import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { ikTargets } from '@ir-engine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
-import { NetworkActions, NetworkState, PeerID, UserID, dispatchAction, getMutableState } from '@ir-engine/hyperflux'
+import {
+  NetworkActions,
+  NetworkState,
+  PeerID,
+  UserID,
+  dispatchAction,
+  getMutableState,
+  getState
+} from '@ir-engine/hyperflux'
+import { ReferenceSpaceState } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
