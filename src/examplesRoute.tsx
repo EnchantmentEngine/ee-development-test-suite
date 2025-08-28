@@ -2,6 +2,10 @@ import React from 'react'
 
 import '@ir-engine/client/src/engine'
 
+import { NotificationSnackbar } from '@ir-engine/client-core/src/common/services/NotificationService'
+import { LoadWebappInjection } from '@ir-engine/client-core/src/components/LoadWebappInjection'
+import { EngineInjection } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { Authenticate } from '@ir-engine/client-core/src/user/services/Authenticate'
 import { gltfRoutes } from './examples/GLTFs'
 import InstanceConnection from './examples/InstanceConnection'
 import InstancedLODs from './examples/InstancedLODs'
@@ -164,7 +168,14 @@ export const examples: RouteCategories = [
 const ExampleRoutes = () => {
   return (
     <>
-      <Routes routeCategories={examples} header="Examples" />
+      <NotificationSnackbar />
+      <Authenticate>
+        <LoadWebappInjection>
+          <EngineInjection>
+            <Routes routeCategories={examples} header="Examples" />
+          </EngineInjection>
+        </LoadWebappInjection>
+      </Authenticate>
     </>
   )
 }
