@@ -8,7 +8,6 @@ import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { defineState, getMutableState, getState, none, useHookstate } from '@ir-engine/hyperflux'
 
 import { EntityTreeComponent, getComponent, setComponent } from '@ir-engine/ecs'
-import { MixamoBoneNames } from '@ir-engine/engine/src/avatar/AvatarBoneMatching'
 import { VRMHumanBoneName } from '@ir-engine/engine/src/avatar/maps/VRMHumanBoneName'
 import { AssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { ReferenceSpaceState, TransformComponent } from '@ir-engine/spatial'
@@ -22,7 +21,7 @@ console.log({ bones })
 
 const BoneMatchedState = defineState({
   name: 'BoneMatchedState',
-  initial: {} as Record<MixamoBoneNames, boolean>
+  initial: {} as Record<string, boolean> //Record<MixamoBoneNames, boolean>
 })
 
 const overrideNames = [] as string[]
@@ -272,7 +271,7 @@ const RetargetingDND = () => {
     }
   }, [assetFile])
 
-  const nextUnmatchedBone = (boneName?: MixamoBoneNames) => {
+  const nextUnmatchedBone = (boneName?: string) => {
     if (boneName && boneState.value[boneName]) return null
     const boneIndex = boneName ? bones.indexOf(boneName) : 0
     for (let i = boneIndex + 1; i < bones.length; i++) {
@@ -300,13 +299,13 @@ const RetargetingDND = () => {
     const mouseOver = useHookstate(false)
     const boneState = useHookstate(getMutableState(BoneMatchedState))
 
-    const nextUnmatchedBoneName = nextUnmatchedBone(boneName.value as MixamoBoneNames)
+    const nextUnmatchedBoneName = nextUnmatchedBone(boneName.value)
 
     const setBoneName = (name: string) => {
       if (!isBone) return
       bone.name = name
       boneHelper.name = name + '--helper'
-      const currentBoneName = boneName.value as MixamoBoneNames
+      const currentBoneName = boneName.value
       boneName.set(name)
       const helperEntity = UUIDComponent.getEntityByUUID(
         UUIDComponent.join({

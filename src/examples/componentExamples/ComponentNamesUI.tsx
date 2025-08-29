@@ -2,7 +2,7 @@
 import styles from './ComponentNamesUI.css?inline'
 
 import { Entity, EntityTreeComponent, getAllComponents, getOptionalComponent } from '@ir-engine/ecs'
-import { useXRUIState } from '@ir-engine/engine/src/xrui/useXRUIState'
+import { useXRUIState } from '@ir-engine/spatial/src/xrui/useXRUIState'
 import { useHookstate } from '@ir-engine/hyperflux'
 import React, { useEffect } from 'react'
 

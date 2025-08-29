@@ -31,7 +31,7 @@ import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/Spl
 import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
 import { GeometryType } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
+import { createXRUI } from '@ir-engine/spatial/src/xrui/createXRUI'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
