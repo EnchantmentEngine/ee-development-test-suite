@@ -5,8 +5,9 @@ import { EntityID, EntityUUID, EntityUUIDPair, NetworkId, SourceID, UUIDComponen
 import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { ikTargets } from '@ir-engine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarComponent, AvatarPrefab } from '@ir-engine/engine/src/avatar/components/AvatarComponent'
+import { AvatarIKPrefab } from '@ir-engine/engine/src/avatar/components/AvatarIKComponents'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
-import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import {
   NetworkActions,
@@ -46,47 +47,55 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
       })
     )
     const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
-    dispatchAction(
-      AvatarNetworkAction.spawn({
-        parentUUID,
-        position: new Vector3(0, 0, column),
-        rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
-        ownerID: userId,
-        entitySourceID: getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent).entitySourceID,
-        entityID: 'avatar' as EntityID,
-        avatarURL: avatar.modelResource!.url,
-        name: userId + '_avatar'
-      })
-    )
+    AvatarPrefab.spawn({
+      entityID: AvatarComponent.entityID,
+      entitySourceID: userId as any as SourceID,
+      parentUUID,
+      ownerID: userId,
+      components: {
+        [AvatarComponent.jsonID]: {
+          avatarURL: avatar.modelResource!.url
+        },
+        [NameComponent.jsonID]: userId + '_avatar',
+        [TransformComponent.jsonID]: {
+          position: new Vector3(0, 0, column),
+          rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI)
+        }
+      }
+    })
   }
 }
 
 export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'user', x = 0) => {
-  const userId = (u + i) as UserID & PeerID
+  const userId = (u + i) as UserID | PeerID
   const index = (1000 + i) as NetworkId
 
   dispatchAction(
     NetworkActions.peerJoined({
       $network: NetworkState.worldNetwork.id,
-      peerID: userId,
+      peerID: userId as PeerID,
       peerIndex: index,
-      userID: userId
+      userID: userId as UserID
     })
   )
   const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
 
-  dispatchAction(
-    AvatarNetworkAction.spawn({
-      parentUUID,
-      position: new Vector3(x, 0, i * 2),
-      rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
-      ownerID: userId,
-      entitySourceID: getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent).entitySourceID,
-      entityID: 'avatar' as EntityID,
-      avatarURL: typeof avatar === 'string' ? avatar : avatar.modelResource!.url,
-      name: userId + '_avatar'
-    })
-  )
+  AvatarPrefab.spawn({
+    entityID: AvatarComponent.entityID,
+    entitySourceID: userId as any as SourceID,
+    parentUUID,
+    ownerID: userId as UserID,
+    components: {
+      [AvatarComponent.jsonID]: {
+        avatarURL: typeof avatar === 'string' ? avatar : avatar.modelResource!.url
+      },
+      [NameComponent.jsonID]: userId + '_avatar',
+      [TransformComponent.jsonID]: {
+        position: new Vector3(x, 0, i * 2),
+        rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI)
+      }
+    }
+  })
   return userId
 }
 
@@ -125,59 +134,20 @@ export const mockIKAvatars = async (avatarList: AvatarType[], avatarAmount = nul
 }
 
 export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number) => {
-  const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
+  const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x) as any
   const parentUUID = UUIDComponent.join(getComponent(getState(ReferenceSpaceState).originEntity, UUIDComponent))
-  dispatchAction({
-    ...AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      name: 'head',
+  for (const targetName of Object.values(ikTargets)) {
+    AvatarIKPrefab.spawn({
+      entityID: targetName as EntityID,
       entitySourceID: userId,
-      entityID: ikTargets.head as EntityID,
-      blendWeight: 0,
-      position
-    }),
-    ownerID: userId
-  })
-  dispatchAction({
-    ...AvatarNetworkAction.spawnIKTarget({
       parentUUID,
-      name: 'leftHand',
-      entitySourceID: userId,
-      entityID: ikTargets.leftHand as EntityID,
-      blendWeight: 0
-    }),
-    ownerID: userId
-  })
-  dispatchAction({
-    ...AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      name: 'rightHand',
-      entitySourceID: userId,
-      entityID: ikTargets.rightHand as EntityID,
-      blendWeight: 0
-    }),
-    ownerID: userId
-  })
-  dispatchAction({
-    ...AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      name: 'leftFoot',
-      entitySourceID: userId,
-      entityID: ikTargets.leftFoot as EntityID,
-      blendWeight: 0
-    }),
-    ownerID: userId
-  })
-  dispatchAction({
-    ...AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      name: 'rightFoot',
-      entitySourceID: userId,
-      entityID: ikTargets.rightFoot as EntityID,
-      blendWeight: 0
-    }),
-    ownerID: userId
-  })
+      ownerID: userId,
+      components: {
+        [NameComponent.jsonID]: targetName,
+        [TransformComponent.jsonID]: { position }
+      }
+    })
+  }
 }
 
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
@@ -237,17 +207,22 @@ export const spawnAvatar = (
     rotation: Quaternion
   }
 ) => {
-  dispatchAction(
-    AvatarNetworkAction.spawn({
-      parentUUID: rootUUID,
-      position: pose.position,
-      rotation: pose.rotation,
-      entitySourceID: userID as any as SourceID,
-      entityID: 'avatar' as EntityID,
-      avatarURL,
-      name: avatarURL.split('/').pop() as string
-    })
-  )
+  AvatarPrefab.spawn({
+    entityID: AvatarComponent.entityID,
+    entitySourceID: userID as any as SourceID,
+    parentUUID: rootUUID,
+    ownerID: userID as UserID,
+    components: {
+      [AvatarComponent.jsonID]: {
+        avatarURL: avatarURL
+      },
+      [NameComponent.jsonID]: avatarURL.split('/').pop() as string,
+      [TransformComponent.jsonID]: {
+        position: pose.position,
+        rotation: pose.rotation
+      }
+    }
+  })
 
   return userID as UserID
 }
@@ -267,59 +242,19 @@ export const createIkTargetsForAvatar = (
     return UUIDComponent.join({ entitySourceID: parentUUIDPair.entitySourceID, entityID: id })
   })
 
-  const posRot = targetUUIDs.map(() => ({ position: position, rotation: rotation }))
   const parentUUID = UUIDComponent.join(parentUUIDPair)
 
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
+  for (const target of Object.values(ikTargets)) {
+    AvatarIKPrefab.spawn({
+      entityID: target as EntityID,
       entitySourceID: parentUUIDPair.entitySourceID,
-      entityID: headUUID,
-      name: 'head',
-      blendWeight: 1,
-      ...posRot[0]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
       parentUUID,
-      entitySourceID: parentUUIDPair.entitySourceID,
-      entityID: leftHandUUID,
-      name: 'leftHand',
-      blendWeight: 1,
-      ...posRot[1]
+      components: {
+        [NameComponent.jsonID]: target,
+        [TransformComponent.jsonID]: { position, rotation }
+      }
     })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entitySourceID: parentUUIDPair.entitySourceID,
-      entityID: rightHandUUID,
-      name: 'rightHand',
-      blendWeight: 1,
-      ...posRot[2]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entitySourceID: parentUUIDPair.entitySourceID,
-      entityID: leftFootUUID,
-      name: 'leftFoot',
-      blendWeight: 1,
-      ...posRot[3]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entitySourceID: parentUUIDPair.entitySourceID,
-      entityID: rightFootUUID,
-      name: 'rightFoot',
-      blendWeight: 1,
-      ...posRot[4]
-    })
-  )
+  }
 
   return targetUUIDs
 }
